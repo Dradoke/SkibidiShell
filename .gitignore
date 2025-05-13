@@ -9,3 +9,6 @@
 # Executables
 *.exe
 *.out
+
+# Binaire compilé
+minishell
