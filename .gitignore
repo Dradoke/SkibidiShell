@@ -12,3 +12,6 @@
 
 # Binaire compilé
 minishell
+
+# Test file
+test.c
