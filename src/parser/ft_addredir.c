@@ -16,12 +16,26 @@ t_redir_type get_redir_type(char *line, int *i)
 {
 	t_redir_type	type;
 
-	if (line[*i] == <)
+	if (line[*i] == '<')
 	{
-		if (line[*i+1] == '<')
-			type = HEREDOC
+		(*i)++;
+		if (line[*i] == '<')
+			type = HEREDOC;
+		else if (isprint(line[*i]) && !isdelim(line[*i]))
+			type = INFILE;
+		else
+			ft_error(FTERR_REDIR);
 	}
-	else if (line[*i] == >)
-
+	else if (line[*i] == '>')
+	{
+		(*i)++;
+		if (line[*i] == '>')
+			type == APPEND;
+		else if (isprint(line[*i]) && !isdelim(line[*i]))
+			type = OUTFILE;
+		else
+			ft_error(FTERR_REDIR);
+	}
+	(*i)++;
 	return (type);
 }
