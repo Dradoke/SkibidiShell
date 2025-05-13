@@ -22,6 +22,12 @@ typedef enum e_redir_type
 	APPEND,		// >>
 }	t_redir_type;
 
+enum
+{
+	INPUT,	// 0
+	OUTPUT,	// 1
+};
+
 //---STRUCTS---//
 typedef struct s_redir
 {
