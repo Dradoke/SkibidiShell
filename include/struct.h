@@ -41,4 +41,12 @@ typedef struct s_arg
 	unsigned char	name;
 }	t_arg;
 
+typedef struct s_cmd
+{
+	unsigned int	index;
+	t_redir			*redir;
+	t_arg			*arg;
+	t_redir			last_redir[2];
+}	t_cmd;
+
 #endif
