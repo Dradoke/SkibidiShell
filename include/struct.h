@@ -30,4 +30,9 @@ typedef struct s_redir
 	t_redir_type	type;
 }	t_redir;
 
+typedef struct s_arg
+{
+	unsigned char	name;
+}	t_arg;
+
 #endif
