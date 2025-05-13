@@ -136,3 +136,18 @@ Use clear and concise commit messages:
 
 - This README is here to save time, prevent conflicts, and help deliver a clean project.
 - Let’s work smart, communicate well, and enjoy the process 💪
+
+## Team Header - SkibidiShell
+```
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#              #
+#    Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+```
