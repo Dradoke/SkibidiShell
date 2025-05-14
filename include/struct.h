@@ -43,9 +43,10 @@ typedef struct s_arg
 
 typedef struct s_cmd
 {
-	t_list			*redir;
-	t_list			*arg;
-	t_redir			*last_redir[2];
+	unsigned int	index;
+	t_redir			*redir;
+	t_arg			*arg;
+	t_redir			last_redir[2];
 }	t_cmd;
 
 /*Environment variable*/
