@@ -27,11 +27,10 @@ INC_DIR			=	include/
 LIBFT_DIR		=	$(LIB_DIR)libft/
 
 # Source files
-SRC				=	skibidi_shell.c \
-					$(wildcard $(SRC_DIR)*.c) #ATTENTION !! A ENLEVER
+SRC				=	$(shell find $(SRC_DIR) -name "*.c")
 
 # Object files
-OBJS			=	$(SRC:%.c=$(OBJ_DIR)%.o)
+OBJS			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 # Include and library flags
 IFLAGS			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR))
@@ -45,7 +44,7 @@ $(NAME): $(OBJS)
 
 # Object file compilation rule
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo "Good Morning $(notdir $@) ! 👋😇"
 

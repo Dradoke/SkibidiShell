@@ -21,7 +21,7 @@ t_redir_type get_redir_type(char *line, int *i)
 		(*i)++;
 		if (line[*i] == '<')
 			type = HEREDOC;
-		else if (isprint(line[*i]) && !isdelim(line[*i]))
+		else if (ft_isprint(line[*i]) && !isdelim(line[*i]))
 			type = INFILE;
 		else
 			ft_error(FTERR_REDIR);
@@ -31,7 +31,7 @@ t_redir_type get_redir_type(char *line, int *i)
 		(*i)++;
 		if (line[*i] == '>')
 			type == APPEND;
-		else if (isprint(line[*i]) && !isdelim(line[*i]))
+		else if (ft_isprint(line[*i]) && !isdelim(line[*i]))
 			type = OUTFILE;
 		else
 			ft_error(FTERR_REDIR);
