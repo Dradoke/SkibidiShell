@@ -28,6 +28,13 @@ enum
 	OUTPUT,		// 1
 };
 
+typedef enum e_quotes_verif
+{
+	SIMPLE,		// '
+	DOUBLE,		// "
+	NONE
+}	t_quotes_verif;
+
 //---STRUCTS---//
 typedef struct s_redir
 {
