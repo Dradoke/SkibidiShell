@@ -63,4 +63,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re libft mlx
+.PHONY: all clean fclean re
