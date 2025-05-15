@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addredir.c                                      :+:      :+:    :+:   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,3 @@
 
 #include "skibidi_shell.h"
 
-t_redir_type get_redir_type(char *line, int *i)
-{
-	t_redir_type	type;
-
-	if (line[*i] == '<')
-	{
-		(*i)++;
-		if (line[*i] == '<')
-			type = HEREDOC;
-		else if (ft_isprint(line[*i]) && !isdelim(line[*i]))
-			type = INFILE;
-		else
-			ft_error(FTERR_REDIR);
-	}
-	else if (line[*i] == '>')
-	{
-		(*i)++;
-		if (line[*i] == '>')
-			type == APPEND;
-		else if (ft_isprint(line[*i]) && !isdelim(line[*i]))
-			type = OUTFILE;
-		else
-			ft_error(FTERR_REDIR);
-	}
-	(*i)++;
-	return (type);
-}
