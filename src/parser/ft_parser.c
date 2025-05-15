@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,13 +10,5 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include "libft.h"
-
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
-
-#endif

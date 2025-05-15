@@ -24,29 +24,28 @@ typedef enum e_redir_type
 
 enum
 {
-	INPUT,	// 0
-	OUTPUT,	// 1
+	INPUT,		// 0
+	OUTPUT,		// 1
 };
 
 //---STRUCTS---//
 typedef struct s_redir
 {
-	unsigned char	name;
+	char			*name;
 	int				fd;
 	t_redir_type	type;
 }	t_redir;
 
 typedef struct s_arg
 {
-	unsigned char	name;
+	char			*name;
 }	t_arg;
 
 typedef struct s_cmd
 {
-	unsigned int	index;
-	t_redir			*redir;
-	t_arg			*arg;
-	t_redir			last_redir[2];
+	t_list			*redir;
+	t_list			*arg;
+	t_redir			*last_redir[2];
 }	t_cmd;
 
 #endif
