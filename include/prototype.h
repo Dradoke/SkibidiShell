@@ -12,7 +12,10 @@
 
 #ifndef PROTOTYPE_H
 # define PROTOTYPE_H
+# include <stdbool.h>
 
-
+// UTILS
+bool	ft_cpyword(char *line, int *i);
+int		ft_isdelim(int c);
 
 #endif

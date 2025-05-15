@@ -18,5 +18,9 @@
 # include "struct.h"
 # include "prototype.h"
 # include "fterr.h"
+# include "../lib/libft/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdbool.h>
 
 #endif
