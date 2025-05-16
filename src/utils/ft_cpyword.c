@@ -46,24 +46,6 @@ void	*ft_calloc(size_t size)
 	return (res);
 }
 
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-
-	i = 0;
-	if (dstsize > 0)
-	{
-		while (src[i] && i + 1 < dstsize)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (ft_strlen(src));
-}
-
 static void	ft_quotes_verif(char *c, t_quotes_verif *quotes)
 {
 	if ((*c) == '\"' && (*quotes) == NONE)
@@ -83,18 +65,16 @@ static void	ft_quotes_verif(char *c, t_quotes_verif *quotes)
 	}
 }
 
-static char	*allocate_string(char *line, int *j)
+static char	*allocate_string(char *line, int *j, t_quotes_verif	*quotes)
 {
 	int				i;
 	char			*str;
-	t_quotes_verif	quotes;
 
 	i = 0;
-	quotes = NONE;
-	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i])) || quotes == SIMPLE || quotes == DOUBLE))
+	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i])) || (*quotes) == SIMPLE || (*quotes) == DOUBLE))
 			{
 				if (line[i] == '\"' || line[i] == '\'')
-					ft_quotes_verif(&line[i], &quotes);
+					ft_quotes_verif(&line[i], quotes);
 				printf ("i: %d, char: %c\n", i, line[i]);
 				i++;
 			}
@@ -108,24 +88,26 @@ static char	*allocate_string(char *line, int *j)
 /*Copy a word until the next delimiter or space*/
 bool	ft_cpyword(char *line, int *i)
 {
-	(void)line;
-	int j;
+	int	j;
+	int	k;
 	t_quotes_verif	quotes;
 	char	*str;
 
 	quotes = NONE;
-	str = allocate_string(line, &j);
+	k = 0;
+	str = allocate_string(line, &j, &quotes);
 	if (!str)
 		return (1);
+	if (quotes != NONE)
+		return (printf("ERREUR DE QUOTES"));
 	if (j > 0)
 	{
 		printf("j: %d\n", j);
-		while (line[(*i)] && (*i) < ((*i) + j))
+		while (line[(*i)] && (*i) < (j))
 		{
-			// if (!ft_isspace(line[(*i)]))
-			str[(*i)] = line[(*i)];
+			if (!ft_isspace(line[(*i)]))
+				str[k++] = line[(*i)];
 			(*i)++;
-			// j--;
 		}
 		str[(*i)] = '\0';
 	}
