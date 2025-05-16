@@ -27,7 +27,7 @@ INC_DIR			=	include/
 LIBFT_DIR		=	$(LIB_DIR)libft/
 
 # Source files
-SRC				=	$(wildcard $(SRC_DIR)*.c) #ATTENTION !! A ENLEVER
+SRC				=	$(shell find $(SRC_DIR) -name "*.c")
 
 # Object files
 OBJS			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
