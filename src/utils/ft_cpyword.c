@@ -12,40 +12,6 @@
 
 #include "../../include/skibidi_shell.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (*(s + len))
-		len++;
-	return (len);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	if (!n)
-		return ;
-	i = 0;
-	str = s;
-	while (i < n)
-		*(str + i++) = '\0';
-}
-
-void	*ft_calloc(size_t size)
-{
-	void	*res;
-
-	res = malloc(size);
-	if (!res)
-		return (NULL);
-	ft_bzero(res, size);
-	return (res);
-}
-
 static void	ft_quotes_verif(char *c, t_quotes_verif *quotes)
 {
 	if ((*c) == '\"' && (*quotes) == NONE)
@@ -58,7 +24,8 @@ static void	ft_quotes_verif(char *c, t_quotes_verif *quotes)
 		(*quotes) = SIMPLE;
 		(*c) = ' ';
 	}
-	else if ((((*c) == '\"' && (*quotes) == DOUBLE) || ((*c) == '\'' && (*quotes) == SIMPLE)))
+	else if ((((*c) == '\"' && (*quotes) == DOUBLE)
+			|| ((*c) == '\'' && (*quotes) == SIMPLE)))
 	{
 		(*quotes) = NONE;
 		(*c) = ' ';
@@ -71,13 +38,13 @@ static char	*allocate_string(char *line, int *j, t_quotes_verif	*quotes)
 	char			*str;
 
 	i = 0;
-	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i])) || (*quotes) == SIMPLE || (*quotes) == DOUBLE))
-			{
-				if (line[i] == '\"' || line[i] == '\'')
-					ft_quotes_verif(&line[i], quotes);
-				printf ("i: %d, char: %c\n", i, line[i]);
-				i++;
-			}
+	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i]))
+			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
+	{
+		if (line[i] == '\"' || line[i] == '\'')
+			ft_quotes_verif(&line[i], quotes);
+		i++;
+	}
 	str = ft_calloc(sizeof(char) * i);
 	if (!str)
 		return (NULL);
@@ -85,24 +52,24 @@ static char	*allocate_string(char *line, int *j, t_quotes_verif	*quotes)
 	return (str);
 }
 
-/*Copy a word until the next delimiter or space*/
+/*Copy a word until the next delimiter or space
+  Return 0 if no error*/
 bool	ft_cpyword(char *line, int *i)
 {
-	int	j;
-	int	k;
+	int				j;
+	int				k;
 	t_quotes_verif	quotes;
-	char	*str;
+	char			*str;
 
 	quotes = NONE;
 	k = 0;
 	str = allocate_string(line, &j, &quotes);
 	if (!str)
-		return (1);
+		return (1);								// Changer le return par la fonction d'erreur, erreur d'allocation !
 	if (quotes != NONE)
-		return (printf("ERREUR DE QUOTES"));
+		return (ft_printf("ERREUR DE QUOTES")); // Changer le ft_printf par la fonction d'erreur, erreur de quotes !
 	if (j > 0)
 	{
-		printf("j: %d\n", j);
 		while (line[(*i)] && (*i) < (j))
 		{
 			if (!ft_isspace(line[(*i)]))
@@ -112,6 +79,5 @@ bool	ft_cpyword(char *line, int *i)
 		str[(*i)] = '\0';
 	}
 	(*i) += j;
-	printf("%s", str);
 	return (0);
 }
