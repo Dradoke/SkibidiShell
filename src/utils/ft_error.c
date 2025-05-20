@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,8 @@
 
 #include "skibidi_shell.h"
 
-int	ft_isdelim(int c)
+bool	ft_error(t_error err)
 {
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
+	if (err == FTERR_REDIR)
+		ft_free()
 }
