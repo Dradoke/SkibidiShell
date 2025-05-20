@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addredir.c                                      :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,43 @@
 
 #include "skibidi_shell.h"
 
-t_redir_type get_redir_type(char *line, int *i)
+bool	ft_free_list(t_list	*list, void (*f)(void *))
 {
-	t_redir_type	type;
+	if (!list || !f)
+		return (1);
+	f(list->content);
+	while (list->next)
+	{
+		list = list->next;
+		f(list->content);
+		free(list->prev);
+	}
+	free(list);
+	return (0);
+}
 
-	if (line[*i] == '<')
-	{
-		(*i)++;
-		if (line[*i] == '<')
-			type = HEREDOC;
-		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = INFILE;
-		else
-			ft_error(FTERR_REDIR, NULL);
-	}
-	else if (line[*i] == '>')
-	{
-		(*i)++;
-		if (line[*i] == '>')
-			type = APPEND;
-		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = OUTFILE;
-		else
-			ft_error(FTERR_REDIR, NULL);
-	}
-	(*i)++;
-	return (type);
+static void	ft_free_redir(void *content)
+{
+	if (!content)
+		return ;
+	free(((t_redir *)content)->name);
+	free((t_redir *)content);
+}
+
+static void	ft_free_arg(void *content)
+{
+	if (!content)
+		return ;
+	free(((t_arg *)content)->name);
+	free((t_arg *)content);
+}
+
+void	ft_free_cmd(void *content)
+{
+	if (!content)
+		return ;
+	ft_free_list(((t_cmd *)content)->redir, ft_free_redir);
+	ft_free_list(((t_cmd *)content)->arg, ft_free_arg);
+	free(((t_cmd *)content)->last_redir);
+	free((t_cmd *)content);
 }

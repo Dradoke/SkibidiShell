@@ -12,8 +12,10 @@
 
 #include "skibidi_shell.h"
 
-bool	ft_error(t_error err)
+void	ft_error(char *err, t_list *cmd)
 {
-	if (err == FTERR_REDIR)
-		ft_free()
+	if (cmd)
+		ft_free_list(cmd, ft_free_cmd);
+	if (err)
+		ft_printf("%s\n", err);
 }

@@ -13,6 +13,11 @@
 #ifndef PROTOTYPE_H
 # define PROTOTYPE_H
 
+bool	ft_free_list(t_list	*list, void (*f)(void *));
+void	ft_free_cmd(void *content);
 
+void	ft_error(char *err, t_list *cmd);
+
+int		ft_isdelim(int c);
 
 #endif
