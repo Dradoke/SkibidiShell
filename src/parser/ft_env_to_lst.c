@@ -14,9 +14,57 @@
 
 typedef struct s_env
 {
-	char			*name;
+	char			*key;
+	char			*value;
 }	t_env;
 
+
+static char	*get_env_key(char *line)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (line[i] && line[i] != '=')
+		i++;
+	str = ft_calloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (line[i] && line[i] != '=')
+	{
+		str[i] = line[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+static char	*get_env_value(char *line)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (line[i] && line[i] != '=')
+		i++;
+	if (line[i] == '=')
+		i++;
+	j = i;
+	while (line[i])
+		i++;
+	str = ft_calloc(sizeof(char) * (i - j + 1));
+	if (!str)
+		return (NULL);
+	while (line[j])
+	{
+		str[j] = line[j];
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
+}
 
 t_list	*ft_env_to_lst(char **envp)
 {
@@ -32,8 +80,8 @@ t_list	*ft_env_to_lst(char **envp)
 		env = ft_calloc(sizeof(t_env) * 1);
 		if (!env)
 			return (NULL);
-		env->name = envp[i];
-
+		env->key = get_env_key(envp[i]);
+		env->value = get_env_value(envp[i]);
 		new = ft_lstnew(env);
 		if (!new)
 			return (NULL);
@@ -56,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 		return (printf("Erreur : liste vide ou allocation échouée\n"), 1);
 	while (env_lst)
 	{
-		printf("%s\n", ((t_env *)env_lst->content)->name);
+		printf("%s\n", ((t_env *)env_lst->content)->value);
 		env_lst = env_lst->next;
 	}
 	return (0);
