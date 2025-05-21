@@ -62,4 +62,14 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 
+/* Structure utilitaire dans src/utils/ft_cpyword.c */
+typedef struct	s_word_info
+{
+	int		*i;
+	int		*j;
+	int		k;
+	char	*word;
+	char	*env;
+}	t_word_info;
+
 #endif
