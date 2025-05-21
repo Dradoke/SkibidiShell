@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-t_redir_type get_redir_type(char *line, int *i)
+static t_redir_type	get_redir_type(char *line, int *i)
 {
 	t_redir_type	type;
 
@@ -24,17 +24,17 @@ t_redir_type get_redir_type(char *line, int *i)
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
 			type = INFILE;
 		else
-			ft_error(FTERR_REDIR);
+			return ((t_redir_type)NULL);
 	}
 	else if (line[*i] == '>')
 	{
 		(*i)++;
 		if (line[*i] == '>')
-			type == APPEND;
+			type = APPEND;
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
 			type = OUTFILE;
 		else
-			ft_error(FTERR_REDIR);
+			return ((t_redir_type)NULL);
 	}
 	(*i)++;
 	return (type);
