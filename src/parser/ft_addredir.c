@@ -39,3 +39,15 @@ static t_redir_type	get_redir_type(char *line, int *i)
 	(*i)++;
 	return (type);
 }
+
+bool	ft_addredir(t_cmd *cmd, char *line, int *i)
+{
+	t_list	*new_redir;
+	t_redir	*content;
+
+	content = (t_redir *)ft_calloc(sizeof(t_redir));
+	if (!content)
+		return (0);
+	new_redir = ft_lstnew(content);
+	ft_lstadd_back(cmd->redir, new_redir);
+}
