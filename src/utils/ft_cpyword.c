@@ -45,6 +45,7 @@ static void	quotes_verif(char *c, t_quotes_verif *quotes)
 static char	*allocate_string(char *line, t_word_info *word_info, t_quotes_verif	*quotes)
 {
 	int				i;
+	int				env_len;
 	char			*str;
 
 	
@@ -57,6 +58,10 @@ static char	*allocate_string(char *line, t_word_info *word_info, t_quotes_verif	
 	{
 		if (line[i] == '\"' || line[i] == '\'')
 			quotes_verif(&line[i], quotes);
+		else if (line[i] == '$')
+		{
+			//appeller une fonction pour gerer les $
+		}
 		else if (!ft_isspace(line[i]) || (*quotes != NONE))
 			(*word_info->j)++;
 		printf("DEBUG: word_len = %d\n", (*word_info->j));
@@ -98,10 +103,7 @@ bool	ft_cpyword(char *line, int *i)
 	quotes = NONE;
 	word_info->i = i;
 	while (line[*i] && ft_isspace(line[*i]))
-	{
 		(*i)++;
-	}
-	
 	word_info->word = allocate_string(line, word_info, &quotes);
 	if (!word_info->word)
 		return (free_word(word_info), 1);
