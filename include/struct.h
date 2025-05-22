@@ -48,4 +48,11 @@ typedef struct s_cmd
 	t_redir			*last_redir[2];
 }	t_cmd;
 
+/*Environment variable*/
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+}	t_env;
+
 #endif
