@@ -12,13 +12,6 @@
 
 #include "../../include/skibidi_shell.h"
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-}	t_env;
-
-
 static char	*get_env_key(char *line)
 {
 	char	*str;
@@ -57,21 +50,22 @@ static char	*get_env_value(char *line)
 	str = ft_calloc(sizeof(char) * (i - j + 1));
 	if (!str)
 		return (NULL);
-	while (line[j])
-	{
-		str[j] = line[j];
-		j++;
-	}
+	i = j;
+	j = 0;
+	while (line[i])
+		str[j++] = line[i++];
 	str[j] = '\0';
 	return (str);
 }
 
+/*Build the chained list of env variables, give a key(env name) and a value
+  Return a t_list**/
 t_list	*ft_env_to_lst(char **envp)
 {
 	t_list	*env_lst;
 	t_list	*new;
 	t_env	*env;
-	int i;
+	int		i;
 
 	i = 0;
 	env_lst = NULL;
@@ -86,27 +80,8 @@ t_list	*ft_env_to_lst(char **envp)
 		if (!new)
 			return (NULL);
 		new->index = i;
-
 		ft_lstadd_back(&env_lst, new);
 		i++;
 	}
-	return(env_lst);
+	return (env_lst);
 }
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_list	*env_lst;
-	(void)argc;
-	(void)argv;
-
-	env_lst = ft_env_to_lst(envp);
-	if (!env_lst) 
-		return (printf("Erreur : liste vide ou allocation échouée\n"), 1);
-	while (env_lst)
-	{
-		printf("%s\n", ((t_env *)env_lst->content)->value);
-		env_lst = env_lst->next;
-	}
-	return (0);
-}
-
