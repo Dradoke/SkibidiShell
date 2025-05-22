@@ -76,12 +76,13 @@ t_list	*ft_env_to_lst(char **envp)
 			return (NULL);
 		env->key = get_env_key(envp[i]);
 		env->value = get_env_value(envp[i]);
+		if (!env->key || !env->value)
+			return (NULL);
 		new = ft_lstnew(env);
 		if (!new)
 			return (NULL);
-		new->index = i;
+		new->index = i++;
 		ft_lstadd_back(&env_lst, new);
-		i++;
 	}
 	return (env_lst);
 }
