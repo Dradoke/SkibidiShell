@@ -14,6 +14,7 @@
 # define SKIBIDI_SHELL_H
 
 # include <stdbool.h>
+# include <stdio.h>
 
 # include "libft.h"
 

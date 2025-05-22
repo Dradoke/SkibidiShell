@@ -16,5 +16,5 @@ skibidi_shell
 # Test file
 test.c
 
-# VS Code Folder
-.vscode/**/*
+# Folder not needed
+.vscode/
