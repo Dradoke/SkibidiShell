@@ -20,39 +20,36 @@ bool	ft_free_list(t_list	*list, void (*f)(void *))
 	while (list->next)
 	{
 		list = list->next;
-		if (list->content)
-			f(list->content);
+		f(list->content);
 		free(list->prev);
 	}
 	free(list);
 	return (0);
 }
 
-static void	ft_free_redir(void *content)
-{
-	free(((t_redir *)content)->name);
-	free((t_redir *)content);
-}
-
-static void	ft_free_arg(void *content)
-{
-	free(((t_arg *)content)->name);
-	free((t_arg *)content);
-}
-
-static void	ft_free_env(void *content)
-{
-	free(((t_env *)content)->key);
-	free(((t_env *)content)->value);
-	free((t_env *)content);
-}
-
-void	ft_free_cmd(void *content)
+static void	ft_free_content(void *content, t_lst_type type)
 {
 	if (!content)
 		return ;
-	ft_free_list(((t_cmd *)content)->redir, ft_free_redir);
-	ft_free_list(((t_cmd *)content)->arg, ft_free_arg);
-	free(((t_cmd *)content)->last_redir);
-	free((t_cmd *)content);
+	if (type == REDIR)
+	{
+		free(((t_redir *)content)->name);
+		free((t_redir *)content);
+	}
+	if (type == ARG)
+	{
+		free(((t_arg *)content)->name);
+		free((t_arg *)content); 
+	}
+	if (type == CMD)
+	{
+		ft_free_list(((t_cmd *)content)->redir, ft_free_content(content, REDIR));
+		ft_free_list(((t_cmd *)content)->arg, ft_free_content);
+		free(((t_cmd *)content)->last_redir);
+		free((t_cmd *)content);
+	}
+	if (type == ENV)
+	{
+		
+	}
 }
