@@ -20,6 +20,29 @@ OBJ			=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
 SRC			=	$(LIBFT_SRC) $(GNL_SRC) $(PRINTF_SRC) $(CUSTOM_SRC)
 
+CUSTOM_DIR	=	custom/
+CUSTOM_SRC	=	$(addprefix $(CUSTOM_DIR)/, \
+				ft_abs.c \
+				ft_atoi_base.c \
+				ft_degtorad.c \
+				ft_isspace.c \
+				ft_radtodeg.c \
+				ft_rand_str.c \
+				)
+
+PRINTF_DIR	=	ft_printf/
+PRINTF_SRC	=	$(addprefix $(PRINTF_DIR)/, \
+				ft_printf_cspct.c \
+				ft_printf.c \
+				ft_putnbr_base.c \
+				)
+
+GNL_DIR		=	get_next_line/
+GNL_SRC		=	$(addprefix $(GNL_DIR)/, \
+				get_next_line_utils.c \
+				get_next_line.c \
+				)
+
 LIBFT_DIR	=	libft/
 LIBFT_SRC	=	$(addprefix $(LIBFT_DIR)/, \
 				ft_isalpha.c \
@@ -65,29 +88,6 @@ LIBFT_SRC	=	$(addprefix $(LIBFT_DIR)/, \
 				ft_lstclear.c \
 				ft_lstiter.c \
 				ft_lstmap.c \
-				)
-
-CUSTOM_DIR	=	custom/
-CUSTOM_SRC	=	$(addprefix $(CUSTOM_DIR)/, \
-				ft_atoi_base.c \
-				ft_isspace.c \
-				ft_radtodeg.c \
-				ft_degtorad.c \
-				ft_abs.c \
-				)
-
-				
-GNL_DIR		=	get_next_line/
-GNL_SRC		=	$(addprefix $(GNL_DIR)/, \
-				get_next_line.c \
-				get_next_line_utils.c \
-				)
-
-PRINTF_DIR	=	ft_printf/
-PRINTF_SRC	=	$(addprefix $(PRINTF_DIR)/, \
-				ft_printf.c \
-				ft_printf_cspct.c \
-				ft_putnbr_base.c \
 				)
 
 all:	$(NAME)
