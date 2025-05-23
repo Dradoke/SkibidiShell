@@ -69,7 +69,7 @@ typedef struct	s_word_info
 	int		*j;
 	int		k;
 	char	*word;
-	char	*env;
-}	t_word_info;
+	t_list	*env;
+}	t_word;
 
 #endif

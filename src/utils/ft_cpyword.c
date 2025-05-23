@@ -12,14 +12,14 @@
 
 #include "../../include/skibidi_shell.h"
 
-static void free_word(t_word_info *word_info)
+static void free_word(t_word *word)
 {
-	if (word_info->j)
-		free(word_info->j);
-	if (word_info->word)
-		free(word_info->word);
-	// if (word_info)
-		free(word_info);
+	if (word->j)
+		free(word->j);
+	if (word->word)
+		free(word->word);
+	if (word)
+		free(word);
 }
 
 static void	quotes_verif(char *c, t_quotes_verif *quotes)
@@ -42,16 +42,16 @@ static void	quotes_verif(char *c, t_quotes_verif *quotes)
 	}
 }
 
-static char	*allocate_string(char *line, t_word_info *word_info, t_quotes_verif	*quotes)
+static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 {
 	int				i;
 	int				env_len;
 	char			*str;
 
 	
-	i = (*word_info->i);
-	word_info->j = ft_calloc(sizeof(int) * 1);
-	if (!word_info->j)
+	i = (*word->i);
+	word->j = ft_calloc(sizeof(int) * 1);
+	if (!word->j)
 		return (NULL);
 	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i]))
 			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
@@ -59,62 +59,62 @@ static char	*allocate_string(char *line, t_word_info *word_info, t_quotes_verif	
 		if (line[i] == '\"' || line[i] == '\'')
 			quotes_verif(&line[i], quotes);
 		else if (line[i] == '$')
-		{
-			//appeller une fonction pour gerer les $
-		}
+			env_len += ft_get_env_size(word, &line[i], (*quotes), &i);
 		else if (!ft_isspace(line[i]) || (*quotes != NONE))
-			(*word_info->j)++;
-		printf("DEBUG: word_len = %d\n", (*word_info->j));
+			(*word->j)++;
+		printf("DEBUG: word_len = %d\n", (*word->j));
+		printf("DEBUG: word_char = %c\n", line[i]);
 		i++;
 	}
-	str = ft_calloc(sizeof(char) * (*word_info->j + 1));
+	str = ft_calloc(sizeof(char) * (*word->j + 1));
 	if (!str)
-		return (free_word(word_info), NULL);
+		return (free_word(word), NULL);
 	return (str);
 }
 
-static void	strlcpy(char *line, t_word_info *word_info)
+static void	strlcpy(char *line, t_word *word)
 {
 	int	k;
 	k = 0;
-	if (*(word_info->j) > 0)
+	if (*(word->j) > 0)
 	{
-		while (k < ((*word_info->j)))
+		while (k < ((*word->j)))
 		{
-			if (line[(*word_info->i)] != '\0')
-				word_info->word[k++] = line[(*word_info->i)];
-			(*word_info->i)++;
+			if (line[(*word->i)] != '\0')
+				word->word[k++] = line[(*word->i)];
+			(*word->i)++;
 		}
-		word_info->word[k] = '\0';
+		word->word[k] = '\0';
 	}
-	(*word_info->i)++;
+	(*word->i)++;
 }
 
 /*Copy a word until the next delimiter or space
   Return 0 if no error*/
-bool	ft_cpyword(char *line, int *i)
+bool	ft_cpyword(char *line, int *i, t_list *env)
 {
 	t_quotes_verif	quotes;
-	t_word_info		*word_info;
+	t_word		*word;
 
-	word_info = ft_calloc(sizeof(t_word_info) * 1);
-	if (!word_info)
+	word = ft_calloc(sizeof(t_word) * 1);
+	if (!word)
 		return (1);
 	quotes = NONE;
-	word_info->i = i;
+	word->i = i;
+	word->env = env;
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
-	word_info->word = allocate_string(line, word_info, &quotes);
-	if (!word_info->word)
-		return (free_word(word_info), 1);
-	strlcpy(line, word_info);
-	if (!word_info->word)
-		return (free_word(word_info), 1);								// Changer le return par la fonction d'erreur, erreur d'allocation !
-	if (quotes != NONE)
-		return (free_word(word_info), free(line), ft_printf("ERREUR DE QUOTES\n")); // Changer le ft_printf par la fonction d'erreur, erreur de quotes !
-	printf("Word: %s\n", word_info->word);
-	free_word(word_info);
-	free(line);
+	word->word = allocate_string(line, word, &quotes);
+	if (!word->word)
+		return (free_word(word), 1);
+	strlcpy(line, word);
 	printf("VALEUR DE i: %d\n", *i);
+	if (!word->word)
+		return (free_word(word), 1);								// Changer le return par la fonction d'erreur, erreur d'allocation !
+	if (quotes != NONE)
+		return (free_word(word), free(line), ft_printf("ERREUR DE QUOTES\n")); // Changer le ft_printf par la fonction d'erreur, erreur de quotes !
+	printf("Word: %s\n", word->word);
+	free_word(word);
+	free(line);
 	return (0);
 }
