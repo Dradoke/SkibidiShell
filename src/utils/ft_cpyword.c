@@ -21,25 +21,20 @@ static void free_word(t_word *word)
 	if (word)
 		free(word);
 }
-
-static void	quotes_verif(char *c, t_quotes_verif *quotes)
+/*	Verify the quote statement between DOUBLE, SIMPLE, and NONE
+	Take a char, the quote type and a boolean
+	boolean: true = erase the quote, false = let the quote*/
+static void	quotes_verif(char *c, t_quotes_verif *quotes, bool del_quote)
 {
 	if ((*c) == '\"' && (*quotes) == NONE)
-	{
 		(*quotes) = DOUBLE;
-		(*c) = '\0';
-	}
 	else if ((*c) == '\'' && (*quotes) == NONE)
-	{
 		(*quotes) = SIMPLE;
-		(*c) = '\0';
-	}
 	else if ((((*c) == '\"' && (*quotes) == DOUBLE)
 			|| ((*c) == '\'' && (*quotes) == SIMPLE)))
-	{
 		(*quotes) = NONE;
+	if (del_quote == true)
 		(*c) = '\0';
-	}
 }
 
 static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
@@ -48,7 +43,6 @@ static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 	int				env_len;
 	char			*str;
 
-	
 	i = (*word->i);
 	word->j = ft_calloc(sizeof(int) * 1);
 	if (!word->j)
@@ -57,7 +51,7 @@ static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
 	{
 		if (line[i] == '\"' || line[i] == '\'')
-			quotes_verif(&line[i], quotes);
+			quotes_verif(&line[i], quotes, false);
 		else if (line[i] == '$')
 			env_len += ft_get_env_size(word, &line[i], (*quotes), &i);
 		else if (!ft_isspace(line[i]) || (*quotes != NONE))
@@ -72,16 +66,24 @@ static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 	return (str);
 }
 
-static void	strlcpy(char *line, t_word *word)
+static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
 {
 	int	k;
+
+	(void)quotes;
 	k = 0;
 	if (*(word->j) > 0)
 	{
-		while (k < ((*word->j)))
+		printf("J: %d\n", (*word->j));
+		while (k <= ((*word->j)))
 		{
-			if (line[(*word->i)] != '\0')
-				word->word[k++] = line[(*word->i)];
+			if (line[(*word->i)] == '\'' || line[(*word->i)] == '\"')
+				quotes_verif(line[(*word->i)], &quotes, true);
+			else if (line[(*word->i)] == '$')
+			{
+				ft_write_env();
+			}
+			word->word[k++] = line[(*word->i)];
 			(*word->i)++;
 		}
 		word->word[k] = '\0';
@@ -107,7 +109,7 @@ bool	ft_cpyword(char *line, int *i, t_list *env)
 	word->word = allocate_string(line, word, &quotes);
 	if (!word->word)
 		return (free_word(word), 1);
-	strlcpy(line, word);
+	strlcpy(line, word, &quotes);
 	printf("VALEUR DE i: %d\n", *i);
 	if (!word->word)
 		return (free_word(word), 1);								// Changer le return par la fonction d'erreur, erreur d'allocation !

@@ -55,7 +55,8 @@ int	ft_get_env_size(t_word *word, char *line, t_quotes_verif quotes, int *j)
 			}
 			else if (quotes == DOUBLE || quotes == NONE)
 				return (word->env = start,
-					word->j += (int)ft_strlen(((t_env *)word->env->content)->value),
+					(*j) += (var_len),
+					(*word->j) += (int)ft_strlen(((t_env *)word->env->content)->value),
 					(int)ft_strlen(((t_env *)word->env->content)->value));
 		}
 			word->env = word->env->next;
