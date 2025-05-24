@@ -78,17 +78,16 @@ static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
 		while (k <= ((*word->j)))
 		{
 			if (line[(*word->i)] == '\'' || line[(*word->i)] == '\"')
-				quotes_verif(line[(*word->i)], &quotes, true);
+				quotes_verif(&line[(*word->i)], quotes, true);
 			else if (line[(*word->i)] == '$')
-			{
-				ft_write_env();
-			}
-			word->word[k++] = line[(*word->i)];
+				ft_write_env(&line[(*word->i)], &k, word, quotes);
+			else
+				word->word[k++] = line[(*word->i)];
 			(*word->i)++;
 		}
 		word->word[k] = '\0';
 	}
-	(*word->i)++;
+	// (*word->i)++;
 }
 
 /*Copy a word until the next delimiter or space
@@ -109,12 +108,12 @@ bool	ft_cpyword(char *line, int *i, t_list *env)
 	word->word = allocate_string(line, word, &quotes);
 	if (!word->word)
 		return (free_word(word), 1);
+	if (quotes != NONE)
+		return (free_word(word), free(line), ft_printf("ERREUR DE QUOTES\n")); // Changer le ft_printf par la fonction d'erreur, erreur de quotes !
 	strlcpy(line, word, &quotes);
 	printf("VALEUR DE i: %d\n", *i);
 	if (!word->word)
 		return (free_word(word), 1);								// Changer le return par la fonction d'erreur, erreur d'allocation !
-	if (quotes != NONE)
-		return (free_word(word), free(line), ft_printf("ERREUR DE QUOTES\n")); // Changer le ft_printf par la fonction d'erreur, erreur de quotes !
 	printf("Word: %s\n", word->word);
 	free_word(word);
 	free(line);
