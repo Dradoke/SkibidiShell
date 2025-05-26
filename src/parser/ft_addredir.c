@@ -40,6 +40,14 @@ static t_redir_type	get_redir_type(char *line, int *i)
 	return (type);
 }
 
+static char	*get_redir_name(char *line, int *i)
+{
+	char	*name;
+
+	(*i)++;
+	return (name);
+}
+
 bool	ft_addredir(t_cmd *cmd, char *line, int *i)
 {
 	t_list	*new_redir;
@@ -48,6 +56,8 @@ bool	ft_addredir(t_cmd *cmd, char *line, int *i)
 	content = (t_redir *)ft_calloc(sizeof(t_redir));
 	if (!content)
 		return (0);
+	content->type = get_redir_type(line, i);
+	content->name = get_redir_name(line, i);
 	new_redir = ft_lstnew(content);
 	ft_lstadd_back(cmd->redir, new_redir);
 }
