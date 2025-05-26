@@ -13,7 +13,7 @@
 NAME		=	libft.a
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -Iget_next_line/ -Ift_printf/ -I.
+CFLAGS		=	-Wall -Wextra -Werror -g3.
 
 OBJ_DIR		=	obj/
 OBJ			=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
