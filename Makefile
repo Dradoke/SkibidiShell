@@ -10,56 +10,63 @@
 #                                                                              #
 # **************************************************************************** #
 
-# Project name
+# Project Name
 NAME			=	skibidi_shell
 
-# Compiler settings
+# Compiler Setting
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g3
+CFLAG			=	-Wall -Wextra -Werror -g3
 
-# Directories
+# Directory
 LIB_DIR			=	lib/
 SRC_DIR			=	src/
 OBJ_DIR			=	obj/
 INC_DIR			=	include/
 
-# Library paths
+# Library Path & File
 LIBFT_DIR		=	$(LIB_DIR)libft/
-
-# Source files
+LIBFT			=	$(LIBFT_DIR)libft.a
+# Source File
 SRC				=	$(shell find $(SRC_DIR) -name "*.c")
+# Object File
+OBJ			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-# Object files
-OBJS			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+# Include Flag
+IFLAG			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR))
+# Library Flag
+LFLAG			=	$(addprefix -L, $(LIBFT_DIR))
+LIB			=	-lft
 
-# Include and library flags
-IFLAGS			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR))
-LFLAGS			=	$(addprefix -L, $(LIBFT_DIR))
-LIBS			=	-lft
+# All Target
+all: $(LIBFT) $(NAME)
 
-# Main target
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBS) -o $(NAME)
+# LibFT Make Rule
+$(LIBFT):
+	@$(MAKE) -s -C $(LIBFT_DIR)
+
+# Main Target
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAG) $(OBJ) $(LFLAG) $(LIB) -o $(NAME)
 	@echo "Welcome $@ ! 🤩🤙"
 
-# Object file compilation rule
+# Object File Compilation Rule
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@$(CC) $(CFLAG) $(IFLAG) -c $< -o $@
 	@echo "Good Morning $(notdir $@) ! 👋😇"
 
-# Targets
-all: $(NAME)
-
+# Mandatory Target
 clean:
 	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@echo "See You Soon $(OBJ_DIR) And Your Content... 🤧💔"
 
 fclean: clean
 	@rm -f $(NAME)
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 	@echo "Bye-Bye $(NAME) ! 🥺💋"
 
 re: fclean all
 
-# Phony targets
+# Phony Target
 .PHONY: all clean fclean re
