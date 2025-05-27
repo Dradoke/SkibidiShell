@@ -17,30 +17,16 @@
 // Returns the new string or NULL if allocation fails.
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*join;
-	size_t	len1;
-	size_t	len2;
-	size_t	i;
+	char	*new_str;
+	size_t	s1_len;
+	size_t	total_len;
 
-	if (!s1 || !s2)
+	s1_len = ft_strlen(s1) + 1;
+	total_len = ft_strlen(s2) + s1_len;
+	new_str = (char *)malloc(total_len * sizeof(char));
+	if (!new_str)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	join = (char *)malloc((len1 + len2 + 1) * sizeof(char));
-	if (!join)
-		return (NULL);
-	i = 0;
-	while (i < len1)
-	{
-		join[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (i < len2)
-	{
-		join[len1 + i] = s2[i];
-		i++;
-	}
-	join[len1 + len2] = '\0';
-	return (join);
+	ft_strlcpy(new_str, s1, s1_len);
+	ft_strlcat(new_str, s2, total_len);
+	return (new_str);
 }
