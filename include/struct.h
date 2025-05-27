@@ -30,9 +30,9 @@ enum
 
 typedef enum e_quotes_verif
 {
+	NONE,
 	SIMPLE,		// '
-	DOUBLE,		// "
-	NONE
+	DOUBLE		// "
 }	t_quotes_verif;
 
 //---STRUCTS---//
