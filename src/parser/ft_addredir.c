@@ -43,8 +43,18 @@ static t_redir_type	get_redir_type(char *line, int *i)
 static char	*get_redir_name(char *line, int *i)
 {
 	char	*name;
+	int		j;
+	int		k;
 
-	(*i)++;
+	k = 0;
+	while (ft_isspace(line[*i]))
+		(*i)++;
+	j = *i;
+	while (!ft_isdelim(line[*i]) && !ft_isspace(line[*i]))
+		(*i)++;
+	name = ft_calloc(*i - j);
+	while (k < *i - j)
+		name[k++] = line[j++];
 	return (name);
 }
 
