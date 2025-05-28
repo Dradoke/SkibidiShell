@@ -14,6 +14,7 @@
 # define STRUCT_H
 
 //---ENUMS---//
+
 typedef enum e_redir_type
 {
 	INFILE,		// <
@@ -29,6 +30,7 @@ enum
 };
 
 //---STRUCTS---//
+
 typedef struct s_redir
 {
 	char			*name;

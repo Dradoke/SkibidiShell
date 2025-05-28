@@ -14,30 +14,24 @@
 
 static t_redir_type	get_redir_type(char *line, int *i)
 {
-	t_redir_type	type;
-
 	if (line[*i] == '<')
 	{
 		(*i)++;
 		if (line[*i] == '<')
-			type = HEREDOC;
+			return ((*i)++, HEREDOC);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = INFILE;
-		else
-			return ((t_redir_type)NULL);
+			return ((*i)++, INFILE);
 	}
 	else if (line[*i] == '>')
 	{
 		(*i)++;
 		if (line[*i] == '>')
-			type = APPEND;
+			return ((*i)++, APPEND);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = OUTFILE;
-		else
-			return ((t_redir_type)NULL);
+			return ((*i)++, OUTFILE);
 	}
 	(*i)++;
-	return (type);
+	return ((t_redir_type)NULL);
 }
 
 static char	*get_redir_name(char *line, int *i)
@@ -58,16 +52,17 @@ static char	*get_redir_name(char *line, int *i)
 	return (name);
 }
 
-bool	ft_addredir(t_cmd *cmd, char *line, int *i)
+void	ft_addredir(t_cmd *cmd, char *line, int *i)
 {
 	t_list	*new_redir;
 	t_redir	*content;
 
 	content = (t_redir *)ft_calloc(sizeof(t_redir));
 	if (!content)
-		return (0);
+		return ;
 	content->type = get_redir_type(line, i);
 	content->name = get_redir_name(line, i);
+	// content->name = ft_cpyword(line, i);
 	new_redir = ft_lstnew(content);
 	ft_lstadd_back(cmd->redir, new_redir);
 }
