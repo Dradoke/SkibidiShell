@@ -19,7 +19,6 @@ char	*ft_rand_str(size_t len)
 {
 	int		fd;
 	unsigned char	*str;
-	size_t	i;
 
 	fd = open("/dev/urandom", O_RDONLY);
 	str = ft_calloc(len + 1);

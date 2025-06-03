@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "../libft.h"
+#include "libft.h"
 
 // Prints a number in a specified base.
 // Recursively converts and writes 'n' using the characters in 'base'.
