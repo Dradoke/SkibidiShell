@@ -29,13 +29,13 @@ LIBFT			=	$(LIBFT_DIR)libft.a
 # Source File
 SRC				=	$(shell find $(SRC_DIR) -name "*.c")
 # Object File
-OBJ			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+OBJ				=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 # Include Flag
-IFLAG			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR))
+IFLAG			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR)/include)
 # Library Flag
 LFLAG			=	$(addprefix -L, $(LIBFT_DIR))
-LIB			=	-lft
+LIB				=	-lft
 
 # All Target
 all: $(LIBFT) $(NAME)
