@@ -15,6 +15,8 @@
 
 t_list	*ft_env_to_lst(char **envp);
 
-int	ft_isdelim(int c);
+int		ft_isdelim(int c);
+
+void	print_list(t_list *lst, t_lstype type);
 
 #endif
