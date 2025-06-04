@@ -64,5 +64,5 @@ void	ft_addredir(t_cmd *cmd, char *line, int *i)
 	content->name = get_redir_name(line, i);
 	// content->name = ft_cpyword(line, i);
 	new_redir = ft_lstnew(content);
-	ft_lstadd_back(cmd->redir, new_redir);
+	ft_lstadd_back(&cmd->redir, new_redir);
 }

@@ -23,6 +23,13 @@ typedef enum e_redir_type
 	APPEND,		// >>
 }	t_redir_type;
 
+typedef enum e_lstype
+{
+	CMD,
+	REDIR,
+	ARG,
+}	t_lstype;
+
 enum
 {
 	INPUT,		// 0
