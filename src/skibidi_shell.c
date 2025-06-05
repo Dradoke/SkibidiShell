@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
+#include <errno.h>
 
 int	main(int ac, char **av, char **env)
 {
 	t_list	*cmd;
 
-	cmd = ft_lstnew(NULL);
-	ft_lstadd_back(&cmd, ft_lstnew(NULL));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL));
+	cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
+
+	// ((t_cmd *)cmd->content)->redir = NULL;
+	// ((t_cmd *)cmd->content)->arg = NULL;
 
 	print_list(cmd, CMD);
 	(void)ac;

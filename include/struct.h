@@ -38,6 +38,15 @@ enum
 
 //---STRUCTS---//
 
+typedef struct s_shell
+{
+	size_t	i;
+	size_t	j;
+	t_list	*cmd;
+	char	**env;
+	char	*line;
+}	t_shell;
+
 typedef struct s_redir
 {
 	char			*name;

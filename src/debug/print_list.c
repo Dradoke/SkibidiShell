@@ -56,9 +56,11 @@ void print_content(t_lstype type, t_list *lst)
 		print_list(((t_cmd *)lst->content)->redir, REDIR);
 		print_list(((t_cmd *)lst->content)->arg, ARG);
 		printf("---------------------------------------Last Infile\n");
-		print_redir(((t_cmd *)lst->content)->last_redir[INPUT]);
+		if (((t_cmd *)lst->content)->last_redir[INPUT])
+			print_redir(((t_cmd *)lst->content)->last_redir[INPUT]);
 		printf("--------------------------------------Last Outfile\n");
-		print_redir(((t_cmd *)lst->content)->last_redir[OUTFILE]);
+		if (((t_cmd *)lst->content)->last_redir[OUTFILE])
+			print_redir(((t_cmd *)lst->content)->last_redir[OUTFILE]);
 	}
 	else if (type == REDIR)
 	{
