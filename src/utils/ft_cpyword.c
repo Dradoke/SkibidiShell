@@ -15,11 +15,20 @@
 static void free_word(t_word *word)
 {
 	if (word->j)
+	{
+		word->j = NULL;
 		free(word->j);
+	}
 	if (word->word)
+	{
+		word->word = NULL;
 		free(word->word);
+	}
 	if (word)
+	{
+		word = NULL;
 		free(word);
+	}
 }
 /*	Verify the quote statement between DOUBLE, SIMPLE, and NONE
 	Take a char, the quote type and a boolean
@@ -80,26 +89,30 @@ static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
 {
 	int	k;
 
-	k = 0;
-	if (*(word->j) > 0)
+	k = -1;
+	printf("Valeur de i avant copy: %d et value: %c\n", (*word->i), line[*word->i]);
+
+	printf("J: %d\n", (*word->j));
+	while (k < (*word->j) || (*quotes) == SIMPLE || (*quotes) == DOUBLE)
 	{
-		printf("J: %d\n", (*word->j));
-		while (k < ((*word->j)))
+		if (k == -1)
+			k = 0;
+		if (line[(*word->i)] == '\'' || line[(*word->i)] == '\"')
+			quotes_verif(&line[(*word->i)++], quotes, true);
+		else if (line[(*word->i)] == '$')
 		{
-			if (line[(*word->i)] == '\'' || line[(*word->i)] == '\"')
-				quotes_verif(&line[(*word->i)], quotes, true);
-			else if (line[(*word->i)] == '$')
-			{
-				printf("DEBUG: quotes = %d\n", *quotes);
-				ft_write_env(&line[(*word->i)], &k, word, quotes);
-			}
-			else
-				word->word[k++] = line[(*word->i)];
-			(*word->i)++;
+			printf("DEBUG: quotes = %d\n", *quotes);
+			ft_write_env(&line[(*word->i)], &k, word, quotes);
 		}
-		word->word[k] = '\0';
+		else
+			word->word[k++] = line[(*word->i)++];
+		// if (word->word[k])
+		// (*word->i)++;
 	}
-	(*word->i)++;
+	word->word[k] = '\0';
+	if (k == 0)
+		(*word->i)++;
+
 }
 
 /*Copy a word until the next delimiter or space

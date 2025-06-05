@@ -33,17 +33,21 @@ int	ft_get_env_size(t_word *word, char *line, t_quotes_verif quotes, int *i)
 	int	var_len;
 
 	j = 1;
+	if (!line[j])
+		return (0);
 	if (ft_isspace(line[j]) || ft_isdelim(line[j]))
-		return (1);
+		return ((*word->j)++, 1);
 	var_len = get_var_len(&line[j]);
 	printf("LINE: %s\n", line);
 	printf("Var_len: %d\n", var_len);
 	if (ft_isdigit(line[j]))
 		return ((*word->i)++);
+	if (line[j] == '$')
+		return ((*word->i)++);
 	while (word->env)
 	{
 		printf("line word: %s, key : %s\n", &line[j], ((t_env *)word->env->content)->key);
-		if (ft_strncmp(&line[j], ((t_env *)word->env->content)->key, var_len) == 0)
+		if (ft_strncmp_cstm(&line[j], ((t_env *)word->env->content)->key, var_len) == 0)
 		{
 			printf("STRNCMP OK\n");
 			printf("var_len: %d\n", var_len);
@@ -64,7 +68,9 @@ int	ft_get_env_size(t_word *word, char *line, t_quotes_verif quotes, int *i)
 		}
 		word->env = word->env->next;
 	}
-	return ((*word->j)++, 1);
+	(*i) += (var_len);
+	printf("Valeur de i fin de get_env_size: %d\n", (*i));
+	return (1);
 }
 
 bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
@@ -83,6 +89,7 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 		return (ft_memset(&word->word[(*k)++], '$', 1), true);
 	start = word->env;
 	var_len = get_var_len(&line[1]);
+	printf("VAR LEN = %d\n",var_len);
 	j = 0;
 	if (ft_isdigit(line[i]))
 		return ((*word->i)++, (*word->j)--);
@@ -90,7 +97,7 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 	{
 		env_var = (t_env *)word->env->content;
 		printf("line word: %s, key : %s\n", &line[i], env_var->key);
-		if (ft_strncmp(&line[i], env_var->key, var_len) == 0)
+		if (ft_strncmp_cstm(&line[i], env_var->key, var_len) == 0)
 		{
 			printf("STRNCMP WRITE ENV OK\n");
 			printf("DEBUG: quotes = %d\n", *quotes);
@@ -111,13 +118,36 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 					printf("env_var->value to copy = %c\n", env_var->value[j]);
 					ft_memset(&word->word[(*k)++], env_var->value[j++], 1);
 				}
-				*word->i += ft_strlen(env_var->key);
+				*word->i += var_len;
 			}
 			return (word->env = start, j);
 		}
 		word->env = word->env->next;
 	}
-	ft_memset(&word->word[(*k)++], '$', 1);
 	printf("Write word: %s\n", word->word);
-	return (word->env = start, j);
+	return ((*word->i) += (var_len), word->env = start, j);
+}
+
+// Compares up to n characters of two strings lexicographically.
+// Returns <0 if s1 < s2, 0 if s1 = s2, >0 if s1 > s2.
+// Comparison is done using unsigned characters.
+// Also compare the len of s2 with n, return len of s2 if not the same.
+int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	if (n != ft_strlen(s2))
+		return (ft_strlen(s2));
+	while (i < n && (str1[i] || str2[i]))
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
 }
