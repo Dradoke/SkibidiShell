@@ -42,14 +42,14 @@ static void	quotes_verif(char *c, t_quotes_verif *quotes, bool del_quote)
 	else if ((((*c) == '\"' && (*quotes) == DOUBLE)
 			|| ((*c) == '\'' && (*quotes) == SIMPLE)))
 		(*quotes) = NONE;
-	if (del_quote == true)
-		(*c) = '\0';
+	(void)del_quote;
+	// if (del_quote == true && ((*quotes == SIMPLE && *c == '\'') || (*quotes == DOUBLE && *c == '"')))
+	// 	(*c) = '\0';
 }
 
 static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 {
 	int				i;
-	int				env_len;
 	char			*str;
 	t_list			*start;
 
@@ -65,17 +65,17 @@ static char	*allocate_string(char *line, t_word *word, t_quotes_verif *quotes)
 	while (line[i] && ((!ft_isdelim(line[i]) && !ft_isspace(line[i]))
 			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
 	{
-		if (line[i] == '\"' || line[i] == '\'')
+		if (quotes_usecase(line[i], quotes))
 			quotes_verif(&line[i], quotes, false);
 		else if (line[i] == '$')
 		{
-			env_len += ft_get_env_size(word, &line[i], (*quotes), &i);
+			ft_get_env_size(word, &line[i], (*quotes), &i);
 			word->env = start;
 		}
 		else if (!ft_isspace(line[i]) || (*quotes != NONE))
 			(*word->j)++;
-		printf("DEBUG: word_len = %d\n", (*word->j));
 		printf("DEBUG: word_char = %c\n", line[i]);
+		printf("DEBUG: word_len = %d\n", (*word->j));
 		i++;
 		ft_printf("DEBUG: QUOTES = %d\n", *quotes);
 	}
@@ -89,15 +89,14 @@ static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
 {
 	int	k;
 
-	k = -1;
+	k = 0;
 	printf("Valeur de i avant copy: %d et value: %c\n", (*word->i), line[*word->i]);
-
+	printf("Valeur de j avant copy: %d\n", (*word->j));
 	printf("J: %d\n", (*word->j));
-	while (k < (*word->j) || (*quotes) == SIMPLE || (*quotes) == DOUBLE)
+	while (line[(*word->i)] && ((!ft_isdelim(line[(*word->i)]) && !ft_isspace(line[(*word->i)]))
+			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
 	{
-		if (k == -1)
-			k = 0;
-		if (line[(*word->i)] == '\'' || line[(*word->i)] == '\"')
+		if (quotes_usecase(line[(*word->i)], quotes))
 			quotes_verif(&line[(*word->i)++], quotes, true);
 		else if (line[(*word->i)] == '$')
 		{
@@ -106,13 +105,10 @@ static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
 		}
 		else
 			word->word[k++] = line[(*word->i)++];
-		// if (word->word[k])
-		// (*word->i)++;
 	}
-	word->word[k] = '\0';
-	if (k == 0)
+	if (ft_isdelim(line[(*word->i)]) && *word->j == 0)  // Peut etre supprimer apres tests ?
 		(*word->i)++;
-
+	word->word[k] = '\0';
 }
 
 /*Copy a word until the next delimiter or space

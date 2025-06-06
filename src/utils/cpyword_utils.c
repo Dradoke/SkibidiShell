@@ -86,7 +86,7 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 	printf("Write word: %s\n", word->word);
 	printf("Write line: %s\n", &line[i]);
 	if (ft_isspace(line[i]) || ft_isdelim(line[i]))
-		return (ft_memset(&word->word[(*k)++], '$', 1), true);
+		return (ft_memset(&word->word[(*k)++], '$', 1), (*word->i)++, true);
 	start = word->env;
 	var_len = get_var_len(&line[1]);
 	printf("VAR LEN = %d\n",var_len);
@@ -118,14 +118,14 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 					printf("env_var->value to copy = %c\n", env_var->value[j]);
 					ft_memset(&word->word[(*k)++], env_var->value[j++], 1);
 				}
-				*word->i += var_len;
+				*word->i += var_len + 1;
 			}
 			return (word->env = start, j);
 		}
 		word->env = word->env->next;
 	}
 	printf("Write word: %s\n", word->word);
-	return ((*word->i) += (var_len), word->env = start, j);
+	return ((*word->i) += (var_len + 1), word->env = start, j);
 }
 
 // Compares up to n characters of two strings lexicographically.
@@ -150,4 +150,15 @@ int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+bool	quotes_usecase(char c, t_quotes_verif *quotes)
+{
+	if ((c == '\"' && *(quotes) == NONE) || \
+     	(c == '\'' && *(quotes) == NONE) || \
+     	(c == '\"' && *(quotes) == DOUBLE) || \
+     	(c == '\'' && *(quotes) == SIMPLE))
+		return (true);
+	else
+		return (false);
 }
