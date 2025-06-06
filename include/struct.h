@@ -12,6 +12,7 @@
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include "skibidi_shell.h"
 
 //---ENUMS---//
 
