@@ -35,7 +35,7 @@ OBJS			=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 # Include and library flags
 IFLAGS			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR))
 LFLAGS			=	$(addprefix -L, $(LIBFT_DIR))
-LIBS			=	-lft
+LIBS			=	-lft -lreadline
 
 # Main target
 $(NAME): $(OBJS)
