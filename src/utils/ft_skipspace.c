@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototype.h                                        :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROTOTYPE_H
-# define PROTOTYPE_H
-# include "skibidi_shell.h"
+#include "skibidi_shell.h"
 
-t_list	*ft_env_to_lst(char **envp);
-
-int		ft_isdelim(int c);
-
-void	print_list(t_list *lst, t_lstype type);
-
-t_list	*ft_parser(t_shell *shell);
-
-void	ft_skipspace(char *str, size_t *i);
-
-t_redir	*ft_newredir(t_shell *sh, t_cmd *tcmd);
-
-#endif
+void	ft_skipspace(char *str, size_t *i)
+{
+	while (ft_isspace(str[*i]))
+		(*i)++;
+}

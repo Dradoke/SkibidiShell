@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-
-static t_redir_type	get_redir_type(char *line, int *i)
+// DONE
+static t_redir_type	get_redir_type(char *line, size_t *i)
 {
 	if (line[*i] == '<')
 	{
@@ -33,8 +33,8 @@ static t_redir_type	get_redir_type(char *line, int *i)
 	(*i)++;
 	return ((t_redir_type)NULL);
 }
-
-static char	*get_redir_name(char *line, int *i)
+// NEED FIX
+static char	*get_redir_name(char *line, size_t *i)
 {
 	char	*name;
 	int		j;
@@ -47,22 +47,23 @@ static char	*get_redir_name(char *line, int *i)
 	while (!ft_isdelim(line[*i]) && !ft_isspace(line[*i]))
 		(*i)++;
 	name = ft_calloc(*i - j);
-	while (k < *i - j)
+	while (k < (int)*i - j)
 		name[k++] = line[j++];
 	return (name);
 }
-
-void	ft_addredir(t_cmd *cmd, char *line, int *i)
+// DONE
+static t_redir	*redircontent(t_shell *sh)
 {
-	t_list	*new_redir;
-	t_redir	*content;
+	t_redir	*tredir;
 
-	content = (t_redir *)ft_calloc(sizeof(t_redir));
-	if (!content)
-		return ;
-	content->type = get_redir_type(line, i);
-	content->name = get_redir_name(line, i);
-	// content->name = ft_cpyword(line, i);
-	new_redir = ft_lstnew(content);
-	ft_lstadd_back(&cmd->redir, new_redir);
+	tredir = ft_calloc(sizeof(t_redir));
+	tredir->type = get_redir_type(sh->line, &sh->i);
+	tredir->name = get_redir_name(sh->line, &sh->i);
+	return (tredir);
+}
+// UN-FINISHED
+t_redir	*ft_newredir(t_shell *sh, t_cmd *tcmd)
+{
+	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
+	return((t_redir *)NULL);
 }

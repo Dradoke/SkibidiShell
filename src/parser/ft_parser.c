@@ -12,127 +12,56 @@
 
 #include "skibidi_shell.h"
 
-static void	new_redir(char *line, char **env, int *i, t_cmd *redir)
+static void	set_last_redir(t_cmd *tcmd)
 {
-	
-}
+	t_list	*lredir;
+	t_redir	*tredir;
 
-static void	set_last_redir(t_cmd *content)
-{
-	t_list	*redir;
-
-	redir = content->redir;
-	while (redir->next)
+	lredir = tcmd->redir;
+	tredir = lredir->content;
+	while (lredir->next)
 	{
-		if (((t_redir *)redir->content)->type == INFILE
-			|| ((t_redir *)redir->content)->type == HEREDOC)
-			content->last_redir[INPUT] = redir->content;
-		else if (((t_redir *)redir->content)->type == OUTFILE
-			|| ((t_redir *)redir->content)->type == APPEND)
-			content->last_redir[OUTPUT] = redir->content;
-		redir = redir->next;
+		if (tredir->type == INFILE
+			|| tredir->type == HEREDOC)
+			tcmd->last_redir[INPUT] = tredir;
+		else if (tredir->type == OUTFILE
+			|| tredir->type == APPEND)
+			tcmd->last_redir[OUTPUT] = tredir;
+		lredir = lredir->next;
 	}
 }
 
-static void	new_command(char *line, char **env, int *i, t_list *cmd)
+static void	new_command(t_shell *sh)
 {
-	ft_lstadd_back(&cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
-	while (line[*i] != '|')
+	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
+	while (sh->line[sh->i] != '|')
 	{
-		while (isspace(line[*i]))
-			(*i)++;
-		if (ft_isdelim(line[*i]))
-			new_redir(line, env, i, (t_cmd *)cmd->content);
-		(*i)++;
+		while (ft_isspace(sh->line[sh->i]))
+			sh->i++;
+		if (ft_isdelim(sh->line[sh->i]))
+			ft_newredir(sh, sh->cmd->content);
+		sh++;
 	}
-	set_last_redir(cmd->content);
+	set_last_redir(sh->cmd->content);
 	
 }
 
-int	ft_skipspace(char *str, int *i)
+t_list	*ft_parser(t_shell *sh)
 {
-	while (ft_isspace(str[*i]))
-		(*i)++;
-	return (1);
-}
-
-t_list	*ft_parser(char *line, char **env)
-{
-	size_t			i;
-	t_list			*cmd;
-	
-	cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
-	if (!ft_lstlast(cmd)->index)
-		manage_first_cmd();
-	while (line[i])
+	sh->cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
+	// if (!ft_lstlast(sh->cmd)->index)
+	// 	manage_first_cmd();
+	while (sh->line[sh->i])
 	{
-		ft_skipspace(line, &i);
-		if (line[i] == '|')
+		ft_skipspace(sh->line, &sh->i);
+		if (sh->line[sh->i] == '|')
 		{
-			i++;
-			if (!ft_lstlast(cmd)->prev || !cmd->index)
+			sh->i++;
+			if (!sh->cmd->index)
 				perror("SkibidiShell: syntax error near unexpected token '|'");
 			else
-				new_command(line, env, &i, cmd);
+				new_command(sh);
 		}
 	}
-	return (cmd);
-}
-
-
-
-// TEST FT_PARSER
-
-static void	process_pipe(char *line, char **env, size_t *i, t_list *cmd)
-{
-    if (!ft_lstlast(cmd)->index)
-    {
-        perror("SkibidiShell: syntax error near unexpected token '|'");
-        return ;
-    }
-    (*i)++;
-    new_command(line, env, (int *)i, cmd);
-}
-
-static void	process_current_command(char *line, char **env, size_t *i, t_list *cmd)
-{
-    while (line[*i] && line[*i] != '|')
-    {
-        while (ft_isspace(line[*i]))
-            (*i)++;
-        if (line[*i] && line[*i] != '|')
-        {
-            if (ft_isdelim(line[*i]))
-                new_redir(line, env, (int *)i, (t_cmd *)ft_lstlast(cmd)->content);
-            else
-            {
-                // Passer les arguments (à implémenter)
-                while (line[*i] && !ft_isspace(line[*i]) && line[*i] != '|' && !ft_isdelim(line[*i]))
-                    (*i)++;
-            }
-        }
-    }
-    set_last_redir(ft_lstlast(cmd)->content);
-}
-
-t_list	*ft_parser(t_shell *shell)
-{
-    size_t	i;
-    t_list	*cmd;
-    
-    i = 0;
-    cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
-    
-    while (line[i])
-    {
-        ft_skipspace(line, (int *)&i);
-        if (!line[i])
-            break;
-            
-        if (line[i] == '|')
-            process_pipe(line, env, &i, cmd);
-        else
-            process_current_command(line, env, &i, cmd);
-    }
-    return (cmd);
+	return (sh->cmd);
 }

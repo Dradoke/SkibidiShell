@@ -15,20 +15,14 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_list	*cmd;
-	t_shell	*shell;
+	t_shell	*sh;
 
-	shell = ft_calloc(sizeof(t_shell));
-	shell->env = env;
-	shell->cmd = cmd;
-	shell->line = ft_strdup(av[1]);
-
-	cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
-	ft_parser(shell);
+	sh = ft_calloc(sizeof(t_shell));
+	ft_parser(sh);
 	// ((t_cmd *)cmd->content)->redir = NULL;
 	// ((t_cmd *)cmd->content)->arg = NULL;
 
-	print_list(cmd, CMD);
+	print_list(sh->cmd, CMD);
 	(void)ac;
 	(void)av;
 	(void)env;
