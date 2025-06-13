@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_addredir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-#include <errno.h>
 
-int	main(int ac, char **av, char **env)
+// DONE
+static t_arg	*argcontent(t_shell *sh)
 {
-	t_shell	*sh;
+	t_arg	*targ;
 
-	sh = ft_calloc(sizeof(t_shell));
-	sh->line = ft_strdup(av[1]);
-	ft_parser(sh);
-	// ((t_cmd *)cmd->content)->redir = NULL;
-	// ((t_cmd *)cmd->content)->arg = NULL;
-	print_list(sh->cmd, CMD);
-	(void)ac;
-	(void)av;
-	(void)env;
+	targ = ft_calloc(sizeof(t_arg));
+	targ->name = ft_cpyword(sh->line, &sh->i, sh->env);
+	return (targ);
+}
+
+// UN-FINISHED
+void	ft_addarg(t_shell *sh, t_cmd *tcmd)
+{
+	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
 }

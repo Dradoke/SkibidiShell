@@ -37,6 +37,13 @@ enum
 	OUTPUT,		// 1
 };
 
+typedef enum e_quotes_verif
+{
+	NONE,
+	SIMPLE,		// '
+	DOUBLE		// "
+}	t_quotes_verif;
+
 //---STRUCTS---//
 
 typedef struct s_shell
@@ -44,7 +51,7 @@ typedef struct s_shell
 	size_t	i;
 	size_t	j;
 	t_list	*cmd;
-	char	**env;
+	t_list	*env;
 	char	*line;
 }	t_shell;
 
@@ -66,6 +73,16 @@ typedef struct s_cmd
 	t_list			*arg;
 	t_redir			*last_redir[2];
 }	t_cmd;
+
+typedef struct	s_word_info
+{
+	int		*i;
+	int		*j;
+	int		k;
+	char	*word;
+	bool	space;
+	t_list	*env;
+}	t_word;
 
 /*Environment variable*/
 typedef struct s_env

@@ -39,18 +39,33 @@ static void	new_command(t_shell *sh)
 		while (ft_isspace(sh->line[sh->i]))
 			sh->i++;
 		if (ft_isdelim(sh->line[sh->i]))
-			ft_newredir(sh, sh->cmd->content);
+			ft_addredir(sh, sh->cmd->content);
 		sh++;
 	}
 	set_last_redir(sh->cmd->content);
 	
 }
 
+static void	manage_first_cmd(t_shell *sh)
+{
+	while (sh->line[sh->i] && sh->line[sh->i] != '|')
+	{
+		ft_skipspace(sh->line, &sh->i);
+		printf("%ld\n%c\n", sh->i, sh->line[sh->i]);
+		if (ft_isdelim(sh->line[sh->i]))
+		{
+			ft_addredir(sh, sh->cmd->content);
+		}
+		else if (ft_isprint(sh->line[sh->i]))
+			ft_addarg(sh, sh->cmd->content);
+		if (sh->line[sh->i])
+			sh->i++;
+	}
+}
+
 t_list	*ft_parser(t_shell *sh)
 {
-	sh->cmd = ft_lstnew(ft_calloc(sizeof(t_cmd)));
-	// if (!ft_lstlast(sh->cmd)->index)
-	// 	manage_first_cmd();
+	manage_first_cmd(sh);
 	while (sh->line[sh->i])
 	{
 		ft_skipspace(sh->line, &sh->i);

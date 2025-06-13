@@ -62,8 +62,7 @@ static t_redir	*redircontent(t_shell *sh)
 	return (tredir);
 }
 // UN-FINISHED
-t_redir	*ft_newredir(t_shell *sh, t_cmd *tcmd)
+void	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
-	return((t_redir *)NULL);
 }
