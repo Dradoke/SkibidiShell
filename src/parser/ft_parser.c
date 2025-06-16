@@ -42,25 +42,25 @@ static void	new_command(t_shell *sh)
 			ft_addredir(sh, sh->cmd->content);
 		sh++;
 	}
-	set_last_redir(sh->cmd->content);
-	
+	if (((t_cmd *)sh->cmd->content)->redir)
+		set_last_redir(sh->cmd->content);
 }
 
 static void	manage_first_cmd(t_shell *sh)
 {
+	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
 		ft_skipspace(sh->line, &sh->i);
-		printf("%ld\n%c\n", sh->i, sh->line[sh->i]);
 		if (ft_isdelim(sh->line[sh->i]))
-		{
 			ft_addredir(sh, sh->cmd->content);
-		}
 		else if (ft_isprint(sh->line[sh->i]))
 			ft_addarg(sh, sh->cmd->content);
 		if (sh->line[sh->i])
 			sh->i++;
 	}
+	if (((t_cmd *)sh->cmd->content)->redir)
+		set_last_redir(sh->cmd->content);
 }
 
 t_list	*ft_parser(t_shell *sh)

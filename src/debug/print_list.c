@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-void content_type_divider(t_lstype type)
+void	content_type_divider(t_lstype type)
 {
 	if (type == CMD)
 		printf("🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦\n");
@@ -36,9 +36,7 @@ void	print_redir(t_redir *redir)
 		printf("Type\t\t\t: APPEND\n");
 }
 
-
-
-void print_tlist_info(t_list *lst)
+void	print_tlist_info(t_list *lst)
 {
 	printf("---------------------Node #%i---------------------\n", lst->index);
 	printf("Prev Node\t\t: %p\n", lst->prev);
@@ -48,7 +46,7 @@ void print_tlist_info(t_list *lst)
 	printf("--------------------------------------------------\n");
 }
 
-void print_content(t_lstype type, t_list *lst)
+void	print_content(t_lstype type, t_list *lst)
 {
 	if (type == CMD)
 	{

@@ -30,27 +30,9 @@ static t_redir_type	get_redir_type(char *line, size_t *i)
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
 			return ((*i)++, OUTFILE);
 	}
-	(*i)++;
-	return ((t_redir_type)NULL);
+	return ((t_redir_type) NULL);
 }
-// NEED FIX
-static char	*get_redir_name(char *line, size_t *i)
-{
-	char	*name;
-	int		j;
-	int		k;
 
-	k = 0;
-	while (ft_isspace(line[*i]))
-		(*i)++;
-	j = *i;
-	while (!ft_isdelim(line[*i]) && !ft_isspace(line[*i]))
-		(*i)++;
-	name = ft_calloc(*i - j);
-	while (k < (int)*i - j)
-		name[k++] = line[j++];
-	return (name);
-}
 // DONE
 static t_redir	*redircontent(t_shell *sh)
 {
@@ -58,9 +40,10 @@ static t_redir	*redircontent(t_shell *sh)
 
 	tredir = ft_calloc(sizeof(t_redir));
 	tredir->type = get_redir_type(sh->line, &sh->i);
-	tredir->name = get_redir_name(sh->line, &sh->i);
+	tredir->name = ft_cpyword(sh->line, &sh->i, sh->env);
 	return (tredir);
 }
+
 // UN-FINISHED
 void	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {

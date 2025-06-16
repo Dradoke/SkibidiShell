@@ -19,9 +19,8 @@ int	main(int ac, char **av, char **env)
 
 	sh = ft_calloc(sizeof(t_shell));
 	sh->line = ft_strdup(av[1]);
+	sh->env = ft_env_to_lst(env);
 	ft_parser(sh);
-	// ((t_cmd *)cmd->content)->redir = NULL;
-	// ((t_cmd *)cmd->content)->arg = NULL;
 	print_list(sh->cmd, CMD);
 	(void)ac;
 	(void)av;
