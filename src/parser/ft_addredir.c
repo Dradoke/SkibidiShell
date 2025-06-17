@@ -40,7 +40,7 @@ static t_redir	*redircontent(t_shell *sh)
 
 	tredir = ft_calloc(sizeof(t_redir));
 	tredir->type = get_redir_type(sh->line, &sh->i);
-	tredir->name = ft_cpyword(sh->line, &sh->i, sh->env);
+	tredir->name = ft_cpyword(sh);
 	return (tredir);
 }
 

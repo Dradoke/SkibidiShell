@@ -18,7 +18,7 @@ static t_arg	*argcontent(t_shell *sh)
 	t_arg	*targ;
 
 	targ = ft_calloc(sizeof(t_arg));
-	targ->name = ft_cpyword(sh->line, &sh->i, sh->env);
+	targ->name = ft_cpyword(sh);
 	return (targ);
 }
 

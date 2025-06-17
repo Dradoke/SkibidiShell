@@ -36,19 +36,18 @@ enum
 	OUTPUT,		// 1
 };
 
-typedef enum e_quotes_verif
+typedef enum e_quote
 {
 	NONE,
 	SIMPLE,		// '
 	DOUBLE,		// "
-}	t_quotes_verif;
+}	t_quote;
 
 //--STRUCTS--
 
 typedef struct s_shell
 {
 	size_t	i;
-	size_t	j;
 	t_list	*cmd;
 	t_list	*env;
 	char	*line;

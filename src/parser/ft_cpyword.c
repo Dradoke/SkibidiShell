@@ -11,99 +11,93 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-
-static void	free_word(t_word *word)
+// FIXED
+static void	quote_verif(char c, t_quote *quote)
 {
-	if (word->j)
-	{
-		free(word->j);
-		word->j = NULL;
-	}
-	if (word->word)
-	{
-		free(word->word);
-		word->word = NULL;
-	}
-	if (word)
-	{
-		free(word);
-		word = NULL;
-	}
+	if (c == '\"' && *quote == NONE)
+		*quote = DOUBLE;
+	else if (c == '\'' && *quote == NONE)
+		*quote = SIMPLE;
+	else if ((c == '\"' && *quote == DOUBLE)
+		|| (c == '\'' && *quote == SIMPLE))
+		*quote = NONE;
 }
 
-static void	quotes_verif(char *c, t_quotes_verif *quotes, bool del_quote)
+static char	*allocword(t_shell *sh, t_quote *quote)
 {
-	if ((*c) == '\"' && (*quotes) == NONE)
-		(*quotes) = DOUBLE;
-	else if ((*c) == '\'' && (*quotes) == NONE)
-		(*quotes) = SIMPLE;
-	else if ((((*c) == '\"' && (*quotes) == DOUBLE)
-			|| ((*c) == '\'' && (*quotes) == SIMPLE)))
-		(*quotes) = NONE;
-	(void)del_quote;
-}
-
-static char	*allocate_string(t_shell *sh, t_quotes_verif *quotes)
-{
-	int		j;
+	int		len;
 	char	*str;
 	t_list	*start;
 
-	j = 0;
+	len = 0;
 	start = sh->env;
 	while (sh->line[sh->i] && ((!ft_isdelim(sh->line[sh->i]) && !ft_isspace(sh->line[sh->i]))
-			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
+			|| (*quote) == SIMPLE || (*quote) == DOUBLE))
 	{
-		if (quotes_usecase(sh->line[sh->i], quotes))
-			quotes_verif(&sh->line[sh->i], quotes, false);
+		if (quotes_usecase(sh->line[sh->i], quote))
+			quotes_verif(&sh->line[sh->i], quote, false);
 		else if (sh->line[sh->i] == '$')
 		{
-			ft_get_env_size(str, &sh->line[sh->i], (*quotes), &sh->i);
+			ft_get_env_size(str, &sh->line[sh->i], (*quote), &sh->i);
 			sh->env = start;
 		}
-		else if (!ft_isspace(sh->line[sh->i]) || (*quotes != NONE))
-			j++;
+		else if (!ft_isspace(sh->line[sh->i]) || (*quote != NONE))
+			len++;
 		sh->i++;
 	}
-	str = ft_calloc(sizeof(char) * (j + 1));
+	str = ft_calloc(sizeof(char) * (len + 1));
 	return (str);
 }
 
-static void	strlcpy(char *line, t_word *word, t_quotes_verif *quotes)
+static void	writeword(t_shell *sh, char *word, t_quote *quote)
 {
 	int	k;
 
 	k = 0;
-	while (line[(*word->i)] && ((!ft_isdelim(line[(*word->i)]) && !ft_isspace(line[(*word->i)]))
-			|| (*quotes) == SIMPLE || (*quotes) == DOUBLE))
+	while (sh->line[(sh->i)] && ((!ft_isdelim(sh->line[(sh->i)]) && !ft_isspace(sh->line[(sh->i)]))
+			|| (*quote) == SIMPLE || (*quote) == DOUBLE))
 	{
-		if (quotes_usecase(line[(*word->i)], quotes))
-			quotes_verif(&line[(*word->i)++], quotes, true);
-		else if (line[(*word->i)] == '$')
-			ft_write_env(&line[(*word->i)], &k, word, quotes);
+		if (quotes_usecase(sh->line[sh->i], quote))
+			quotes_verif(&sh->line[(sh->i)++], quote, true);
+		else if (sh->line[sh->i] == '$')
+			ft_write_env(&sh->line[sh->i], &k, word, quote);
 		else
-			word->word[k++] = line[(*word->i)++];
+			word[k++] = sh->line[(sh->i)++];
 	}
-	if (ft_isdelim(line[(*word->i)]) && *word->j == 0)
-		(*word->i)++;
-	word->word[k] = '\0';
+	if (ft_isdelim(sh->line[sh->i]) && k == 0)
+		(sh->i)++;
+	word[k] = '\0';
 }
 
 char	*ft_cpyword(t_shell *sh)
 {
-	t_quotes_verif	quotes;
-	char			*str;
+	t_quote	quote;
+	char			*word;
 
-	quotes = NONE;
+	quote = NONE;
 	ft_skipspace(sh->line, sh->i);
-	str = allocate_string(sh->line, &quotes);
-	if (!str)
-		return (free_word(word), NULL);
-	if (quotes != NONE)
-		return (ft_printf("ERREUR DE QUOTES\n"), NULL);
-	strlcpy(line, word, &quotes);
-	if (!str)
-		return (free_word(word), NULL);
-	free_word(word);
-	return (str);
+	word = allocate_string(sh->line, &quote);
+	if (!word)
+		return (NULL);
+	if (quote != NONE)
+		return (ft_printf("ERREUR DE quote\n"), NULL);
+	strlcpy(sh, word, &quote);
+	return (word);
+}
+
+static char	*allocword(t_shell *sh, t_quote *quote)
+{
+	size_t	len;
+
+	len = 0;
+	while (sh->line[sh->i] && !(!quote && (ft_isdelim(sh->line[sh->i])
+				|| ft_isspace(sh->line[sh->i]))))
+	{
+		quote_verif(sh->line[sh->i], quote);
+		if (sh->line[sh->i] == '$')
+			len += ft_get_env_size(sh->line, sh->env, quote);
+		len++;
+		sh->i++;
+	}
+	return ();
 }

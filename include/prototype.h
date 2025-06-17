@@ -27,10 +27,11 @@ void	ft_skipspace(char *str, size_t *i);
 void	ft_addredir(t_shell *sh, t_cmd *tcmd);
 void	ft_addarg(t_shell *sh, t_cmd *tcmd);
 
-char	*ft_cpyword(char *line, size_t *i, t_list *env);
-int		ft_get_env_size(t_word *word, char *line, t_quotes_verif quotes, int *i);
-bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes);
-int		ft_strncmp_cstm(const char *s1, const char *s2, size_t n);
+char	*ft_cpyword(t_shell *sh);
+
 bool	quotes_usecase(char c, t_quotes_verif *quotes);
+int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n);
+bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes);
+int	ft_get_env_size(t_shell *sh, char *line, t_quotes_verif quotes);
 
 #endif

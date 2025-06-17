@@ -24,13 +24,34 @@ static int	get_var_len(char *line)
 	return (i);
 }
 
-// Maybe fixed
-int	ft_get_env_size(t_shell *sh, char *line, t_quotes_verif quotes)
+// Fixed
+t_env	*search_env(t_list *env, char *key)
 {
-	int	j;
-	int	var_len;
+	t_list	*cur;
+	t_env	*env_var;
 
-	j = 1;
+	if (!env || !key)
+		return (NULL);
+	cur = env;
+	while (cur)
+	{
+		env_var = (t_env *)cur->content;
+		if (env_var && env_var->key)
+			if (ft_strlen(key) == ft_strlen(env_var->key)
+				&& ft_strncmp(env_var->key, key, ft_strlen(key)) + 1)
+				return (env_var);
+		cur = cur->next;
+	}
+	return (NULL);
+}
+
+size_t	ft_get_env_size(t_shell *sh, char *line, t_quote quote)
+{
+	int	len;
+	int	i;
+
+	len = 0;
+	
 	if (!line[j])
 		return (0);
 	if (ft_isspace(line[j]) || ft_isdelim(line[j]))
@@ -44,13 +65,13 @@ int	ft_get_env_size(t_shell *sh, char *line, t_quotes_verif quotes)
 	{
 		if (ft_strncmp_cstm(&line[j], ((t_env *)sh->env->content)->key, var_len) == 0)
 		{
-			if (quotes == SIMPLE)
+			if (quote == SIMPLE)
 			{
 				return (sh->i += (var_len),
 					j += var_len + 1,
 					(int)ft_strlen(((t_env *)sh->env->content)->key));
 			}
-			else if (quotes == DOUBLE || quotes == NONE)
+			else if (quote == DOUBLE || quote == NONE)
 				return (sh->i += (var_len),
 					j += (int)ft_strlen(((t_env *)sh->env->content)->value),
 					(int)ft_strlen(((t_env *)sh->env->content)->value));
@@ -61,7 +82,7 @@ int	ft_get_env_size(t_shell *sh, char *line, t_quotes_verif quotes)
 	return (1);
 }
 
-bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
+bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
 {
 	int		i;
 	int		j;
@@ -82,13 +103,13 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes)
 		env_var = (t_env *)word->env->content;
 		if (ft_strncmp_cstm(&line[i], env_var->key, var_len) == 0)
 		{
-			if ((*quotes) == SIMPLE)
+			if ((*quote) == SIMPLE)
 			{
 				ft_memset(&word->word[(*k)++], '$', 1);
 				while (*k < var_len && env_var->key[j])
 					ft_memset(&word->word[(*k)++], env_var->key[j++], 1);
 			}
-			else if ((*quotes) == DOUBLE || (*quotes) == NONE)
+			else if ((*quote) == DOUBLE || (*quote) == NONE)
 			{
 				while (*k < (*word->j) && env_var->value[j])
 					ft_memset(&word->word[(*k)++], env_var->value[j++], 1);
@@ -125,12 +146,12 @@ int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-bool	quotes_usecase(char c, t_quotes_verif *quotes)
+bool	quote_usecase(char c, t_quote *quote)
 {
-	if ((c == '\"' && *(quotes) == NONE)
-		|| (c == '\'' && *(quotes) == NONE)
-		|| (c == '\"' && *(quotes) == DOUBLE)
-		|| (c == '\'' && *(quotes) == SIMPLE))
+	if ((c == '\"' && *(quote) == NONE)
+		|| (c == '\'' && *(quote) == NONE)
+		|| (c == '\"' && *(quote) == DOUBLE)
+		|| (c == '\'' && *(quote) == SIMPLE))
 		return (true);
 	else
 		return (false);
