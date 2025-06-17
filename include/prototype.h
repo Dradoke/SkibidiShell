@@ -29,9 +29,8 @@ void	ft_addarg(t_shell *sh, t_cmd *tcmd);
 
 char	*ft_cpyword(t_shell *sh);
 
-bool	quotes_usecase(char c, t_quotes_verif *quotes);
-int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n);
-bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes);
-int	ft_get_env_size(t_shell *sh, char *line, t_quotes_verif quotes);
+bool	quote_usecase(char c, t_quote *quote);
+int		ft_strncmp_cstm(const char *s1, const char *s2, size_t n);
+size_t	ft_get_env_size(char *line, t_list *env, t_quote quote);
 
 #endif

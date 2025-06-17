@@ -71,33 +71,29 @@ static void	writeword(t_shell *sh, char *word, t_quote *quote)
 
 char	*ft_cpyword(t_shell *sh)
 {
-	t_quote	quote;
-	char			*word;
+	char	*word;
 
-	quote = NONE;
-	ft_skipspace(sh->line, sh->i);
-	word = allocate_string(sh->line, &quote);
+	word = allocword(sh);
 	if (!word)
 		return (NULL);
-	if (quote != NONE)
-		return (ft_printf("ERREUR DE quote\n"), NULL);
-	strlcpy(sh, word, &quote);
+	writeword(sh, word, &quote);
 	return (word);
 }
 
-static char	*allocword(t_shell *sh, t_quote *quote)
+static char	*allocword(t_shell *sh)
 {
 	size_t	len;
+	t_quote	quote;
 
 	len = 0;
 	while (sh->line[sh->i] && !(!quote && (ft_isdelim(sh->line[sh->i])
 				|| ft_isspace(sh->line[sh->i]))))
 	{
-		quote_verif(sh->line[sh->i], quote);
+		quote_verif(sh->line[sh->i], &quote);
 		if (sh->line[sh->i] == '$')
 			len += ft_get_env_size(sh->line, sh->env, quote);
 		len++;
 		sh->i++;
 	}
-	return ();
+	return (ft_calloc(len + 1));
 }

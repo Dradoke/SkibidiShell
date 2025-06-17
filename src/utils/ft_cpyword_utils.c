@@ -45,7 +45,7 @@ t_env	*search_env(t_list *env, char *key)
 	return (NULL);
 }
 
-size_t	ft_get_env_size(t_shell *sh, char *line, t_quote quote)
+size_t	ft_get_env_size(char *line, t_list *env, t_quote quote)
 {
 	int	len;
 	int	i;
