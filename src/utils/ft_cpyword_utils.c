@@ -11,75 +11,64 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-
-static int	get_var_len(char *line)
+// Fixed
+static size_t	get_key_len(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (!ft_isspace(line[i]) && !ft_isdelim(line[i]) && line[i] != '\''
-		&& line[i] != '\"' && line[i] != '$'
-		&& (ft_isalnum(line[i]) || line[i] == '_') && line[i])
+	if (!s || !(ft_isalpha(s[i]) || s[i] == '_'))
+		return (i);
+	while (s[i])
+	{
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+			return (i);
 		i++;
+	}
 	return (i);
 }
 
 // Fixed
-t_env	*search_env(t_list *env, char *key)
+t_env	*search_env(t_list *env, char *key, int key_len)
 {
 	t_list	*cur;
 	t_env	*env_var;
 
-	if (!env || !key)
+	if (!env || !key || key_len <= 0)
 		return (NULL);
 	cur = env;
 	while (cur)
 	{
 		env_var = (t_env *)cur->content;
 		if (env_var && env_var->key)
-			if (ft_strlen(key) == ft_strlen(env_var->key)
-				&& ft_strncmp(env_var->key, key, ft_strlen(key)) + 1)
+		{
+			if (ft_strlen(env_var->key) == (size_t)key_len
+				&& ft_strncmp(env_var->key, key, key_len) == 0)
 				return (env_var);
+		}
 		cur = cur->next;
 	}
 	return (NULL);
 }
 
-size_t	ft_get_env_size(char *line, t_list *env, t_quote quote)
+// Fixed
+size_t	ft_get_env_size(char *word, size_t *i, t_list *env, t_quote quote)
 {
-	int	len;
-	int	i;
+	int		key_len;
+	t_env	*env_var;
 
-	len = 0;
-	
-	if (!line[j])
-		return (0);
-	if (ft_isspace(line[j]) || ft_isdelim(line[j]))
-		return (j++, 1);
-	var_len = get_var_len(&line[j]);
-	if (ft_isdigit(line[j]))
-		return (sh->i++);
-	if (line[j] == '$')
-		return (sh->i++);
-	while (sh->env)
-	{
-		if (ft_strncmp_cstm(&line[j], ((t_env *)sh->env->content)->key, var_len) == 0)
-		{
-			if (quote == SIMPLE)
-			{
-				return (sh->i += (var_len),
-					j += var_len + 1,
-					(int)ft_strlen(((t_env *)sh->env->content)->key));
-			}
-			else if (quote == DOUBLE || quote == NONE)
-				return (sh->i += (var_len),
-					j += (int)ft_strlen(((t_env *)sh->env->content)->value),
-					(int)ft_strlen(((t_env *)sh->env->content)->value));
-		}
-		sh->env = sh->env->next;
-	}
-	sh->i += (var_len);
-	return (1);
+	*i++;
+	if (!word[1] || ft_isspace(word[1]))
+		return (1);
+	if (word[1] == '?')
+		return (*i++, ft_strlen(ft_itoa(last_exit_status())));
+	if (word[1] == '$')
+		return (*i++, ft_strlen(ft_itoa(ft_get_pid())));
+	key_len = get_key_len(&word[1]);
+	env_var = search_env(env, &word[1], key_len);
+	if (env_var && env_var->value)
+		return (*i += key_len, ft_strlen(env_var->value));
+	return (*i += key_len, 0);
 }
 
 bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
@@ -94,7 +83,7 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
 	if (ft_isspace(line[i]) || ft_isdelim(line[i]))
 		return (ft_memset(&word->word[(*k)++], '$', 1), (*word->i)++, true);
 	start = word->env;
-	var_len = get_var_len(&line[1]);
+	var_len = get_key_len(&line[1]);
 	j = 0;
 	if (ft_isdigit(line[i]))
 		return ((*word->i)++, (*word->j)--);
@@ -103,7 +92,7 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
 		env_var = (t_env *)word->env->content;
 		if (ft_strncmp_cstm(&line[i], env_var->key, var_len) == 0)
 		{
-			if ((*quote) == SIMPLE)
+			if ((*quote) == SINGLE)
 			{
 				ft_memset(&word->word[(*k)++], '$', 1);
 				while (*k < var_len && env_var->key[j])
@@ -120,39 +109,4 @@ bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
 		word->env = word->env->next;
 	}
 	return ((*word->i) += (var_len + 1), word->env = start, j);
-}
-
-// Compares up to n characters of two strings lexicographically.
-// Returns <0 if s1 < s2, 0 if s1 = s2, >0 if s1 > s2.
-// Comparison is done using unsigned characters.
-// Also compare the len of s2 with n, return len of s2 if not the same.
-int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	if (n != ft_strlen(s2))
-		return (ft_strlen(s2));
-	while (i < n && (str1[i] || str2[i]))
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	return (0);
-}
-
-bool	quote_usecase(char c, t_quote *quote)
-{
-	if ((c == '\"' && *(quote) == NONE)
-		|| (c == '\'' && *(quote) == NONE)
-		|| (c == '\"' && *(quote) == DOUBLE)
-		|| (c == '\'' && *(quote) == SIMPLE))
-		return (true);
-	else
-		return (false);
 }

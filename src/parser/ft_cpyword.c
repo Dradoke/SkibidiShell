@@ -17,48 +17,23 @@ static void	quote_verif(char c, t_quote *quote)
 	if (c == '\"' && *quote == NONE)
 		*quote = DOUBLE;
 	else if (c == '\'' && *quote == NONE)
-		*quote = SIMPLE;
+		*quote = SINGLE;
 	else if ((c == '\"' && *quote == DOUBLE)
-		|| (c == '\'' && *quote == SIMPLE))
+		|| (c == '\'' && *quote == SINGLE))
 		*quote = NONE;
 }
 
-static char	*allocword(t_shell *sh, t_quote *quote)
+static void	writeword(t_shell *sh, char *word)
 {
-	int		len;
-	char	*str;
-	t_list	*start;
-
-	len = 0;
-	start = sh->env;
-	while (sh->line[sh->i] && ((!ft_isdelim(sh->line[sh->i]) && !ft_isspace(sh->line[sh->i]))
-			|| (*quote) == SIMPLE || (*quote) == DOUBLE))
-	{
-		if (quotes_usecase(sh->line[sh->i], quote))
-			quotes_verif(&sh->line[sh->i], quote, false);
-		else if (sh->line[sh->i] == '$')
-		{
-			ft_get_env_size(str, &sh->line[sh->i], (*quote), &sh->i);
-			sh->env = start;
-		}
-		else if (!ft_isspace(sh->line[sh->i]) || (*quote != NONE))
-			len++;
-		sh->i++;
-	}
-	str = ft_calloc(sizeof(char) * (len + 1));
-	return (str);
-}
-
-static void	writeword(t_shell *sh, char *word, t_quote *quote)
-{
-	int	k;
+	int		k;
+	t_quote	quote;
 
 	k = 0;
 	while (sh->line[(sh->i)] && ((!ft_isdelim(sh->line[(sh->i)]) && !ft_isspace(sh->line[(sh->i)]))
-			|| (*quote) == SIMPLE || (*quote) == DOUBLE))
+			|| (*quote) == SINGLE || (*quote) == DOUBLE))
 	{
-		if (quotes_usecase(sh->line[sh->i], quote))
-			quotes_verif(&sh->line[(sh->i)++], quote, true);
+		if (word[sh->i] == '\"' || word[sh->i] == '\'')
+			quote_verif(word[sh->i], &quote);
 		else if (sh->line[sh->i] == '$')
 			ft_write_env(&sh->line[sh->i], &k, word, quote);
 		else
@@ -68,32 +43,40 @@ static void	writeword(t_shell *sh, char *word, t_quote *quote)
 		(sh->i)++;
 	word[k] = '\0';
 }
+// Fixed
+static char	*allocword(char	*word, t_list *env)
+{
+	size_t	i;
+	size_t	len;
+	t_quote	quote;
+
+	i = 0;
+	len = 0;
+	quote = NONE;
+	while (word[i] && !(!quote && (ft_isdelim(word[i])
+				|| ft_isspace(word[i]))))
+	{
+		if (word[i] == '\"' || word[i] == '\'')
+			quote_verif(word[i], &quote);
+		else if (word[i] == '$' && quote != SINGLE)
+		{
+			len += ft_get_env_size(word, &i, env, quote);
+			continue ;
+		}
+		else
+			len++;
+		i++;
+	}
+	return (ft_calloc(len + 1));
+}
 
 char	*ft_cpyword(t_shell *sh)
 {
 	char	*word;
 
-	word = allocword(sh);
+	word = allocword(sh->line, sh->env);
 	if (!word)
 		return (NULL);
-	writeword(sh, word, &quote);
+	writeword(sh, word);
 	return (word);
-}
-
-static char	*allocword(t_shell *sh)
-{
-	size_t	len;
-	t_quote	quote;
-
-	len = 0;
-	while (sh->line[sh->i] && !(!quote && (ft_isdelim(sh->line[sh->i])
-				|| ft_isspace(sh->line[sh->i]))))
-	{
-		quote_verif(sh->line[sh->i], &quote);
-		if (sh->line[sh->i] == '$')
-			len += ft_get_env_size(sh->line, sh->env, quote);
-		len++;
-		sh->i++;
-	}
-	return (ft_calloc(len + 1));
 }

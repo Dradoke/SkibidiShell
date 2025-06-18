@@ -39,7 +39,7 @@ enum
 typedef enum e_quote
 {
 	NONE,
-	SIMPLE,		// '
+	SINGLE,		// '
 	DOUBLE,		// "
 }	t_quote;
 
