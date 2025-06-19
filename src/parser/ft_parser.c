@@ -18,9 +18,9 @@ static void	set_last_redir(t_cmd *tcmd)
 	t_redir	*tredir;
 
 	lredir = tcmd->redir;
-	tredir = lredir->content;
-	while (lredir->next)
+	while (lredir)
 	{
+		tredir = lredir->content;
 		if (tredir->type == INFILE
 			|| tredir->type == HEREDOC)
 			tcmd->last_redir[INPUT] = tredir;
@@ -31,51 +31,37 @@ static void	set_last_redir(t_cmd *tcmd)
 	}
 }
 
-static void	new_command(t_shell *sh)
-{
-	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
-	while (sh->line[sh->i] != '|')
-	{
-		while (ft_isspace(sh->line[sh->i]))
-			sh->i++;
-		if (ft_isdelim(sh->line[sh->i]))
-			ft_addredir(sh, sh->cmd->content);
-		sh++;
-	}
-	if (((t_cmd *)sh->cmd->content)->redir)
-		set_last_redir(sh->cmd->content);
-}
-
-static void	manage_first_cmd(t_shell *sh)
+static void	parse_command(t_shell *sh)
 {
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
-		ft_skipspace(sh->line, &sh->i);
-		if (ft_isdelim(sh->line[sh->i]))
-			ft_addredir(sh, sh->cmd->content);
+		if (ft_isdelim(sh->line[sh->i]) && sh->line[sh->i] != '|')
+			ft_addredir(sh, ft_lstlast(sh->cmd)->content);
 		else if (ft_isprint(sh->line[sh->i]))
-			ft_addarg(sh, sh->cmd->content);
-		if (sh->line[sh->i])
-			sh->i++;
+			ft_addarg(sh, ft_lstlast(sh->cmd)->content);
+		ft_skipspace(sh->line, &sh->i);
 	}
-	if (((t_cmd *)sh->cmd->content)->redir)
-		set_last_redir(sh->cmd->content);
+	if (((t_cmd *)ft_lstlast(sh->cmd)->content)->redir)
+		set_last_redir(ft_lstlast(sh->cmd)->content);
 }
 
 t_list	*ft_parser(t_shell *sh)
 {
-	manage_first_cmd(sh);
+	parse_command(sh);
 	while (sh->line[sh->i])
 	{
 		ft_skipspace(sh->line, &sh->i);
 		if (sh->line[sh->i] == '|')
 		{
 			sh->i++;
-			if (!sh->cmd->index)
+			ft_skipspace(sh->line, &sh->i);
+			if (sh->line[sh->i] == '\0')
+			{
 				perror("SkibidiShell: syntax error near unexpected token '|'");
-			else
-				new_command(sh);
+				return (NULL);
+			}
+			parse_command(sh);
 		}
 	}
 	return (sh->cmd);

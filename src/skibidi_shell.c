@@ -13,14 +13,6 @@
 #include "skibidi_shell.h"
 #include <errno.h>
 
-char	*skipspacestr(char *str)
-{
-	size_t	i;
-	i = 0;
-	ft_skipspace(str, &i);
-	return (&str[i]);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
