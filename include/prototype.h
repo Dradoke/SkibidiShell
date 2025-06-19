@@ -29,6 +29,7 @@ void	ft_addarg(t_shell *sh, t_cmd *tcmd);
 
 char	*ft_cpyword(t_shell *sh);
 
-size_t	ft_get_env_size(char *word, size_t *i, t_list *env, t_quote quote);
+size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
+bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
 
 #endif

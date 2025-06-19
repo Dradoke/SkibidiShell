@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2024/12/21 21:42:42 by mavander          #+#    #+#             */
+/*   Updated: 2024/12/21 21:42:42 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "skibidi_shell.h"
+#include "libft.h"
 
-void	ft_skipspace(char *str, size_t *i)
+char	*ft_strcpy(char *dest, char *src)
 {
-    while (ft_isspace(str[*i]))
-        (*i)++;
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

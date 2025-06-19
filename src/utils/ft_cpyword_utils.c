@@ -29,7 +29,7 @@ static size_t	get_key_len(char *s)
 }
 
 // Fixed
-t_env	*search_env(t_list *env, char *key, int key_len)
+t_env	*search_env(char *key, t_list *env, int key_len)
 {
 	t_list	*cur;
 	t_env	*env_var;
@@ -52,61 +52,41 @@ t_env	*search_env(t_list *env, char *key, int key_len)
 }
 
 // Fixed
-size_t	ft_get_env_size(char *word, size_t *i, t_list *env, t_quote quote)
+size_t	ft_get_env_size(char *key, size_t *i, t_list *env)
 {
 	int		key_len;
 	t_env	*env_var;
 
-	*i++;
-	if (!word[1] || ft_isspace(word[1]))
+	(*i)++;
+	if (!key[1] || ft_isspace(key[1]) || ft_isdelim(key[1]))
 		return (1);
-	if (word[1] == '?')
-		return (*i++, ft_strlen(ft_itoa(last_exit_status())));
-	if (word[1] == '$')
-		return (*i++, ft_strlen(ft_itoa(ft_get_pid())));
-	key_len = get_key_len(&word[1]);
-	env_var = search_env(env, &word[1], key_len);
+	if (key[1] == '?')
+		return ((*i)++, 0);
+	if (key[1] == '$')
+		return ((*i)++, 0);
+	key_len = get_key_len(&key[1]);
+	env_var = search_env(&key[1], env, key_len);
 	if (env_var && env_var->value)
 		return (*i += key_len, ft_strlen(env_var->value));
 	return (*i += key_len, 0);
 }
 
-bool	ft_write_env(char *line, int *k, t_word *word, t_quote *quote)
+bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env)
 {
-	int		i;
-	int		j;
-	int		var_len;
+	int		key_len;
 	t_env	*env_var;
-	t_list	*start;
 
-	i = 1;
-	if (ft_isspace(line[i]) || ft_isdelim(line[i]))
-		return (ft_memset(&word->word[(*k)++], '$', 1), (*word->i)++, true);
-	start = word->env;
-	var_len = get_key_len(&line[1]);
-	j = 0;
-	if (ft_isdigit(line[i]))
-		return ((*word->i)++, (*word->j)--);
-	while (word->env)
-	{
-		env_var = (t_env *)word->env->content;
-		if (ft_strncmp_cstm(&line[i], env_var->key, var_len) == 0)
-		{
-			if ((*quote) == SINGLE)
-			{
-				ft_memset(&word->word[(*k)++], '$', 1);
-				while (*k < var_len && env_var->key[j])
-					ft_memset(&word->word[(*k)++], env_var->key[j++], 1);
-			}
-			else if ((*quote) == DOUBLE || (*quote) == NONE)
-			{
-				while (*k < (*word->j) && env_var->value[j])
-					ft_memset(&word->word[(*k)++], env_var->value[j++], 1);
-				*word->i += var_len + 1;
-			}
-			return (word->env = start, j);
-		}
-		word->env = word->env->next;
-	}
-	return ((*word->i) += (var_len + 1), word->env = start, j);
+	(*i)++;
+	if (!src[1] || ft_isspace(src[1]) || ft_isdelim(src[1]))
+		return (dst[0] = '$', 1);
+	if (src[1] == '?')
+		return ((*i)++, 1);
+	if (src[1] == '$')
+		return ((*i)++, 1);
+	key_len = get_key_len(&src[1]);
+	env_var = search_env(&src[1], env, key_len);
+	*i += key_len;
+	if (env_var && env_var->value)
+		ft_strcpy(dst, env_var->value);
+	return (1);
 }

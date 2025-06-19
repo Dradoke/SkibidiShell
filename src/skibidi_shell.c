@@ -23,14 +23,13 @@ char	*skipspacestr(char *str)
 
 int	main(int ac, char **av, char **env)
 {
-	// t_shell	*sh;
+	t_shell	*sh;
 
-	// sh = ft_calloc(sizeof(t_shell));
-	// sh->line = ft_strdup(av[1]);
-	// sh->env = ft_env_to_lst(env);
-	// ft_parser(sh);
-	// print_list(sh->cmd, CMD);
-	printf("%s\n", );
+	sh = ft_calloc(sizeof(t_shell));
+	sh->line = ft_strdup(av[1]);
+	sh->env = ft_env_to_lst(env);
+	ft_parser(sh);
+	print_list(sh->cmd, CMD);
 	(void)ac;
 	(void)av;
 	(void)env;
