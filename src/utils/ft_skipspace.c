@@ -14,6 +14,6 @@
 
 void	ft_skipspace(char *str, size_t *i)
 {
-    while (ft_isspace(str[*i]))
-        (*i)++;
+	while (ft_isspace(str[*i]))
+		(*i)++;
 }

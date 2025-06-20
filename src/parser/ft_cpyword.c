@@ -39,7 +39,7 @@ static void	writeword(t_shell *sh, char *word)
 		{
 			ft_write_env(&sh->line[sh->i], &word[k], &sh->i, sh->env);
 			k += ft_strlen(&word[k]);
-			continue;
+			continue ;
 		}
 		else
 			word[k++] = sh->line[sh->i];
