@@ -20,7 +20,7 @@ static t_redir_type	get_redir_type(char *line, size_t *i)
 		if (line[*i] == '<')
 			return ((*i)++, HEREDOC);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			return ((*i)++, INFILE);
+			return (INFILE);
 	}
 	else if (line[*i] == '>')
 	{
@@ -28,7 +28,7 @@ static t_redir_type	get_redir_type(char *line, size_t *i)
 		if (line[*i] == '>')
 			return ((*i)++, APPEND);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			return ((*i)++, OUTFILE);
+			return (OUTFILE);
 	}
 	return ((t_redir_type) NULL);
 }

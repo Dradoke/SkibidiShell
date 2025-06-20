@@ -41,11 +41,9 @@ t_env	*search_env(char *key, t_list *env, int key_len)
 	{
 		env_var = (t_env *)cur->content;
 		if (env_var && env_var->key)
-		{
 			if (ft_strlen(env_var->key) == (size_t)key_len
 				&& ft_strncmp(env_var->key, key, key_len) == 0)
 				return (env_var);
-		}
 		cur = cur->next;
 	}
 	return (NULL);

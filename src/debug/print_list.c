@@ -64,13 +64,11 @@ void	print_content(t_lstype type, t_list *lst)
 	{
 		printf("Content Type\t\t: REDIRECTION (t_redir)\n");
 		print_redir(lst->content);
-		print_list(lst->next, REDIR);
 	}
 	else if (type == ARG)
 	{
 		printf("Content Type\t\t: ARGUMENT (t_arg)\n");
 		printf("Arg Name\t\t: %s\n", ((t_arg *)lst->content)->name);
-		print_list(lst->next, ARG);
 	}
 }
 

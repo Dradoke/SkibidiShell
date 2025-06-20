@@ -72,7 +72,6 @@ static char	*allocword(char	*word, t_list *env)
 			len++;
 		i++;
 	}
-	printf("%li\n", len + 1);
 	return (ft_calloc(len + 1));
 }
 
@@ -80,6 +79,9 @@ char	*ft_cpyword(t_shell *sh)
 {
 	char	*word;
 
+	ft_skipspace(sh->line, &sh->i);
+	if (ft_isdelim(sh->line[sh->i]))
+		perror("SkibidiShell: syntax error near unexpected token '>'");
 	word = allocword(&sh->line[sh->i], sh->env);
 	if (!word)
 		return (NULL);
