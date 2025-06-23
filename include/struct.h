@@ -28,6 +28,7 @@ typedef enum e_lstype
 	CMD,
 	REDIR,
 	ARG,
+	ENV,
 }	t_lstype;
 
 enum

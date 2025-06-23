@@ -32,4 +32,6 @@ char	*ft_cpyword(t_shell *sh);
 size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
 bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
 
+bool	ft_free_list(t_list	*list, t_lstype type);
+
 #endif

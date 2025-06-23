@@ -12,7 +12,6 @@
 
 #include "skibidi_shell.h"
 
-// DONE
 static t_arg	*argcontent(t_shell *sh)
 {
 	t_arg	*targ;
@@ -22,7 +21,6 @@ static t_arg	*argcontent(t_shell *sh)
 	return (targ);
 }
 
-// UN-FINISHED
 void	ft_addarg(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));

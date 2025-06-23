@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,47 +12,36 @@
 
 #include "skibidi_shell.h"
 
-bool	ft_free_list(t_list	*list, void (*f)(void *))
-{
-	if (!list || !f)
-		return (1);
-	f(list->content);
-	while (list->next)
-	{
-		list = list->next;
-		if (list->content)
-			f(list->content);
-		free(list->prev);
-	}
-	free(list);
-	return (0);
-}
-
-static void	ft_free_redir(void *content)
-{
-	free(((t_redir *)content)->name);
-	free((t_redir *)content);
-}
-
-static void	ft_free_arg(void *content)
-{
-	free(((t_arg *)content)->name);
-	free((t_arg *)content);
-}
-
-static void	ft_free_env(void *content)
-{
-	free(((t_env *)content)->key);
-	free(((t_env *)content)->value);
-	free((t_env *)content);
-}
-
-void	ft_free_cmd(void *content)
+static void	ft_free_content(void *content, t_lstype type)
 {
 	if (!content)
 		return ;
-	ft_free_list(((t_cmd *)content)->redir, ft_free_redir);
-	ft_free_list(((t_cmd *)content)->arg, ft_free_arg);
-	free(((t_cmd *)content)->last_redir);
-	free((t_cmd *)content);
+	if (type == REDIR)
+		free(((t_redir *)content)->name);
+	if (type == ARG)
+		free(((t_arg *)content)->name);
+	if (type == CMD)
+	{
+		ft_free_list(((t_cmd *)content)->redir, REDIR);
+		ft_free_list(((t_cmd *)content)->arg, ARG);
+	}
+	if (type == ENV)
+	{
+		free(((t_env *)content)->key);
+		free(((t_env *)content)->value);
+	}
+	free(content);
+}
+
+bool	ft_free_list(t_list	*list, t_lstype type)
+{
+	while (list)
+	{
+		ft_free_content(list->content, type);
+		free(list->content);
+		list = list->next;
+		free(list->prev);
+	}
+	free(list);
+	return (1);
 }
