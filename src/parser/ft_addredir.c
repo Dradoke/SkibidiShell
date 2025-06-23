@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-// DONE
+
 static t_redir_type	get_redir_type(char *line, size_t *i)
 {
 	if (line[*i] == '<')
@@ -33,7 +33,6 @@ static t_redir_type	get_redir_type(char *line, size_t *i)
 	return ((t_redir_type) NULL);
 }
 
-// DONE
 static t_redir	*redircontent(t_shell *sh)
 {
 	t_redir	*tredir;
@@ -44,7 +43,6 @@ static t_redir	*redircontent(t_shell *sh)
 	return (tredir);
 }
 
-// UN-FINISHED
 void	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
