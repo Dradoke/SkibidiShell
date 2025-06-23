@@ -72,16 +72,7 @@ typedef struct s_cmd
 	t_redir			*last_redir[2];
 }	t_cmd;
 
-typedef struct s_word_info
-{
-	int		*i;
-	int		*j;
-	int		k;
-	char	*word;
-	bool	space;
-}	t_word;
-
-// Environment Variable
+/*Environment variable*/
 typedef struct s_env
 {
 	char			*key;
