@@ -15,6 +15,9 @@
 
 # include <stdbool.h>
 # include <stdio.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "libft.h"
 

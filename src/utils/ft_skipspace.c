@@ -12,63 +12,8 @@
 
 #include "skibidi_shell.h"
 
-static void	free_shell(t_shell *sh)
+void	ft_skipspace(char *str, size_t *i)
 {
-	if (sh->line)
-	{
-		free(sh->line);
-		sh->line = NULL;
-	}
-	if (sh->cmd)
-	{
-		ft_lstclear(&sh->cmd, free);
-		sh->cmd = NULL;
-	}
-	if (sh->env)
-	{
-		ft_lstclear(&sh->env, free);
-		sh->env = NULL;
-	}
-}
-
-static int	process_line(t_shell *sh)
-{
-	if (!sh->line || ft_strlen(sh->line) == 0)
-		return (1);
-	add_history(sh->line);
-	sh->i = 0;
-	if (!ft_parser(sh))
-	{
-		printf("SkibidiShell: parsing error\n");
-		return (1);
-	}
-	print_list(sh->cmd, CMD);
-	return (1);
-}
-
-int	main(int ac, char **av, char **env)
-{
-	t_shell	*sh;
-
-	(void)ac;
-	(void)av;
-	sh = ft_calloc(sizeof(t_shell));
-	if (!sh)
-		return (1);
-	sh->env = ft_env_to_lst(env);
-	while (1)
-	{
-		free_shell(sh);
-		sh->line = readline("SkibidiShell ➜ ");
-		if (!sh->line)
-		{
-			printf("exit\n");
-			break ;
-		}
-		process_line(sh);
-	}
-	free_shell(sh);
-	free(sh);
-	clear_history();
-	return (0);
+	while (ft_isspace(str[*i]))
+		(*i)++;
 }

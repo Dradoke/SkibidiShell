@@ -12,8 +12,9 @@
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include "skibidi_shell.h"
 
-//---ENUMS---//
+//--ENUMS--
 typedef enum e_redir_type
 {
 	INFILE,		// <
@@ -22,13 +23,36 @@ typedef enum e_redir_type
 	APPEND,		// >>
 }	t_redir_type;
 
+typedef enum e_lstype
+{
+	CMD,
+	REDIR,
+	ARG,
+}	t_lstype;
+
 enum
 {
 	INPUT,		// 0
 	OUTPUT,		// 1
 };
 
-//---STRUCTS---//
+typedef enum e_quote
+{
+	NONE,
+	SINGLE,		// '
+	DOUBLE,		// "
+}	t_quote;
+
+//--STRUCTS--
+
+typedef struct s_shell
+{
+	size_t	i;
+	t_list	*cmd;
+	t_list	*env;
+	char	*line;
+}	t_shell;
+
 typedef struct s_redir
 {
 	char			*name;
@@ -48,7 +72,16 @@ typedef struct s_cmd
 	t_redir			*last_redir[2];
 }	t_cmd;
 
-/*Environment variable*/
+typedef struct s_word_info
+{
+	int		*i;
+	int		*j;
+	int		k;
+	char	*word;
+	bool	space;
+}	t_word;
+
+// Environment Variable
 typedef struct s_env
 {
 	char			*key;

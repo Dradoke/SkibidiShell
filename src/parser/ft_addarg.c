@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototype.h                                        :+:      :+:    :+:   */
+/*   ft_addredir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROTOTYPE_H
-# define PROTOTYPE_H
-# include "skibidi_shell.h"
+#include "skibidi_shell.h"
 
-t_list	*ft_env_to_lst(char **envp);
+// DONE
+static t_arg	*argcontent(t_shell *sh)
+{
+	t_arg	*targ;
 
-int		ft_isdelim(int c);
+	targ = ft_calloc(sizeof(t_arg));
+	targ->name = ft_cpyword(sh);
+	return (targ);
+}
 
-void	print_list(t_list *lst, t_lstype type);
-
-t_list	*ft_parser(t_shell *shell);
-
-void	ft_skipspace(char *str, size_t *i);
-
-void	ft_addredir(t_shell *sh, t_cmd *tcmd);
-void	ft_addarg(t_shell *sh, t_cmd *tcmd);
-
-char	*ft_cpyword(t_shell *sh);
-
-size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
-bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
-
-#endif
+// UN-FINISHED
+void	ft_addarg(t_shell *sh, t_cmd *tcmd)
+{
+	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
+}
