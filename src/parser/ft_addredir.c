@@ -11,31 +11,41 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-
-t_redir_type get_redir_type(char *line, int *i)
+// DONE
+static t_redir_type	get_redir_type(char *line, size_t *i)
 {
-	t_redir_type	type;
-
 	if (line[*i] == '<')
 	{
 		(*i)++;
 		if (line[*i] == '<')
-			type = HEREDOC;
+			return ((*i)++, HEREDOC);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = INFILE;
-		else
-			ft_error(FTERR_REDIR, NULL);
+			return (INFILE);
 	}
 	else if (line[*i] == '>')
 	{
 		(*i)++;
 		if (line[*i] == '>')
-			type = APPEND;
+			return ((*i)++, APPEND);
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
-			type = OUTFILE;
-		else
-			ft_error(FTERR_REDIR, NULL);
+			return (OUTFILE);
 	}
-	(*i)++;
-	return (type);
+	return ((t_redir_type) NULL);
+}
+
+// DONE
+static t_redir	*redircontent(t_shell *sh)
+{
+	t_redir	*tredir;
+
+	tredir = ft_calloc(sizeof(t_redir));
+	tredir->type = get_redir_type(sh->line, &sh->i);
+	tredir->name = ft_cpyword(sh);
+	return (tredir);
+}
+
+// UN-FINISHED
+void	ft_addredir(t_shell *sh, t_cmd *tcmd)
+{
+	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
 }

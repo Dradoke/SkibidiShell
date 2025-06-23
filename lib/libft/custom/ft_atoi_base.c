@@ -13,7 +13,8 @@
 #include "libft.h"
 
 // Validates a base string for conversion.
-// Checks for proper length and valid characters (no duplicates or special chars).
+// Checks for proper length and valid characters
+// (no duplicates or special chars).
 // Returns 1 if valid, 0 if invalid.
 int	base_verif(char *base)
 {

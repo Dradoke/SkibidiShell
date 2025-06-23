@@ -17,7 +17,7 @@
 // Returns a malloc'd string that must be freed by the caller when done.
 char	*ft_rand_str(size_t len)
 {
-	int		fd;
+	int				fd;
 	unsigned char	*str;
 
 	fd = open("/dev/urandom", O_RDONLY);

@@ -35,7 +35,8 @@ OBJ				=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 IFLAG			=	$(addprefix -I, $(INC_DIR) $(LIBFT_DIR)/include)
 # Library Flag
 LFLAG			=	$(addprefix -L, $(LIBFT_DIR))
-LIB				=	-lft
+
+LIB				=	-lft -lreadline
 
 # All Target
 all: $(LIBFT) $(NAME)
