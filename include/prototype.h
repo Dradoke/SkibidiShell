@@ -18,7 +18,7 @@ t_list	*ft_env_to_lst(char **envp);
 
 int	ft_isdelim(int c);
 // UTILS
-bool	ft_cpyword(char *line, int *i, t_list *env);
+char	*ft_cpyword(char *line, int *i, t_list *env);
 int	ft_get_env_size(t_word *word, char *line, t_quotes_verif quotes, int *i);
 bool	ft_write_env(char *line, int *k, t_word *word, t_quotes_verif *quotes);
 int	ft_strncmp_cstm(const char *s1, const char *s2, size_t n);
