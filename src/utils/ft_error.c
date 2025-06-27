@@ -15,7 +15,7 @@
 void	ft_error(char *err, t_list *cmd)
 {
 	if (cmd)
-		ft_free_list(cmd, CMD);
+		ft_lstclear(&cmd, ft_free_tenv);
 	if (err)
 		ft_printf("%s\n", err);
 }

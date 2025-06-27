@@ -32,6 +32,9 @@ char	*ft_cpyword(t_shell *sh);
 size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
 bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
 
-bool	ft_free_list(t_list	*list, t_lstype type);
+void	ft_free_targ(void *targ);
+void	ft_free_tredir(void *tredir);
+void	ft_free_tenv(void *tenv);
+void	ft_free_tcmd(void *tcmd);
 
 #endif
