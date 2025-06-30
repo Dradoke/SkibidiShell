@@ -1,39 +1,13 @@
 {
-   <readline_leak_1>
-   Memcheck:Leak
-   match-leak-kinds: definite,possible
-   fun:malloc
-   fun:xmalloc
-   fun:rl_resize_keymap
-   fun:rl_generic_bind
-   fun:rl_initialize
+    ignore_libreadline_leaks
+    Memcheck:Leak
+    match-leak-kinds: reachable
+    ...
+    obj:*/libreadline.so.*
 }
 {
-   <readline_leak_2>
-   Memcheck:Leak
-   match-leak-kinds: definite,possible
-   fun:malloc
-   fun:xmalloc
-   fun:make_history_entry
-   fun:add_history
-}
-{
-   <readline_leak_3>
-   Memcheck:Leak
-   match-leak-kinds: definite,possible
-   fun:malloc
-   fun:xmalloc
-   fun:rl_add_undo
-   fun:rl_insert_text
-   fun:readline
-}
-{
-   <readline_leak_4>
-   Memcheck:Leak
-   match-leak-kinds: definite,possible
-   fun:realloc
-   fun:xrealloc
-   fun:add_history_line
-   fun:add_history
-   fun:readline
+    std
+    Memcheck:Leak
+    ...
+    obj:*/bin/*
 }
