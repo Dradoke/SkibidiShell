@@ -32,4 +32,17 @@ char	*ft_cpyword(t_shell *sh);
 size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
 bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
 
+
+/* Builtins */
+int	ft_echo(t_list *args, t_env **env);
+int	ft_cd(t_list *args, t_env **env);
+int	ft_pwd(t_list *args, t_env **env);
+int	ft_export(t_list *args, t_env **env);
+int	ft_unset(t_list *args, t_env **env);
+int	ft_env(t_list *args, t_env **env);
+int	ft_exit(t_list *args, t_env **env);
+
+unsigned long hash_key(const char *s);
+int get_tabindex(unsigned long hash);
+
 #endif
