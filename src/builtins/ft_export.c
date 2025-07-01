@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
-
-# include "libft.h"
-
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
-
-
-/* builtins */
-
-# define OFFSET 32
-# define PRIME 23
-# define TABLE_SIZE 16
-#endif
+int ft_export(t_list *args, t_env **env)
+{
+	(void)args;
+	(void)env;
+	return (0);
+}

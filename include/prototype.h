@@ -63,4 +63,17 @@ t_bool				ft_skipspace(char *str, size_t *i);
 size_t				ft_get_env_size(t_shell *sh, char *src, size_t *i);
 t_bool				ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 /*████████████████████████████████████████████████████████████████████████████*/
+
+/* Builtins */
+int	ft_echo(t_list *args, t_env **env);
+int	ft_cd(t_list *args, t_env **env);
+int	ft_pwd(t_list *args, t_env **env);
+int	ft_export(t_list *args, t_env **env);
+int	ft_unset(t_list *args, t_env **env);
+int	ft_env(t_list *args, t_env **env);
+int	ft_exit(t_list *args, t_env **env);
+
+unsigned long hash_key(const char *s);
+int get_tabindex(unsigned long hash);
+
 #endif

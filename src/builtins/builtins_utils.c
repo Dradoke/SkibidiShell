@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
+unsigned long hash_key(const char *s)
+{
+	unsigned long hash;
+	int i;
 
-# include "libft.h"
+	if (!s)
+		return (0);
+	i = 0;
+	hash = OFFSET;
+	while (s[i])
+	{
+		hash ^= s[i++];
+		hash *= PRIME;
+	}
+	return (hash);
+}
 
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
+int get_tabindex(unsigned long hash)
+{
+	int index;
 
-
-/* builtins */
-
-# define OFFSET 32
-# define PRIME 23
-# define TABLE_SIZE 16
-#endif
+	index = hash & (TABLE_SIZE - 1);
+	return (index);
+}
