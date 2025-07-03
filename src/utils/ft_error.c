@@ -12,10 +12,10 @@
 
 #include "skibidi_shell.h"
 
-void	ft_error(char *err, t_list *cmd)
-{
-	if (cmd)
-		ft_lstclear(&cmd, ft_free_tenv);
-	if (err)
-		ft_printf("%s\n", err);
-}
+// void	ft_error(t_shell *sh)
+// {
+// 	if (cmd)
+// 		ft_lstclear(&cmd, ft_free_tenv);
+// 	if (err)
+// 		ft_printf("%s\n", err);
+// }

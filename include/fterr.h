@@ -14,5 +14,7 @@
 # define FTERR_H
 
 # define FTERR_REDIR "Error: Wrong redirection syntax!"
+# define FTERR_SQUOTE "unexpected EOF while looking for matching single quote"
+# define FTERR_DQUOTE "unexpected EOF while looking for matching double quote"
 
 #endif

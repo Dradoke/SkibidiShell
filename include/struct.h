@@ -46,12 +46,20 @@ typedef enum e_quote
 
 //--STRUCTS--
 
+typedef struct s_err
+{
+	bool	b;
+	int		code;
+	char	*msg;
+}	t_err;
+
 typedef struct s_shell
 {
 	size_t	i;
 	t_list	*cmd;
 	t_list	*env;
 	char	*line;
+	t_err	err;
 }	t_shell;
 
 typedef struct s_env

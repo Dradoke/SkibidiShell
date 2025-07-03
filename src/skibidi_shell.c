@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "skibidi_shell.h"
 
 static void	free_shell(t_shell *sh)
@@ -33,10 +30,7 @@ static int	process_line(t_shell *sh)
 	add_history(sh->line);
 	sh->i = 0;
 	if (!ft_parser(sh))
-	{
-		printf("SkibidiShell: parsing error\n");
 		return (1);
-	}
 	print_list(sh->cmd, CMD);
 	return (1);
 }
@@ -48,6 +42,19 @@ void	sigint_handler(int sig)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+int loop_shell(t_shell *sh)
+{
+	free_shell(sh);
+	sh->line = readline("SkibidiShell ➜ ");
+	if (!sh->line)
+	{
+		ft_printf("Leaving SkibidiShell...\n");
+		return (1);
+	}
+	process_line(sh);
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -63,16 +70,8 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	sh->env = ft_env_to_lst(env);
 	while (1)
-	{
-		free_shell(sh);
-		sh->line = readline("SkibidiShell ➜ ");
-		if (!sh->line)
-		{
-			printf("exit\n");
+		if (loop_shell(sh))
 			break ;
-		}
-		process_line(sh);
-	}
 	ft_lstclear(&sh->env, ft_free_tenv);
 	free(sh);
 	clear_history();
