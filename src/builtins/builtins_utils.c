@@ -12,10 +12,11 @@
 
 #include "skibidi_shell.h"
 
-unsigned long hash_key(const char *s)
+/* FNV1 hashing function */
+unsigned long	hash_key(const char *s)
 {
-	unsigned long hash;
-	int i;
+	unsigned long	hash;
+	int				i;
 
 	if (!s)
 		return (0);
@@ -29,10 +30,42 @@ unsigned long hash_key(const char *s)
 	return (hash);
 }
 
-int get_tabindex(unsigned long hash)
+int	get_tabindex(unsigned long hash)
 {
-	int index;
+	int	index;
 
 	index = hash & (TABLE_SIZE - 1);
 	return (index);
+}
+
+static void	add_builtins(t_builtins **builtins)
+{
+	int i;
+	static char	*builtins_name[7] = {
+	{"cd"},
+	{"echo"},
+	{"env"},
+	{"exit"},
+	{"export"},
+	{"pwd"},
+	{"unset"}
+	};
+
+	i = 0;
+	while (i < 7)
+	{
+		
+	}
+	
+}
+
+t_builtins	*builtins_init(void)
+{
+	t_builtins	*builtins;
+
+	builtins = ft_calloc(sizeof(t_builtins) * TABLE_SIZE);
+	if (!builtins)
+		return (NULL);
+	add_builtins(builtins);
+	return (builtins);
 }

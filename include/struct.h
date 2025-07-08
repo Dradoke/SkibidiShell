@@ -93,5 +93,18 @@ typedef struct s_cmd
 	t_list			*arg;
 	t_redir			*last_redir[2];
 }	t_cmd;
-/*████████████████████████████████████████████████████████████████████████████*/
+
+// Environment Variable
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+}	t_env;
+
+typedef struct s_builtins
+{
+	char	*name;
+	int (*fn)(t_list *args, t_env *env);
+}	t_builtins;
+
 #endif
