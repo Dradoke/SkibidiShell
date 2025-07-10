@@ -75,5 +75,7 @@ int	ft_exit(t_list *args, t_env **env);
 
 unsigned long hash_key(const char *s);
 int get_tabindex(unsigned long hash);
+t_builtins	*builtins_init(void);
+bool	is_builtins(char *cmd, t_builtins *builtins);
 
 #endif
