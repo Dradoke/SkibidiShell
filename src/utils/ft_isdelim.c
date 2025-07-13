@@ -12,6 +12,8 @@
 
 #include "skibidi_shell.h"
 
+// Checks if a char is whether a < > |
+// Returns 1 if it is, 0 if not
 int	ft_isdelim(int c)
 {
 	if (c == '<' || c == '>' || c == '|')

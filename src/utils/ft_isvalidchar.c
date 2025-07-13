@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_isvalidchar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,43 +12,4 @@
 
 #include "skibidi_shell.h"
 
-int	ft_isinvalidchar(int c)
-{
-	if (c == ';' || c == '&' || c == '(' || c == ')' 
-		|| c == '\\' || c == '*' || c == '?' 
-		|| c == '[' || c == ']' || c == '{' || c == '}')
-		return (1);
-	return (0);
-}
 
-void	ft_seterror(t_shell *sh, char *msg, int code)
-{
-	sh->err.b = 1;
-	if (sh->err.msg)
-		free(sh->err.msg);
-	sh->err.msg = ft_strdup(msg);
-	sh->err.code = code;
-}
-
-void	ft_clearerror(t_shell *sh)
-{
-	if (sh->err.msg)
-	{
-		free(sh->err.msg);
-		sh->err.msg = NULL;
-	}
-	sh->err.b = 0;
-	sh->err.code = 0;
-}
-
-int	ft_puterror(t_shell *sh)
-{
-	if (sh->err.b)
-	{
-		ft_printf("SkibidiERROR: %s\n", sh->err.msg);
-		sh->last_err = sh->err.code;
-		ft_clearerror(sh);
-		return (sh->last_err);
-	}
-	return (0);
-}

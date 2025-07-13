@@ -15,6 +15,7 @@
 # include "skibidi_shell.h"
 
 //--ENUMS--
+
 typedef enum e_redir_type
 {
 	INFILE,		// <
@@ -60,6 +61,7 @@ typedef struct s_shell
 	t_list	*env;
 	char	*line;
 	t_err	err;
+	int		last_err;
 }	t_shell;
 
 typedef struct s_env

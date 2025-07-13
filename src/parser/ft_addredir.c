@@ -38,12 +38,19 @@ static t_redir	*redircontent(t_shell *sh)
 	t_redir	*tredir;
 
 	tredir = ft_calloc(sizeof(t_redir));
+	if (!tredir)
+		return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 	tredir->type = get_redir_type(sh->line, &sh->i);
 	tredir->name = ft_cpyword(sh);
+	if (!tredir->name)
+		return (NULL);
 	return (tredir);
 }
 
-void	ft_addredir(t_shell *sh, t_cmd *tcmd)
+bool	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
+	if (!ft_lstlast(tcmd->redir)->content)
+		return (0);
+	return (1);
 }

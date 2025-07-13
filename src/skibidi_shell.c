@@ -21,17 +21,17 @@ static void	free_shell(t_shell *sh)
 	}
 	if (sh->cmd)
 		ft_lstclear(&sh->cmd, ft_free_tcmd);
+	ft_clearerror(sh);
 }
 
 static int	process_line(t_shell *sh)
 {
-	if (!sh->line || ft_strlen(sh->line) == 0)
+	if (ft_strlen(sh->line) == 0)
 		return (1);
 	add_history(sh->line);
 	sh->i = 0;
 	if (!ft_parser(sh))
-		return (1);
-	print_list(sh->cmd, CMD);
+		return (0);
 	return (1);
 }
 
@@ -49,12 +49,11 @@ int loop_shell(t_shell *sh)
 	free_shell(sh);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
-	{
-		ft_printf("Leaving SkibidiShell...\n");
-		return (1);
-	}
-	process_line(sh);
-	return (0);
+		return (ft_printf("Leaving SkibidiShell...\n"), 0);
+	if (!process_line(sh))
+		return (ft_puterror(sh), 1);
+	print_list(sh->cmd, CMD);
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -68,9 +67,9 @@ int	main(int ac, char **av, char **env)
 	sh = ft_calloc(sizeof(t_shell));
 	if (!sh)
 		return (1);
-	sh->env = ft_env_to_lst(env);
+	sh->env = ft_env_to_lst(sh, env);
 	while (1)
-		if (loop_shell(sh))
+		if (!loop_shell(sh))
 			break ;
 	ft_lstclear(&sh->env, ft_free_tenv);
 	free(sh);

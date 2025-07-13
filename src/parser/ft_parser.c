@@ -31,24 +31,32 @@ static void	set_last_redir(t_cmd *tcmd)
 	}
 }
 
-static void	parse_command(t_shell *sh)
+static bool	parse_command(t_shell *sh)
 {
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
 		if (ft_isdelim(sh->line[sh->i]) && sh->line[sh->i] != '|')
-			ft_addredir(sh, ft_lstlast(sh->cmd)->content);
+		{
+			if (!ft_addredir(sh, ft_lstlast(sh->cmd)->content))
+				return (0);
+		}
 		else if (ft_isprint(sh->line[sh->i]))
-			ft_addarg(sh, ft_lstlast(sh->cmd)->content);
+		{
+			if (!ft_addarg(sh, ft_lstlast(sh->cmd)->content))
+				return (0);
+		}
 		ft_skipspace(sh->line, &sh->i);
 	}
 	if (((t_cmd *)ft_lstlast(sh->cmd)->content)->redir)
 		set_last_redir(ft_lstlast(sh->cmd)->content);
+	return (1);
 }
 
 t_list	*ft_parser(t_shell *sh)
 {
-	parse_command(sh);
+	if (!parse_command(sh))
+		return (NULL);
 	while (sh->line[sh->i])
 	{
 		ft_skipspace(sh->line, &sh->i);
@@ -57,10 +65,7 @@ t_list	*ft_parser(t_shell *sh)
 			sh->i++;
 			ft_skipspace(sh->line, &sh->i);
 			if (sh->line[sh->i] == '\0')
-			{
-				perror("SkibidiShell: syntax error near unexpected token '|'");
-				return (NULL);
-			}
+				return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
 			parse_command(sh);
 		}
 	}

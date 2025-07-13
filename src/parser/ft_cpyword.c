@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-// FIXED
+
 static void	quote_verif(char c, t_quote *quote)
 {
 	if (c == '\"' && *quote == NONE)
@@ -23,7 +23,7 @@ static void	quote_verif(char c, t_quote *quote)
 		*quote = NONE;
 }
 
-static void	writeword(t_shell *sh, char *word)
+static int	writeword(t_shell *sh, char *word)
 {
 	int		k;
 	t_quote	quote;
@@ -33,11 +33,11 @@ static void	writeword(t_shell *sh, char *word)
 	while (sh->line[sh->i] && !(!quote && (ft_isdelim(sh->line[sh->i])
 				|| ft_isspace(sh->line[sh->i]))))
 	{
-		if (sh->line[sh->i] == '\"' || sh->line[sh->i] == '\'')
-			quote_verif(sh->line[sh->i], &quote);
-		else if (sh->line[sh->i] == '$' && quote != SINGLE)
+		quote_verif(sh->line[sh->i], &quote);
+		if (sh->line[sh->i] == '$' && quote != SINGLE)
 		{
-			ft_write_env(&sh->line[sh->i], &word[k], &sh->i, sh->env);
+			if (!ft_write_env(&sh->line[sh->i], &word[k], &sh->i, sh->env))
+				return (0);
 			k += ft_strlen(&word[k]);
 			continue ;
 		}
@@ -46,10 +46,10 @@ static void	writeword(t_shell *sh, char *word)
 		sh->i++;
 	}
 	word[k] = '\0';
+	return (1);
 }
 
-// Fixed
-static char	*allocword(char	*word, t_list *env)
+static char	*allocword(t_shell *sh, char *word, t_list *env)
 {
 	size_t	i;
 	size_t	len;
@@ -61,8 +61,9 @@ static char	*allocword(char	*word, t_list *env)
 	while (word[i] && !(!quote && (ft_isdelim(word[i])
 				|| ft_isspace(word[i]))))
 	{
-		if (word[i] == '\"' || word[i] == '\'')
-			quote_verif(word[i], &quote);
+		quote_verif(word[i], &quote);
+		if (quote == NONE && ft_isinvalidchar(word[i]))
+			return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
 		else if (word[i] == '$' && quote != SINGLE)
 		{
 			len += ft_get_env_size(word, &i, env);
@@ -72,6 +73,8 @@ static char	*allocword(char	*word, t_list *env)
 			len++;
 		i++;
 	}
+	if (quote != NONE)
+		return (ft_seterror(sh, FTERR_QUOTE, 2), NULL);
 	return (ft_calloc(len + 1));
 }
 
@@ -81,10 +84,11 @@ char	*ft_cpyword(t_shell *sh)
 
 	ft_skipspace(sh->line, &sh->i);
 	if (ft_isdelim(sh->line[sh->i]))
-		perror("SkibidiShell: syntax error near unexpected token '>'");
-	word = allocword(&sh->line[sh->i], sh->env);
+		return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
+	word = allocword(sh, &sh->line[sh->i], sh->env);
 	if (!word)
-		return (NULL);
-	writeword(sh, word);
+		return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
+	if (!writeword(sh, word))
+		return (free(word), NULL);
 	return (word);
 }
