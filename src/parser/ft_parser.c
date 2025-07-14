@@ -33,23 +33,22 @@ static void	set_last_redir(t_cmd *tcmd)
 
 static bool	parse_command(t_shell *sh)
 {
+	t_cmd	*newcmd;
+
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
+	newcmd = ft_lstlast(sh->cmd)->content;
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
-		if (ft_isdelim(sh->line[sh->i]) && sh->line[sh->i] != '|')
-		{
-			if (!ft_addredir(sh, ft_lstlast(sh->cmd)->content))
-				return (0);
-		}
-		else if (ft_isprint(sh->line[sh->i]))
-		{
-			if (!ft_addarg(sh, ft_lstlast(sh->cmd)->content))
-				return (0);
-		}
+		if (ft_isdelim(sh->line[sh->i])
+			&& !ft_addredir(sh, newcmd))
+			return (0);
+		else if (ft_isprint(sh->line[sh->i])
+				&& !ft_addarg(sh, newcmd))
+			return (0);
 		ft_skipspace(sh->line, &sh->i);
 	}
-	if (((t_cmd *)ft_lstlast(sh->cmd)->content)->redir)
-		set_last_redir(ft_lstlast(sh->cmd)->content);
+	if (((t_cmd *)newcmd)->redir)
+		set_last_redir(newcmd);
 	return (1);
 }
 
