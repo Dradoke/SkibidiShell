@@ -27,13 +27,13 @@ static void	free_shell(t_shell *sh)
 static int	process_line(t_shell *sh)
 {
 	if (ft_strlen(sh->line) == 0)
-		return (1);
+		return (false);
 	add_history(sh->line);
 	sh->i = 0;
 	if (!ft_parser(sh))
-		return (0);
+		return (false);
 	print_list(sh->cmd, CMD);
-	return (1);
+	return (true);
 }
 
 void	sigint_handler(int sig)
@@ -45,8 +45,8 @@ void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-int loop_shell(t_shell *sh)
- {
+int	loop_shell(t_shell *sh)
+{
 	free_shell(sh);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
@@ -59,8 +59,7 @@ int loop_shell(t_shell *sh)
 int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
-	
-	// Shell Init
+
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
@@ -69,11 +68,9 @@ int	main(int ac, char **av, char **env)
 	if (!sh)
 		return (1);
 	sh->env = ft_env_to_lst(sh, env);
-	// Shell Loop
 	while (1)
 		if (!loop_shell(sh))
 			break ;
-	// Free All
 	ft_lstclear(&sh->env, ft_free_tenv);
 	free(sh);
 	clear_history();

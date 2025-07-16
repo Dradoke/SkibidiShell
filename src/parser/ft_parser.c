@@ -35,38 +35,47 @@ static bool	parse_command(t_shell *sh)
 {
 	t_cmd	*newcmd;
 
+	ft_skipspace(sh->line, &sh->i);
+	if (!sh->line[sh->i])
+		return (ft_seterror(sh, FTERR_SYNTAX, 2), false);
+	if (sh->line[sh->i] == '|')
+		return (ft_seterror(sh, FTERR_SYNTAX, 2), false);
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	newcmd = ft_lstlast(sh->cmd)->content;
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
+		ft_skipspace(sh->line, &sh->i);
+		if (sh->line[sh->i] == '|')
+			break ;
 		if (ft_isdelim(sh->line[sh->i])
 			&& !ft_addredir(sh, newcmd))
-			return (0);
-		else if (ft_isprint(sh->line[sh->i])
-				&& !ft_addarg(sh, newcmd))
-			return (0);
-		ft_skipspace(sh->line, &sh->i);
+			return (false);
+		else if (!ft_isspace(sh->line[sh->i]) && ft_isprint(sh->line[sh->i])
+			&& !ft_addarg(sh, newcmd))
+			return (false);
 	}
-	if (((t_cmd *)newcmd)->redir)
+	if (!newcmd->arg)
+		return (ft_seterror(sh, FTERR_SYNTAX, 2), false);
+	if (newcmd->redir)
 		set_last_redir(newcmd);
-	return (1);
+	return (true);
 }
 
-t_list	*ft_parser(t_shell *sh)
+bool	ft_parser(t_shell *sh)
 {
-	if (!parse_command(sh))
-		return (NULL);
+	ft_skipspace(sh->line, &sh->i);
+	if (!sh->line[sh->i])
+		return (false);
 	while (sh->line[sh->i])
 	{
-		ft_skipspace(sh->line, &sh->i);
+		if (!parse_command(sh))
+			return (false);
 		if (sh->line[sh->i] == '|')
 		{
 			sh->i++;
-			ft_skipspace(sh->line, &sh->i);
-			if (sh->line[sh->i] == '\0')
-				return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
-			parse_command(sh);
+			if (!sh->line[sh->i])
+				return (ft_seterror(sh, FTERR_SYNTAX, 2), false);
 		}
 	}
-	return (sh->cmd);
+	return (true);
 }

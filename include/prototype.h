@@ -21,9 +21,9 @@ int		ft_isinvalidchar(int c);
 
 void	print_list(t_list *lst, t_lstype type);
 
-t_list	*ft_parser(t_shell *shell);
+bool	ft_parser(t_shell *sh);
 
-void	ft_skipspace(char *str, size_t *i);
+bool	ft_skipspace(char *str, size_t *i);
 
 bool	ft_addredir(t_shell *sh, t_cmd *tcmd);
 bool	ft_addarg(t_shell *sh, t_cmd *tcmd);

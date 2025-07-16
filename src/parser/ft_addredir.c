@@ -51,6 +51,6 @@ bool	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
 	if (!ft_lstlast(tcmd->redir)->content)
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
