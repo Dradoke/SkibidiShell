@@ -65,10 +65,7 @@ static char	*allocword(t_shell *sh, char *word, t_list *env)
 		if (quote == NONE && ft_isinvalidchar(word[i]))
 			return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
 		else if (word[i] == '$' && quote != SINGLE)
-		{
-			len += ft_get_env_size(word, &i, env);
-			continue ;
-		}
+			len += ft_get_env_size(&word[i +1], &i, env);
 		else
 			len++;
 		i++;

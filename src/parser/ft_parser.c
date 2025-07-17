@@ -44,8 +44,7 @@ static bool	parse_command(t_shell *sh)
 	newcmd = ft_lstlast(sh->cmd)->content;
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
 	{
-		ft_skipspace(sh->line, &sh->i);
-		if (sh->line[sh->i] == '|')
+		if (ft_skipspace(sh->line, &sh->i) && sh->line[sh->i] == '|')
 			break ;
 		if (ft_isdelim(sh->line[sh->i])
 			&& !ft_addredir(sh, newcmd))

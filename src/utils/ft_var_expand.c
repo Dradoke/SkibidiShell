@@ -11,7 +11,12 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-// Fixed
+
+// Returns the len of a string
+// Complying with the rules of env variables format rules
+// 1st char has to be alphabetic OR an underscore '_'
+// The rest has to be either alphanumeric or underscores
+// If an invalid char is encountered, len until this char will be returned
 static size_t	get_key_len(char *s)
 {
 	size_t	i;
@@ -28,39 +33,44 @@ static size_t	get_key_len(char *s)
 	return (i);
 }
 
-// Fixed
-t_env	*search_env(char *key, t_list *env, int key_len)
+// Searches the string {key} up until the {key_len}th char in the t_list env
+// Returns the t_env where the KEY is identical
+// Returns NULL if not found
+t_env	*search_env(char *key, size_t key_len, t_list *env)
 {
-	t_list	*cur;
 	t_env	*env_var;
 
-	if (!env || !key || key_len <= 0)
+	if (!key || !env || key_len <= 0)
 		return (NULL);
-	cur = env;
-	while (cur)
+	while (env)
 	{
-		env_var = (t_env *)cur->content;
+		env_var = (t_env *)env->content;
 		if (env_var && env_var->key)
 			if (ft_strlen(env_var->key) == (size_t)key_len
 				&& ft_strncmp(env_var->key, key, key_len) == 0)
 				return (env_var);
-		cur = cur->next;
+		env = env->next;
 	}
 	return (NULL);
 }
 
-// Fixed
-size_t	ft_get_env_size(char *key, size_t *i, t_list *env)
+// Counts the size of the value assigned to the specified key in t_list env
+//
+// We use {key} to find the corresponding value
+// We search for it in the {env} linked list of type t_list
+// Increases {i} by the {key}'s length (excluding $)
+//
+// Returns the {key}'s value length
+size_t	ft_get_env_size(char *key, t_list *env, size_t *i)
 {
 	int		key_len;
 	t_env	*env_var;
 
-	(*i)++;
-	if (!key[1] || ft_isspace(key[1]) || ft_isdelim(key[1]))
+	if (!key[0] || ft_isspace(key[1]) || ft_isdelim(key[1]))
 		return (1);
-	if (key[1] == '?')
+	if (key[0] == '?')
 		return ((*i)++, 0);
-	if (key[1] == '$')
+	if (key[0] == '$')
 		return ((*i)++, 0);
 	key_len = get_key_len(&key[1]);
 	env_var = search_env(&key[1], env, key_len);
@@ -69,7 +79,8 @@ size_t	ft_get_env_size(char *key, size_t *i, t_list *env)
 	return (*i += key_len, 0);
 }
 
-bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env)
+// Writes the value assigned to the key following in src
+bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i, t_list *env)
 {
 	int		key_len;
 	t_env	*env_var;
