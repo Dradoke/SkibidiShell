@@ -86,6 +86,7 @@ float	ft_degtorad(float deg);
 float	ft_radtodeg(float rad);
 int		ft_abs(int x);
 char	*ft_rand_str(size_t len);
+void	*ft_realloc(void *original, size_t size);
 char	*ft_strcpy(char *dest, char *src);
 
 #endif

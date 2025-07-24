@@ -30,14 +30,13 @@ bool	ft_addarg(t_shell *sh, t_cmd *tcmd);
 
 char	*ft_cpyword(t_shell *sh);
 
-size_t	ft_get_env_size(char *word, size_t *i, t_list *env);
-bool	ft_write_env(char *src, char *dst, size_t *i, t_list *env);
+size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i);
+bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 
 void	ft_free_targ(void *targ);
 void	ft_free_tredir(void *tredir);
 void	ft_free_tenv(void *tenv);
 void	ft_free_tcmd(void *tcmd);
-
 
 int		ft_isinvalidchar(int c);
 void	ft_seterror(t_shell *sh, char *msg, int code);

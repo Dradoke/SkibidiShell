@@ -1,1 +1,1 @@
-make && clear && ./skibidi_shell
+make re && clear && ./skibidi_shell

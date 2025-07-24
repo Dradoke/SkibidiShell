@@ -17,6 +17,8 @@
 // 1st char has to be alphabetic OR an underscore '_'
 // The rest has to be either alphanumeric or underscores
 // If an invalid char is encountered, len until this char will be returned
+//
+// NO ERROR HANDLING NEEDED
 static size_t	get_key_len(char *s)
 {
 	size_t	i;
@@ -36,7 +38,9 @@ static size_t	get_key_len(char *s)
 // Searches the string {key} up until the {key_len}th char in the t_list env
 // Returns the t_env where the KEY is identical
 // Returns NULL if not found
-t_env	*search_env(char *key, size_t key_len, t_list *env)
+//
+// NO ERROR HANDLING NEEDED
+static t_env	*search_env(char *key, size_t key_len, t_list *env)
 {
 	t_env	*env_var;
 
@@ -61,41 +65,52 @@ t_env	*search_env(char *key, size_t key_len, t_list *env)
 // Increases {i} by the {key}'s length (excluding $)
 //
 // Returns the {key}'s value length
-size_t	ft_get_env_size(char *key, t_list *env, size_t *i)
+//
+// NO ERROR HANDLING NEEDED
+size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i)
 {
-	int		key_len;
+	size_t	key_len;
 	t_env	*env_var;
 
-	if (!key[0] || ft_isspace(key[1]) || ft_isdelim(key[1]))
-		return (1);
-	if (key[0] == '?')
+	if (!sh->last_err)
+		sh->last_err = ft_strdup("0");
+	if (src[0] == '?')
+		return ((*i)++, ft_strlen(sh->last_err));
+	else if (ft_strchr("$#*@!-", src[0]) || ft_isdigit(src[0]))
 		return ((*i)++, 0);
-	if (key[0] == '$')
-		return ((*i)++, 0);
-	key_len = get_key_len(&key[1]);
-	env_var = search_env(&key[1], env, key_len);
-	if (env_var && env_var->value)
-		return (*i += key_len, ft_strlen(env_var->value));
-	return (*i += key_len, 0);
+	else if (ft_isalpha(src[0]) || src[0] == '_')
+	{
+		key_len = get_key_len(src);
+		env_var = search_env(src, key_len, sh->env);
+		*i += key_len;
+		if (env_var && env_var->value)
+			return (ft_strlen(env_var->value));
+		return (0);
+	}
+	return (1);
 }
 
 // Writes the value assigned to the key following in src
-bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i, t_list *env)
+//
+// NO ERROR HANDLING NEEDED
+bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
 {
-	int		key_len;
+	size_t	key_len;
 	t_env	*env_var;
 
-	(*i)++;
-	if (!src[1] || ft_isspace(src[1]) || ft_isdelim(src[1]))
-		return (dst[0] = '$', 1);
-	if (src[1] == '?')
-		return ((*i)++, 1);
-	if (src[1] == '$')
-		return ((*i)++, 1);
-	key_len = get_key_len(&src[1]);
-	env_var = search_env(&src[1], env, key_len);
-	*i += key_len;
-	if (env_var && env_var->value)
-		ft_strcpy(dst, env_var->value);
-	return (1);
+	if (src[0] == '?')
+		return (ft_strcpy(dst, sh->last_err), (*i)++, true);
+	else if (ft_strchr("$#*@!-", src[0]) || ft_isdigit(src[0]))
+		return ((*i)++, true);
+	else if (ft_isalpha(src[0]) || src[0] == '_')
+	{
+		key_len = get_key_len(src);
+		env_var = search_env(src, key_len, sh->env);
+		*i += key_len;
+		if (env_var && env_var->value)
+			ft_strcpy(dst, env_var->value);
+		return (true);
+	}
+	dst[0] = '$';
+	return (true);
 }

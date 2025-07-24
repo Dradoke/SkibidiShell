@@ -61,7 +61,7 @@ typedef struct s_shell
 	t_list	*env;
 	char	*line;
 	t_err	err;
-	int		last_err;
+	char	*last_err;
 }	t_shell;
 
 typedef struct s_env

@@ -45,15 +45,15 @@ void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-int	loop_shell(t_shell *sh)
+static bool	loop_shell(t_shell *sh)
 {
 	free_shell(sh);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
-		return (ft_printf("Leaving SkibidiShell...\n"), 0);
+		return (ft_printf("Leaving SkibidiShell...\n"), false);
 	if (!process_line(sh))
-		return (ft_puterror(sh), 1);
-	return (1);
+		return (ft_puterror(sh), true);
+	return (ft_seterror(sh, "", 0), true);
 }
 
 int	main(int ac, char **av, char **env)

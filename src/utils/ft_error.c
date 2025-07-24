@@ -28,6 +28,7 @@ void	ft_seterror(t_shell *sh, char *msg, int code)
 		free(sh->err.msg);
 	sh->err.msg = ft_strdup(msg);
 	sh->err.code = code;
+	sh->last_err = ft_itoa(sh->err.code);
 }
 
 void	ft_clearerror(t_shell *sh)
@@ -46,9 +47,8 @@ int	ft_puterror(t_shell *sh)
 	if (sh->err.b)
 	{
 		ft_printf("SkibidiERROR: %s\n", sh->err.msg);
-		sh->last_err = sh->err.code;
 		ft_clearerror(sh);
-		return (sh->last_err);
+		return (ft_atoi(sh->last_err));
 	}
 	return (0);
 }
