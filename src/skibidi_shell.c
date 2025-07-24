@@ -72,6 +72,7 @@ int	main(int ac, char **av, char **env)
 		if (!loop_shell(sh))
 			break ;
 	ft_lstclear(&sh->env, ft_free_tenv);
+	free(sh->last_err);
 	free(sh);
 	clear_history();
 	return (0);

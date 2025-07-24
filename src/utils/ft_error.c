@@ -28,6 +28,8 @@ void	ft_seterror(t_shell *sh, char *msg, int code)
 		free(sh->err.msg);
 	sh->err.msg = ft_strdup(msg);
 	sh->err.code = code;
+	if (sh->last_err)
+		free(sh->last_err);
 	sh->last_err = ft_itoa(sh->err.code);
 }
 

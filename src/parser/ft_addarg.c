@@ -21,7 +21,7 @@ static t_arg	*argcontent(t_shell *sh)
 		return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 	targ->name = ft_cpyword(sh);
 	if (!targ->name)
-		return (NULL);
+		return (free(targ), NULL);
 	return (targ);
 }
 
