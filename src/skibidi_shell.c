@@ -32,7 +32,7 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (false);
-	print_list(sh->cmd, CMD);
+	// print_list(sh->cmd, CMD);
 	return (true);
 }
 
