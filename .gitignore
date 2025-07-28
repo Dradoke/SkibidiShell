@@ -3,15 +3,14 @@
 *.obj
 
 # Libraries
-*.lib
 *.a
+*.lib
 
 # Executables
-*.exe
 *.out
+*.exe
 
 # Binaire compilé
-minishell
 skibidi_shell
 
 # Test file

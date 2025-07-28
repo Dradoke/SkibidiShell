@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-// Fixed
+
 static size_t	get_key_len(char *s)
 {
 	size_t	i;
@@ -28,7 +28,6 @@ static size_t	get_key_len(char *s)
 	return (i);
 }
 
-// Fixed
 t_env	*search_env(char *key, t_list *env, int key_len)
 {
 	t_list	*cur;
@@ -49,7 +48,6 @@ t_env	*search_env(char *key, t_list *env, int key_len)
 	return (NULL);
 }
 
-// Fixed
 size_t	ft_get_env_size(char *key, size_t *i, t_list *env)
 {
 	int		key_len;

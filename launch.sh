@@ -1,0 +1,1 @@
+make re && clear && ./skibidi_shell

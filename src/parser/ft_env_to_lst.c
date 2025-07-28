@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_env_to_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/skibidi_shell.h"
+#include "skibidi_shell.h"
 
 static char	*get_env_key(char *line)
 {
@@ -58,9 +58,10 @@ static char	*get_env_value(char *line)
 	return (str);
 }
 
-/*Build the chained list of env variables, give a key(env name) and a value
-  Return a t_list**/
-t_list	*ft_env_to_lst(char **envp)
+// Builds the linked list of env variables
+// Gives a key and a value
+// Returns a t_list *
+t_list	*ft_env_to_lst(t_shell *sh, char **envp)
 {
 	t_list	*env_lst;
 	t_list	*new;
@@ -73,14 +74,14 @@ t_list	*ft_env_to_lst(char **envp)
 	{
 		env = ft_calloc(sizeof(t_env) * 1);
 		if (!env)
-			return (NULL);
+			return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 		env->key = get_env_key(envp[i]);
 		env->value = get_env_value(envp[i]);
 		if (!env->key || !env->value)
-			return (NULL);
+			return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 		new = ft_lstnew(env);
 		if (!new)
-			return (NULL);
+			return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 		new->index = i++;
 		ft_lstadd_back(&env_lst, new);
 	}

@@ -20,54 +20,59 @@ static void	free_shell(t_shell *sh)
 		sh->line = NULL;
 	}
 	if (sh->cmd)
-	{
-		ft_lstclear(&sh->cmd, free);
-		sh->cmd = NULL;
-	}
-	if (sh->env)
-	{
-		ft_lstclear(&sh->env, free);
-		sh->env = NULL;
-	}
+		ft_lstclear(&sh->cmd, ft_free_tcmd);
+	ft_clearerror(sh);
 }
 
 static int	process_line(t_shell *sh)
 {
-	if (!sh->line || ft_strlen(sh->line) == 0)
-		return (1);
+	if (ft_strlen(sh->line) == 0)
+		return (false);
 	add_history(sh->line);
 	sh->i = 0;
 	if (!ft_parser(sh))
-	{
-		printf("SkibidiShell: parsing error\n");
-		return (1);
-	}
-	print_list(sh->cmd, CMD);
-	return (1);
+		return (false);
+	// print_list(sh->cmd, CMD);
+	return (true);
+}
+
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static bool	loop_shell(t_shell *sh)
+{
+	free_shell(sh);
+	sh->line = readline("SkibidiShell ➜ ");
+	if (!sh->line)
+		return (ft_printf("Leaving SkibidiShell...\n"), false);
+	if (!process_line(sh))
+		return (ft_puterror(sh), true);
+	return (ft_seterror(sh, "", 0), true);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
 
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	sh = ft_calloc(sizeof(t_shell));
 	if (!sh)
 		return (1);
-	sh->env = ft_env_to_lst(env);
+	sh->env = ft_env_to_lst(sh, env);
 	while (1)
-	{
-		free_shell(sh);
-		sh->line = readline("SkibidiShell ➜ ");
-		if (!sh->line)
-		{
-			printf("exit\n");
+		if (!loop_shell(sh))
 			break ;
-		}
-		process_line(sh);
-	}
-	free_shell(sh);
+	ft_lstclear(&sh->env, ft_free_tenv);
+	free(sh->last_err);
 	free(sh);
 	clear_history();
 	return (0);

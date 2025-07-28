@@ -41,7 +41,7 @@ char	*ft_itoa(int n)
 		num *= -1;
 		digits++;
 	}
-	str_num = (char *)malloc(sizeof(char) * (digits + 1));
+	str_num = ft_calloc(digits + 1);
 	if (!str_num)
 		return (NULL);
 	*(str_num + digits) = 0;

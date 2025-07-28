@@ -13,6 +13,10 @@
 #ifndef FTERR_H
 # define FTERR_H
 
-# define FTERR_REDIR "Error: Wrong redirection syntax!"
+# define FTERR_REDIR "Error: Wrong redirection syntax"
+# define FTERR_QUOTE "Error: Unclosed quote"
+# define FTERR_INVALID_CHAR "Error: Invalid character outside quotes"
+# define FTERR_SYNTAX "Error: Syntax"
+# define FTERR_ALLOC "Error: Allocation failed"
 
 #endif

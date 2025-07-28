@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addredir.c                                      :+:      :+:    :+:   */
+/*   ft_addarg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,18 +12,23 @@
 
 #include "skibidi_shell.h"
 
-// DONE
 static t_arg	*argcontent(t_shell *sh)
 {
 	t_arg	*targ;
 
 	targ = ft_calloc(sizeof(t_arg));
+	if (!targ)
+		return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 	targ->name = ft_cpyword(sh);
+	if (!targ->name)
+		return (free(targ), NULL);
 	return (targ);
 }
 
-// UN-FINISHED
-void	ft_addarg(t_shell *sh, t_cmd *tcmd)
+bool	ft_addarg(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
+	if (!ft_lstlast(tcmd->arg)->content)
+		return (0);
+	return (1);
 }

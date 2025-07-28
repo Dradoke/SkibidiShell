@@ -20,8 +20,7 @@ void	*ft_calloc(size_t size)
 	void	*res;
 
 	res = malloc(size);
-	if (!res)
-		return (NULL);
-	ft_bzero(res, size);
+	if (res)
+		ft_bzero(res, size);
 	return (res);
 }

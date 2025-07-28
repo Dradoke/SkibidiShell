@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_skipspace.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,9 @@
 
 #include "skibidi_shell.h"
 
-void	ft_skipspace(char *str, size_t *i)
+bool	ft_skipspace(char *str, size_t *i)
 {
 	while (ft_isspace(str[*i]))
 		(*i)++;
+	return (true);
 }
