@@ -36,7 +36,7 @@ static int	process_line(t_shell *sh)
 	return (true);
 }
 
-void	sigint_handler(int sig)
+static void	sigint_handler(int sig)
 {
 	(void)sig;
 	rl_replace_line("", 0);
