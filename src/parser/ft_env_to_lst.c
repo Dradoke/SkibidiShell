@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/skibidi_shell.h"
+#include "skibidi_shell.h"
 
 static char	*get_env_key(char *line)
 {
@@ -58,8 +58,9 @@ static char	*get_env_value(char *line)
 	return (str);
 }
 
-/*Build the chained list of env variables, give a key(env name) and a value
-  Return a t_list**/
+// Builds the linked list of env variables
+// Gives a key and a value
+// Returns a t_list *
 t_list	*ft_env_to_lst(t_shell *sh, char **envp)
 {
 	t_list	*env_lst;

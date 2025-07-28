@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cpyword_utils.c                                 :+:      :+:    :+:   */
+/*   ft_var_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,13 @@
 
 #include "skibidi_shell.h"
 
-// Returns the len of a string
-// Complying with the rules of env variables format rules
+// Complies with the rules of env variables format rules
 // 1st char has to be alphabetic OR an underscore '_'
 // The rest has to be either alphanumeric or underscores
 // If an invalid char is encountered, len until this char will be returned
+//
+// Return:
+// length of an env var key
 //
 // NO ERROR HANDLING NEEDED
 static size_t	get_key_len(char *s)
@@ -36,8 +38,10 @@ static size_t	get_key_len(char *s)
 }
 
 // Searches the string {key} up until the {key_len}th char in the t_list env
-// Returns the t_env where the KEY is identical
-// Returns NULL if not found
+//
+// Return:
+// t_env where the KEY is identical
+// NULL if not found
 //
 // NO ERROR HANDLING NEEDED
 static t_env	*search_env(char *key, size_t key_len, t_list *env)
@@ -64,7 +68,8 @@ static t_env	*search_env(char *key, size_t key_len, t_list *env)
 // We search for it in the {env} linked list of type t_list
 // Increases {i} by the {key}'s length (excluding $)
 //
-// Returns the {key}'s value length
+// Return:
+// {key}'s value length
 //
 // NO ERROR HANDLING NEEDED
 size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i)
