@@ -14,8 +14,7 @@
 # define STRUCT_H
 # include "skibidi_shell.h"
 
-//--ENUMS--
-
+//---ENUMS---//
 typedef enum e_redir_type
 {
 	INFILE,		// <
@@ -45,7 +44,7 @@ typedef enum e_quote
 	DOUBLE,		// "
 }	t_quote;
 
-//--STRUCTS--
+//---STRUCTS---//
 
 typedef struct s_err
 {
