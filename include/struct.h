@@ -68,12 +68,6 @@ typedef struct s_shell
 	char	*last_err;
 }	t_shell;
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-}	t_env;
-
 typedef struct s_redir
 {
 	char			*name;

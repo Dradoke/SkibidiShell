@@ -67,7 +67,7 @@ char	*ft_getenv(t_list *env, char *key);
 
 
 /* Builtins */
-int	ft_echo(t_list *args, t_list **env);
+int ft_echo(t_list *args, t_list **env);
 int ft_cd(t_list *args, t_list **env);
 int	ft_pwd(t_list *args, t_list **env);
 int	ft_export(t_list *args, t_list **env);

@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-int ft_echo(t_list *args, t_env **env)
+int ft_echo(t_list *args, t_list **env)
 {
 	(void)args;
 	(void)env;
