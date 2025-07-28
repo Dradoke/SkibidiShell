@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-static char	*get_env_key(char *line)
+char	*get_env_key(char *line)
 {
 	char	*str;
 	int		i;
@@ -33,7 +33,7 @@ static char	*get_env_key(char *line)
 	return (str);
 }
 
-static char	*get_env_value(char *line)
+char	*get_env_value(char *line)
 {
 	char	*str;
 	int		i;

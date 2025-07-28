@@ -12,20 +12,36 @@
 
 #include "skibidi_shell.h"
 
-int ft_env(t_list *args, t_list **env)
+void	ft_setenv(t_list *env, char *key, char *value)
 {
-	(void)args;
-	t_list	*env_lst;
+	t_list	*env_tmp;
 
-	env_lst = env;
-	if (!env_lst) 
-		return (printf("Erreur : liste vide ou allocation échouée\n"), 1);
-	while (env_lst)
+	env_tmp = env;
+	while ((env_tmp))
 	{
-		ft_printf("%s", ((t_env *)env_lst->content)->key);
-		ft_printf("=", ((t_env *)env_lst->content)->key,((t_env *)env_lst->content)->value);
-		ft_printf("%s\n", ((t_env *)env_lst->content)->value);
-		env_lst = env_lst->next;
+		if (ft_strcmp(((t_env *)(env_tmp)->content)->key, key) == 0)
+		{
+			free(((t_env *)(env_tmp)->content)->value);
+			((t_env *)(env_tmp)->content)->value = ft_strdup(value);
+			break ;
+		}
+		(env_tmp) = (env_tmp)->next;
 	}
-	return (0);
+}
+
+char	*ft_getenv(t_list *env, char *key)
+{
+	t_list	*env_tmp;
+
+	env_tmp = env;
+	while ((env_tmp))
+	{
+		if (ft_strcmp(((t_env *)(env_tmp)->content)->key, key) == 0)
+		{
+			printf("JE SUIS SUR SHELL !!!\n");
+			return (((t_env *)(env_tmp)->content)->value);
+		}
+		(env_tmp) = (env_tmp)->next;
+	}
+	return (NULL);
 }

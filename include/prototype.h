@@ -41,10 +41,10 @@ t_bool				ft_parser(t_shell *sh);
 /*████████████████████████████████████████████████████████████████████████████*/
 /*---utils---*/
 // ft_error.c
-int					ft_isinvalidchar(int c);
-void				ft_seterror(t_shell *sh, char *msg, int code);
-void				ft_clearerror(t_shell *sh);
-int					ft_puterror(t_shell *sh);
+int		ft_isinvalidchar(int c);
+void	ft_seterror(t_shell *sh, char *msg, int code);
+void	ft_clearerror(t_shell *sh);
+int		ft_puterror(t_shell *sh);
 // ft_free.c
 void				ft_free_targ(void *targ);
 void				ft_free_tredir(void *tredir);
@@ -60,22 +60,24 @@ void				sigint_handler(int sig);
 // ft_skipspace.c
 t_bool				ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c
-size_t				ft_get_env_size(t_shell *sh, char *src, size_t *i);
-t_bool				ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
-/*████████████████████████████████████████████████████████████████████████████*/
+size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i);
+t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
+void 	ft_setenv(t_list *env, char *key, char *value);
+char	*ft_getenv(t_list *env, char *key);
+
 
 /* Builtins */
-int	ft_echo(t_list *args, t_env **env);
-int	ft_cd(t_list *args, t_env **env);
-int	ft_pwd(t_list *args, t_env **env);
-int	ft_export(t_list *args, t_env **env);
-int	ft_unset(t_list *args, t_env **env);
-int	ft_env(t_list *args, t_env **env);
-int	ft_exit(t_list *args, t_env **env);
+int	ft_echo(t_list *args, t_list **env);
+int ft_cd(t_list *args, t_list **env);
+int	ft_pwd(t_list *args, t_list **env);
+int	ft_export(t_list *args, t_list **env);
+int	ft_unset(t_list *args, t_list **env);
+int	ft_env(t_list *args, t_list **env);
+int	ft_exit(t_list *args, t_list **env);
 
 unsigned long hash_key(const char *s);
 int get_tabindex(unsigned long hash);
 t_builtins	*builtins_init(void);
-bool	is_builtins(char *cmd, t_builtins *builtins);
+t_bool	is_builtins(char *cmd, t_builtins *builtins);
 
 #endif

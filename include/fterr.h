@@ -18,6 +18,7 @@
 # define FTERR_INVALID_CHAR "Error: Invalid character outside quotes"
 # define FTERR_SYNTAX "Error: Syntax"
 # define FTERR_ALLOC "Error: Allocation failed"
+# define FTERR_CD "error: path required"
 
 # define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
 
