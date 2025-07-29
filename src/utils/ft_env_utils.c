@@ -37,10 +37,7 @@ char	*ft_getenv(t_list *env, char *key)
 	while ((env_tmp))
 	{
 		if (ft_strcmp(((t_env *)(env_tmp)->content)->key, key) == 0)
-		{
-			printf("JE SUIS SUR SHELL !!!\n");
 			return (((t_env *)(env_tmp)->content)->value);
-		}
 		(env_tmp) = (env_tmp)->next;
 	}
 	return (NULL);

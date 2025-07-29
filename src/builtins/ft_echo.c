@@ -14,7 +14,18 @@
 
 int ft_echo(t_list *args, t_list **env)
 {
-	(void)args;
+	t_list *arg_lst;
+
 	(void)env;
+	arg_lst = args->next;
+	if (!((t_arg *)args->next->content)->name)
+		return (0);
+	while (arg_lst)
+	{
+		ft_putstr_fd(((t_arg *)arg_lst->content)->name, STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		arg_lst = arg_lst->next;
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
