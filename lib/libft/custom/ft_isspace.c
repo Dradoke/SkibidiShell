@@ -14,7 +14,7 @@
 
 // Checks if character is a whitespace character.
 // Tests for space, tab, newline, vertical tab, form feed, carriage return.
-// Returns 1 if true, 0 if false.
+// Returns 1 if TRUE, 0 if FALSE.
 int	ft_isspace(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
