@@ -12,9 +12,9 @@
 
 #include "skibidi_shell.h"
 
-bool	ft_skipspace(char *str, size_t *i)
+t_bool	ft_skipspace(char *str, size_t *i)
 {
 	while (ft_isspace(str[*i]))
 		(*i)++;
-	return (true);
+	return (TRUE);
 }

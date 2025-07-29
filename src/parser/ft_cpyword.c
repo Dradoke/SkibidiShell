@@ -24,7 +24,7 @@ static int	quote_verif(char c, t_quote *quote, size_t *i)
 	return (0);
 }
 
-static bool	writeword(t_shell *sh, char *dest)
+static t_bool	writeword(t_shell *sh, char *dest)
 {
 	int		k;
 	t_quote	quote;
@@ -49,7 +49,7 @@ static bool	writeword(t_shell *sh, char *dest)
 		sh->i++;
 	}
 	dest[k] = '\0';
-	return (true);
+	return (TRUE);
 }
 
 static char	*allocword(t_shell *sh, char *word)

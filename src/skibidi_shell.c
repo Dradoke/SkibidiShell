@@ -27,13 +27,13 @@ static void	free_shell(t_shell *sh)
 static int	process_line(t_shell *sh)
 {
 	if (ft_strlen(sh->line) == 0)
-		return (false);
+		return (FALSE);
 	add_history(sh->line);
 	sh->i = 0;
 	if (!ft_parser(sh))
-		return (false);
+		return (FALSE);
 	// print_list(sh->cmd, CMD);
-	return (true);
+	return (TRUE);
 }
 
 static void	sigint_handler(int sig)
@@ -45,15 +45,15 @@ static void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-static bool	loop_shell(t_shell *sh)
+static t_bool	loop_shell(t_shell *sh)
 {
 	free_shell(sh);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
-		return (ft_printf("Leaving SkibidiShell...\n"), false);
+		return (ft_printf("Leaving SkibidiShell...\n"), FALSE);
 	if (!process_line(sh))
-		return (ft_puterror(sh), true);
-	return (ft_seterror(sh, "", 0), true);
+		return (ft_puterror(sh), TRUE);
+	return (ft_seterror(sh, "", 0), TRUE);
 }
 
 int	main(int ac, char **av, char **env)

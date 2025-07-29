@@ -14,7 +14,7 @@
 
 // Checks if character is alphanumeric (A-Z, a-z, or 0-9).
 // Uses ft_isalpha and ft_isdigit for the check.
-// Returns 1 if true, 0 if false.
+// Returns 1 if TRUE, 0 if FALSE.
 int	ft_isalnum(int c)
 {
 	if (ft_isalpha(c) || ft_isdigit(c))

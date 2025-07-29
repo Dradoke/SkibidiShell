@@ -25,7 +25,7 @@ static t_arg	*argcontent(t_shell *sh)
 	return (targ);
 }
 
-bool	ft_addarg(t_shell *sh, t_cmd *tcmd)
+t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
 	if (!ft_lstlast(tcmd->arg)->content)

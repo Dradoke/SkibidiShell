@@ -13,7 +13,7 @@
 #include "libft.h"
 
 // Checks if character is printable (32-126).
-// Returns 1 if true, 0 if false.
+// Returns 1 if TRUE, 0 if FALSE.
 // Standard libc character classification function.
 int	ft_isprint(int c)
 {

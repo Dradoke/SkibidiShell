@@ -98,15 +98,15 @@ size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i)
 // Writes the value assigned to the key following in src
 //
 // NO ERROR HANDLING NEEDED
-bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
+t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
 {
 	size_t	key_len;
 	t_env	*env_var;
 
 	if (src[0] == '?')
-		return (ft_strcpy(dst, sh->last_err), (*i)++, true);
+		return (ft_strcpy(dst, sh->last_err), (*i)++, TRUE);
 	else if (ft_strchr("$#*@!-", src[0]) || ft_isdigit(src[0]))
-		return ((*i)++, true);
+		return ((*i)++, TRUE);
 	else if (ft_isalpha(src[0]) || src[0] == '_')
 	{
 		key_len = get_key_len(src);
@@ -114,8 +114,8 @@ bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
 		*i += key_len;
 		if (env_var && env_var->value)
 			ft_strcpy(dst, env_var->value);
-		return (true);
+		return (TRUE);
 	}
 	dst[0] = '$';
-	return (true);
+	return (TRUE);
 }

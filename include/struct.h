@@ -37,6 +37,12 @@ enum
 	OUTPUT,		// 1
 };
 
+typedef enum e_bool
+{
+	FALSE,		// 0
+	TRUE,		// 1
+}	t_bool;
+
 typedef enum e_quote
 {
 	NONE,
@@ -48,7 +54,7 @@ typedef enum e_quote
 
 typedef struct s_err
 {
-	bool	b;
+	t_bool	b;
 	int		code;
 	char	*msg;
 }	t_err;

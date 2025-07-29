@@ -47,10 +47,10 @@ static t_redir	*redircontent(t_shell *sh)
 	return (tredir);
 }
 
-bool	ft_addredir(t_shell *sh, t_cmd *tcmd)
+t_bool	ft_addredir(t_shell *sh, t_cmd *tcmd)
 {
 	ft_lstadd_back(&tcmd->redir, ft_lstnew(redircontent(sh)));
 	if (!ft_lstlast(tcmd->redir)->content)
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }

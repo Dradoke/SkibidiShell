@@ -20,15 +20,15 @@ void	print_list(t_list *lst, t_lstype type);
 
 /*---parser---*/
 // ft_addarg.c
-bool	ft_addarg(t_shell *sh, t_cmd *tcmd);
+t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd);
 // ft_addredir.c
-bool	ft_addredir(t_shell *sh, t_cmd *tcmd);
+t_bool	ft_addredir(t_shell *sh, t_cmd *tcmd);
 // ft_cpyword.c
 char	*ft_cpyword(t_shell *sh);
 // ft_env_to_lst.c
 t_list	*ft_env_to_lst(t_shell *sh, char **envp);
 // ft_parser.c
-bool	ft_parser(t_shell *sh);
+t_bool	ft_parser(t_shell *sh);
 
 /*---utils---*/
 // ft_error.c
@@ -44,9 +44,9 @@ void	ft_free_tcmd(void *tcmd);
 // ft_isdelim.c
 int		ft_isdelim(int c);
 // ft_skipspace.c
-bool	ft_skipspace(char *str, size_t *i);
+t_bool	ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c
 size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i);
-bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
+t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 
 #endif
