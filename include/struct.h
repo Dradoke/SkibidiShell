@@ -78,6 +78,7 @@ typedef struct s_env
 typedef struct s_redir
 {
 	char			*name;
+	char			*hdoc_path;
 	int				fd;
 	t_redir_type	type;
 }	t_redir;
