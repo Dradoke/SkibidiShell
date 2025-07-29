@@ -12,19 +12,34 @@
 
 #include "skibidi_shell.h"
 
-int	ft_cd(t_list *args, t_list **env)
+bool	have_equal(char *str)
 {
-	char	*new_pwd;
-	char	*old_pwd;
+	int	i;
 
-	if (!((t_arg *)args->next->content)->name)
-		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
-	if (chdir(((t_arg *)args->next->content)->name) != 0)
-		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
-	old_pwd = ft_getenv_val(*env, "PWD");
-	new_pwd = getcwd(NULL, 0);
-	ft_setenv(*env, "OLDPWD", old_pwd);
-	ft_setenv(*env, "PWD", new_pwd);
-	free(new_pwd);
-	return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+bool	is_valid_key(char *str)
+{
+	if (ft_isalpha(str[0]) == false && str[0] != '_')
+		return (false);
+	return (true);
+}
+
+bool	is_valid_env(char *str)
+{
+	if (!str)
+		return (false);
+	if (is_valid_key(str) == false)
+		return (false);
+	if (have_equal(str) == false)
+		return (false);
+	return (true);
 }

@@ -63,7 +63,11 @@ t_bool				ft_skipspace(char *str, size_t *i);
 size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i);
 t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 void 	ft_setenv(t_list *env, char *key, char *value);
-char	*ft_getenv(t_list *env, char *key);
+char	*ft_getenv_val(t_list *env, char *key);
+t_env	*ft_getenv(t_list *env, char *key);
+bool	have_equal(char *str);
+bool	is_valid_key(char *str);
+bool	is_valid_env(char *str);
 
 
 /* Builtins */

@@ -17,7 +17,7 @@ int ft_pwd(t_list *args, t_list **env)
 	char *curr_path;
 	
 	(void)args;
-	curr_path = ft_getenv(*env, "PWD");
+	curr_path = ft_getenv_val(*env, "PWD");
 	if (curr_path != NULL)
 	{
 		ft_putstr_fd(curr_path, 1);
