@@ -23,7 +23,7 @@ int	ft_export(t_list *args, t_list **env)
 
 	arg_lst = args->next;
 	env_arg = ((t_arg *)arg_lst->content);
-	if (is_valid_env(env_arg->name) == false)
+	if (is_valid_env(env_arg->name) == FALSE)
 		return (ft_putstr_fd(FTERR_EXP"\n", STDIN_FILENO), FTERR_EXP_VAL);
 	env_key = get_env_key(env_arg->name);
 	if (ft_getenv(*env, env_key))

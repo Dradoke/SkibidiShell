@@ -65,9 +65,9 @@ t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 void 	ft_setenv(t_list *env, char *key, char *value);
 char	*ft_getenv_val(t_list *env, char *key);
 t_env	*ft_getenv(t_list *env, char *key);
-bool	have_equal(char *str);
-bool	is_valid_key(char *str);
-bool	is_valid_env(char *str);
+t_bool	have_equal(char *str);
+t_bool	is_valid_key(char *str);
+t_bool	is_valid_env(char *str);
 
 
 /* Builtins */

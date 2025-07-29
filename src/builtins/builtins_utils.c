@@ -62,7 +62,7 @@ static void	insert_builtins(t_builtins *builtins)
 	}
 }
 
-bool	is_builtins(char *cmd, t_builtins *builtins)
+t_bool	is_builtins(char *cmd, t_builtins *builtins)
 {
 	int idx0;
 	char *builtin_name;
@@ -72,9 +72,9 @@ bool	is_builtins(char *cmd, t_builtins *builtins)
 	if (builtins[idx0].name)
 	{
 		if (ft_strncmp(cmd, builtin_name, ft_strlen(builtin_name)) == 0)
-			return (true);
+			return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
 
 t_builtins	*builtins_init(void)

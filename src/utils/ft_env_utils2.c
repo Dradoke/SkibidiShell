@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-bool	have_equal(char *str)
+t_bool	have_equal(char *str)
 {
 	int	i;
 
@@ -20,26 +20,26 @@ bool	have_equal(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (true);
+			return (TRUE);
 		i++;
 	}
-	return (false);
+	return (FALSE);
 }
 
-bool	is_valid_key(char *str)
+t_bool	is_valid_key(char *str)
 {
-	if (ft_isalpha(str[0]) == false && str[0] != '_')
-		return (false);
-	return (true);
+	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
+		return (FALSE);
+	return (TRUE);
 }
 
-bool	is_valid_env(char *str)
+t_bool	is_valid_env(char *str)
 {
 	if (!str)
-		return (false);
-	if (is_valid_key(str) == false)
-		return (false);
-	if (have_equal(str) == false)
-		return (false);
-	return (true);
+		return (FALSE);
+	if (is_valid_key(str) == FALSE)
+		return (FALSE);
+	if (have_equal(str) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }

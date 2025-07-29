@@ -22,7 +22,7 @@ int ft_unset(t_list *args, t_list **env)
 	if (!args->next)
 		return (0);
 	env_lst = *env;
-	if (is_valid_env(((t_arg *)args->next->content)->name) == false)
+	if (is_valid_env(((t_arg *)args->next->content)->name) == FALSE)
 		return (ft_putstr_fd(FTERR_UNSET"\n", STDIN_FILENO), FTERR_UNSET_VAL);
 	key = get_env_key(((t_arg *)args->next->content)->name);
 	while (env_lst)
