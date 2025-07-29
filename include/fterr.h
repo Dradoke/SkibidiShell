@@ -19,4 +19,6 @@
 # define FTERR_SYNTAX "Error: Syntax"
 # define FTERR_ALLOC "Error: Allocation failed"
 
+# define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
+
 #endif

@@ -32,6 +32,8 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (FALSE);
+	if (!ft_heredoc(sh->cmd))
+		return (FALSE);
 	// print_list(sh->cmd, CMD);
 	return (TRUE);
 }

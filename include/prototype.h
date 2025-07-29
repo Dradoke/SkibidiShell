@@ -18,6 +18,9 @@
 // print_list.c
 void	print_list(t_list *lst, t_lstype type);
 
+/*---exec---*/
+// ft_heredoc.c
+t_bool	ft_heredoc(t_list *cmd);
 /*---parser---*/
 // ft_addarg.c
 t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd);
