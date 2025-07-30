@@ -67,7 +67,7 @@ char	*ft_getenv_val(t_list *env, char *key);
 t_env	*ft_getenv(t_list *env, char *key);
 t_bool	have_equal(char *str);
 t_bool	is_valid_key(char *str);
-t_bool	is_valid_env(char *str);
+t_bool	is_valid_env(char *str, char eu);
 
 
 /* Builtins */

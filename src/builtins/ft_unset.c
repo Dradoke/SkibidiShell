@@ -22,13 +22,14 @@ int ft_unset(t_list *args, t_list **env)
 	if (!args->next)
 		return (0);
 	env_lst = *env;
-	if (is_valid_env(((t_arg *)args->next->content)->name) == FALSE)
+	if (is_valid_env(((t_arg *)args->next->content)->name, 'u') == FALSE)
 		return (ft_putstr_fd(FTERR_UNSET"\n", STDIN_FILENO), FTERR_UNSET_VAL);
 	key = get_env_key(((t_arg *)args->next->content)->name);
 	while (env_lst)
 	{
 		if (ft_strcmp(((t_env *)env_lst->content)->key, key) == 0)
 		{
+			ft_putstr_fd("J'ai trouve la comparaison\n", 1);
 			env_lst->prev->next = env_lst->next;
 			env_lst->next->prev = env_lst->prev;
 			free(((t_env *)env_lst->content)->key);

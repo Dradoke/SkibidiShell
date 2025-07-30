@@ -22,8 +22,10 @@ int	ft_export(t_list *args, t_list **env)
 	char	*env_key;
 
 	arg_lst = args->next;
+	if (!arg_lst)
+		return (ft_env(args, env), 0); // !!! CHANGER !!!: doit print les variables d'environnement comme bash le fait.
 	env_arg = ((t_arg *)arg_lst->content);
-	if (is_valid_env(env_arg->name) == FALSE)
+	if (is_valid_env(env_arg->name, 'e') == FALSE)
 		return (ft_putstr_fd(FTERR_EXP"\n", STDIN_FILENO), FTERR_EXP_VAL);
 	env_key = get_env_key(env_arg->name);
 	if (ft_getenv(*env, env_key))

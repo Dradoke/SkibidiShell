@@ -33,13 +33,14 @@ t_bool	is_valid_key(char *str)
 	return (TRUE);
 }
 
-t_bool	is_valid_env(char *str)
+t_bool	is_valid_env(char *str, char eu)
 {
 	if (!str)
 		return (FALSE);
 	if (is_valid_key(str) == FALSE)
 		return (FALSE);
-	if (have_equal(str) == FALSE)
-		return (FALSE);
+	if (eu == 'e')
+		if (have_equal(str) == FALSE)
+			return (FALSE);
 	return (TRUE);
 }
