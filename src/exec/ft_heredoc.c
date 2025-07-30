@@ -16,6 +16,7 @@ static t_bool	heredoc_child(t_redir *redir)
 {
 	char *line;
 
+	signal(SIGINT, SIG_DFL);
 	while (1)
 	{
 		line = readline("> ");

@@ -37,9 +37,9 @@ static t_bool	parse_command(t_shell *sh)
 
 	ft_skipspace(sh->line, &sh->i);
 	if (!sh->line[sh->i])
-		return (ft_seterror(sh, FTERR_SYNTAX, 2), FALSE);
+		return (ft_seterror(sh, FTERR_SYNTAX"1", 2), FALSE);
 	if (sh->line[sh->i] == '|')
-		return (ft_seterror(sh, FTERR_SYNTAX, 2), FALSE);
+		return (ft_seterror(sh, FTERR_SYNTAX"2", 2), FALSE);
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	newcmd = ft_lstlast(sh->cmd)->content;
 	while (sh->line[sh->i] && sh->line[sh->i] != '|')
@@ -53,8 +53,8 @@ static t_bool	parse_command(t_shell *sh)
 			&& !ft_addarg(sh, newcmd))
 			return (FALSE);
 	}
-	if (!newcmd->arg)
-		return (ft_seterror(sh, FTERR_SYNTAX, 2), FALSE);
+	// if (!newcmd->arg)
+	// 	return (ft_seterror(sh, FTERR_SYNTAX"3", 2), FALSE);
 	if (newcmd->redir)
 		set_last_redir(newcmd);
 	return (TRUE);
@@ -73,7 +73,7 @@ t_bool	ft_parser(t_shell *sh)
 		{
 			sh->i++;
 			if (!sh->line[sh->i])
-				return (ft_seterror(sh, FTERR_SYNTAX, 2), FALSE);
+				return (ft_seterror(sh, FTERR_SYNTAX"4", 2), FALSE);
 		}
 	}
 	return (TRUE);

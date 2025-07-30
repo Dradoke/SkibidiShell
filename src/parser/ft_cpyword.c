@@ -67,7 +67,7 @@ static char	*allocword(t_shell *sh, char *word)
 		if (quote_verif(word[i], &quote, &i))
 			continue ;
 		if (quote == NONE && ft_isinvalidchar(word[i]))
-			return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
+			return (ft_seterror(sh, FTERR_SYNTAX"A", 2), NULL);
 		else if (word[i] == '$' && quote != SINGLE)
 			len += ft_get_env_size(sh, &word[i + 1], &i);
 		else
@@ -85,7 +85,7 @@ char	*ft_cpyword(t_shell *sh)
 
 	ft_skipspace(sh->line, &sh->i);
 	if (ft_isdelim(sh->line[sh->i]))
-		return (ft_seterror(sh, FTERR_SYNTAX, 2), NULL);
+		return (ft_seterror(sh, FTERR_SYNTAX"B", 2), NULL);
 	word = allocword(sh, &sh->line[sh->i]);
 	if (!word)
 		return (NULL);
