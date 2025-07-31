@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 19:56:40 by jmilesi           #+#    #+#             */
-/*   Updated: 2025/03/06 13:53:41 by ngaudoui         ###   ########.fr       */
+/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
+/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTFD_H
+# define FT_PRINTFD_H
 
 # include <stdarg.h>
 # include <unistd.h>
@@ -20,14 +20,14 @@
 # include <stdint.h>
 # include <limits.h>
 
-int		ft_pn_b(long long n, char *base);
-int		ft_print_ptr(unsigned long long ptr);
-int		ft_printchar(int c);
-int		ft_printstr(char *str);
-int		ft_printpct(void);
+int		ft_pn_b(int fd, long long n, char *base);
+int		ft_print_ptr(int fd, unsigned long long ptr);
+int		ft_printchar(int fd, int c);
+int		ft_printstr(int fd, char *str);
+int		ft_printpct(int fd);
 size_t	ft_strlen(const char *s);
-void	ft_putstr(char *str);
-int		ft_formats(va_list args, const char format);
-int		ft_printf(const char *format, ...);
+void	ft_putstr(int fd, char *str);
+int		ft_formats(int fd, va_list args, const char format);
+int		ft_printfd(int fd, const char *format, ...);
 
 #endif

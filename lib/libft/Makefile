@@ -21,7 +21,7 @@ CFLAG			=	-Wall -Wextra -Werror -g3
 SRC_DIR			=	src/
 OBJ_DIR			=	obj/
 LIB_DIR			=	lib/
-INC_DIR			=	include/ get_next_line/ ft_printf/
+INC_DIR			=	include/ get_next_line/ ft_printfd/
 
 # Library Paths
 LIBFT_DIR		=	$(LIB_DIR)libft/
@@ -50,10 +50,10 @@ CUSTOM_SRC		=	$(addprefix $(CUSTOM_DIR)/, \
 					ft_strcpy.c \
 					)
 
-PRINTF_DIR		=	ft_printf/
+PRINTF_DIR		=	ft_printfd/
 PRINTF_SRC		=	$(addprefix $(PRINTF_DIR)/, \
-					ft_printf_cspct.c \
-					ft_printf.c \
+					ft_printfd_cspct.c \
+					ft_printfd.c \
 					ft_putnbr_base.c \
 					)
 

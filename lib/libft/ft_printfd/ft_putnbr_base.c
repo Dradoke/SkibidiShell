@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printfd.h"
 #include "libft.h"
 
 // Prints a number in a specified base.
 // Recursively converts and writes 'n' using the characters in 'base'.
 // Returns number of characters printed.
-int	ft_pn_b(long long n, char *base)
+int	ft_pn_b(int fd, long long n, char *base)
 {
 	uintmax_t	nbr;
 	uintmax_t	base_length;
@@ -26,21 +26,21 @@ int	ft_pn_b(long long n, char *base)
 	base_length = ft_strlen(base);
 	if (n < 0)
 	{
-		len += write(1, "-", 1);
+		len += write(fd, "-", 1);
 		nbr = -n;
 	}
 	else
 		nbr = n;
 	if (nbr >= base_length)
-		len += ft_pn_b(nbr / base_length, base);
-	len += write(1, &base[nbr % base_length], 1);
+		len += ft_pn_b(fd, nbr / base_length, base);
+	len += write(fd, &base[nbr % base_length], 1);
 	return (len);
 }
 
 // Prints a pointer address in hexadecimal format.
 // Handles NULL pointers by printing "(nil)" instead of an address.
 // Returns number of characters printed.
-int	ft_print_ptr(unsigned long long ptr)
+int	ft_print_ptr(int fd, unsigned long long ptr)
 {
 	int			len;
 	uintmax_t	nbr;
@@ -48,13 +48,13 @@ int	ft_print_ptr(unsigned long long ptr)
 	char		*base;
 
 	if (ptr == 0)
-		return (write(1, "(nil)", 5));
-	len = write(1, "0x", 2);
+		return (write(fd, "(nil)", 5));
+	len = write(fd, "0x", 2);
 	base = "0123456789abcdef";
 	base_length = 16;
 	nbr = ptr;
 	if (nbr >= base_length)
-		len += ft_pn_b(nbr / base_length, base);
-	len += write(1, &base[nbr % base_length], 1);
+		len += ft_pn_b(fd, nbr / base_length, base);
+	len += write(fd, &base[nbr % base_length], 1);
 	return (len);
 }
