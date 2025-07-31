@@ -21,7 +21,7 @@ static t_bool	heredoc_child(t_redir *redir)
 	{
 		line = readline("> ");
 		if (!line)
-			return (ft_printf(FTERR_HDOC_D"\n", redir->name), exit(0), FALSE);
+			return (ft_printfd(1, FTERR_HDOC_D"\n", redir->name), FALSE);
 		if (!ft_strncmp(redir->name, line, ft_strlen(redir->name) + 1))
 			return (free(line), exit(0), TRUE);
 		write(redir->fd, line, ft_strlen(line));
@@ -35,7 +35,7 @@ static t_bool	make_heredoc(t_redir *redir)
 	int		pid;
 	int		status;
 
-	redir->hdoc_path = ft_strjoin_free("/tmp/", ft_rand_str(10));
+	redir->hdoc_path = ft_strjoin_free(ft_strdup("/tmp/"), ft_rand_str(10));
 	redir->fd = open(redir->hdoc_path, O_WRONLY | O_CREAT | O_TRUNC);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
