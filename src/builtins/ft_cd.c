@@ -12,14 +12,16 @@
 
 #include "skibidi_shell.h"
 
-int	ft_cd(t_list *args, t_list **env)
+int	ft_cd(t_shell *sh, t_list **env)
 {
 	char	*new_pwd;
 	char	*old_pwd;
+	t_list	*args;
 
-	if (!((t_arg *)args->next->content)->name)
+	args = ((t_list *)((t_cmd *)sh->cmd->content)->arg)->next;
+	if (!((t_arg *)args->content)->name)
 		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
-	if (chdir(((t_arg *)args->next->content)->name) != 0)
+	if (chdir(((t_arg *)args->content)->name) != 0)
 		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
 	old_pwd = ft_getenv_val(*env, "PWD");
 	new_pwd = getcwd(NULL, 0);

@@ -12,13 +12,13 @@
 
 #include "skibidi_shell.h"
 
-int ft_echo(t_list *args, t_list **env)
+int ft_echo(t_shell *sh, t_list **env)
 {
 	t_list *arg_lst;
 
 	(void)env;
-	arg_lst = args->next;
-	if (!((t_arg *)args->next->content)->name)
+	arg_lst = ((t_cmd *)sh->cmd->content)->arg->next;
+	if (!((t_arg *)arg_lst->content)->name)
 		return (0);
 	while (arg_lst)
 	{

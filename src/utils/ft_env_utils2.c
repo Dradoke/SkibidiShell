@@ -28,8 +28,14 @@ t_bool	have_equal(char *str)
 
 t_bool	is_valid_key(char *str)
 {
+	int i;
+
+	i = 0;
 	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
 		return (FALSE);
+	while (str[i] && str[i] != '=')
+		if (str[i++] == ' ')
+			return (FALSE);
 	return (TRUE);
 }
 

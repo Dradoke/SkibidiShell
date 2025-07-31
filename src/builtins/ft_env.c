@@ -12,9 +12,9 @@
 
 #include "skibidi_shell.h"
 
-int ft_env(t_list *args, t_list **env)
+int ft_env(t_shell *sh, t_list **env)
 {
-	(void)args;
+	(void)sh;
 	t_list	*env_lst;
 
 	env_lst = *env;

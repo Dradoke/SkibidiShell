@@ -71,13 +71,13 @@ t_bool	is_valid_env(char *str, char eu);
 
 
 /* Builtins */
-int ft_echo(t_list *args, t_list **env);
-int ft_cd(t_list *args, t_list **env);
-int	ft_pwd(t_list *args, t_list **env);
-int	ft_export(t_list *args, t_list **env);
-int	ft_unset(t_list *args, t_list **env);
-int	ft_env(t_list *args, t_list **env);
-int	ft_exit(t_list *args, t_list **env);
+int ft_echo(t_shell *sh, t_list **env);
+int	ft_cd(t_shell *sh, t_list **env);
+int	ft_pwd(t_shell *sh, t_list **env);
+int	ft_export(t_shell *sh, t_list **env);
+int	ft_unset(t_shell *sh, t_list **env);
+int	ft_env(t_shell *sh, t_list **env);
+int	ft_exit(t_shell *sh, t_list **env);
 
 unsigned long hash_key(const char *s);
 int get_tabindex(unsigned long hash);

@@ -12,13 +12,13 @@
 
 #include "skibidi_shell.h"
 
-int ft_unset(t_list *args, t_list **env)
+int ft_unset(t_shell *sh, t_list **env)
 {
-	(void)args;
-	(void)env;
 	t_list	*env_lst;
+	t_list	*args;
 	char *key;
 
+	args = ((t_cmd *)sh->cmd->content)->arg;
 	if (!args->next)
 		return (0);
 	env_lst = *env;
@@ -29,7 +29,6 @@ int ft_unset(t_list *args, t_list **env)
 	{
 		if (ft_strcmp(((t_env *)env_lst->content)->key, key) == 0)
 		{
-			ft_putstr_fd("J'ai trouve la comparaison\n", 1);
 			env_lst->prev->next = env_lst->next;
 			env_lst->next->prev = env_lst->prev;
 			free(((t_env *)env_lst->content)->key);
