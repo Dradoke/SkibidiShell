@@ -37,17 +37,23 @@ static t_bool	make_heredoc(t_redir *redir)
 
 	redir->hdoc_path = ft_strjoin("/tmp/", ft_rand_str(10));
 	redir->fd = open(redir->hdoc_path, O_WRONLY | O_CREAT | O_TRUNC);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
 		return (FALSE);
 	if (pid == 0)
+	{
 		heredoc_child(redir);
+		exit(0);
+	}
 	waitpid(pid, &status, 0);
+	signal(SIGINT, sigint_handler);
 	close(redir->fd);
-	if (WIFSIGNALED(status) || WEXITSTATUS(status) != 0)
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		return (write(1, "\n", 1), FALSE);
+	if (WEXITSTATUS(status) != 0)
 		return (FALSE);
 	return (TRUE);
-
 }
 
 t_bool	ft_heredoc(t_list *cmd)

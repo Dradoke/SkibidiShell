@@ -35,22 +35,14 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (FALSE);
-	ft_heredoc(sh->cmd);
+	if (!ft_heredoc(sh->cmd))
+		return (FALSE);
 	// pid = fork();
 	// if (!pid)
 	// 	execve("/bin/cat", ft_argtoarray(((t_cmd *)sh->cmd->content)->arg), ft_envtoarray(sh->env));
 	// waitpid(pid, &status, 0);
 	// print_list(sh->cmd, CMD);
 	return (TRUE);
-}
-
-static void	sigint_handler(int sig)
-{
-	(void)sig;
-	rl_replace_line("", 0);
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
 }
 
 static t_bool	loop_shell(t_shell *sh)
@@ -76,6 +68,7 @@ int	main(int ac, char **av, char **env)
 	if (!sh)
 		return (1);
 	sh->env = ft_env_to_lst(sh, env);
+	sh->last_err = ft_itoa(0);
 	while (1)
 		if (!loop_shell(sh))
 			break ;
