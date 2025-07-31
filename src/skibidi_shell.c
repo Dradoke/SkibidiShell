@@ -26,9 +26,6 @@ static void	free_shell(t_shell *sh)
 
 static int	process_line(t_shell *sh)
 {
-	// int	pid;
-	// int	status;
-
 	if (ft_strlen(sh->line) == 0)
 		return (FALSE);
 	add_history(sh->line);
@@ -37,11 +34,6 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_heredoc(sh->cmd))
 		return (FALSE);
-	// pid = fork();
-	// if (!pid)
-	// 	execve("/bin/cat", ft_argtoarray(((t_cmd *)sh->cmd->content)->arg), ft_envtoarray(sh->env));
-	// waitpid(pid, &status, 0);
-	// print_list(sh->cmd, CMD);
 	return (TRUE);
 }
 
