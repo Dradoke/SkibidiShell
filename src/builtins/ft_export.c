@@ -12,24 +12,26 @@
 
 #include "skibidi_shell.h"
 
-
-static int print_env(t_list **env)
+static int	print_env(t_list **env)
 {
 	t_list	*env_lst;
+	char	*key;
+	char	*value;
 
 	env_lst = *env;
-	if (!env_lst) 
+	if (!env_lst)
 		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
+	key = ((t_env *)env_lst->content)->key;
+	value = ((t_env *)env_lst->content)->value;
 	while (env_lst)
 	{
-		ft_printf("declare -x %s", ((t_env *)env_lst->content)->key);
-		ft_printf("=");
-		ft_printf("%s\n", ((t_env *)env_lst->content)->value);
+		ft_printfd(STDOUT_FILENO, "declare -x %s", key);
+		ft_printfd(STDOUT_FILENO, "=");
+		ft_printfd(STDOUT_FILENO, "%s\n", value);
 		env_lst = env_lst->next;
 	}
 	return (EXIT_SUCCESS);
 }
-
 
 int	ft_export(t_shell *sh, t_list **env)
 {
@@ -40,7 +42,7 @@ int	ft_export(t_shell *sh, t_list **env)
 
 	args = ((t_cmd *)sh->cmd->content)->arg->next;
 	if (!args)
-		return (print_env(env)); // !!! CHANGER !!!: doit print les variables d'environnement comme bash le fait.
+		return (print_env(env));
 	env_arg = ((t_arg *)args->content);
 	if (is_valid_env(env_arg->name, 'e') == FALSE)
 		return (ft_putstr_fd(FTERR_EXP"\n", STDIN_FILENO), FTERR_EXP_VAL);

@@ -12,19 +12,19 @@
 
 #include "skibidi_shell.h"
 
-int ft_env(t_shell *sh, t_list **env)
+int	ft_env(t_shell *sh, t_list **env)
 {
-	(void)sh;
 	t_list	*env_lst;
 
+	(void)sh;
 	env_lst = *env;
-	if (!env_lst) 
+	if (!env_lst)
 		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
 	while (env_lst)
 	{
-		ft_printf("%s", ((t_env *)env_lst->content)->key);
-		ft_printf("=");
-		ft_printf("%s\n", ((t_env *)env_lst->content)->value);
+		ft_printfd(STDOUT_FILENO, "%s", ((t_env *)env_lst->content)->key);
+		ft_printfd(STDOUT_FILENO, "=");
+		ft_printfd(STDOUT_FILENO, "%s\n", ((t_env *)env_lst->content)->value);
 		env_lst = env_lst->next;
 	}
 	return (0);

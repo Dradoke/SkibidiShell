@@ -26,7 +26,6 @@
 # include "prototype.h"
 # include "fterr.h"
 
-
 /* builtins */
 
 // hashing values

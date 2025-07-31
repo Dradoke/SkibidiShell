@@ -12,11 +12,11 @@
 
 #include "skibidi_shell.h"
 
-int ft_exit(t_shell *sh, t_list **env)
+int	ft_exit(t_shell *sh, t_list **env)
 {
 	t_list	*args;
 	char	*arg_name;
-	int i;
+	int		i;
 
 	(void)env;
 	i = 0;
@@ -28,7 +28,7 @@ int ft_exit(t_shell *sh, t_list **env)
 	{
 		if (!isdigit(arg_name[i++]))
 		{
-			// ft_printfd(STDERR_FILENO, FTERR_EXIT, arg_name);
+			ft_printfd(STDERR_FILENO, FTERR_EXIT, arg_name);
 			exit(255);
 		}
 	}

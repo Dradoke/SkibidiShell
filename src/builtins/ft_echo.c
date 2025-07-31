@@ -12,9 +12,9 @@
 
 #include "skibidi_shell.h"
 
-int ft_echo(t_shell *sh, t_list **env)
+int	ft_echo(t_shell *sh, t_list **env)
 {
-	t_list *arg_lst;
+	t_list	*arg_lst;
 
 	(void)env;
 	arg_lst = ((t_cmd *)sh->cmd->content)->arg->next;

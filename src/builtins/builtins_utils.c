@@ -64,8 +64,8 @@ static void	insert_builtins(t_builtins *builtins)
 
 t_bool	is_builtins(char *cmd, t_builtins *builtins)
 {
-	int idx0;
-	char *builtin_name;
+	int		idx0;
+	char	*builtin_name;
 
 	idx0 = get_tabindex(hash_key(cmd));
 	builtin_name = builtins[idx0].name;

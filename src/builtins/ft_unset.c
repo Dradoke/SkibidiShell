@@ -12,11 +12,11 @@
 
 #include "skibidi_shell.h"
 
-int ft_unset(t_shell *sh, t_list **env)
+int	ft_unset(t_shell *sh, t_list **env)
 {
 	t_list	*env_lst;
 	t_list	*args;
-	char *key;
+	char	*key;
 
 	args = ((t_cmd *)sh->cmd->content)->arg;
 	if (!args->next)
