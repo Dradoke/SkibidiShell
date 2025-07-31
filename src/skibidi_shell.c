@@ -44,7 +44,7 @@ static t_bool	loop_shell(t_shell *sh)
 	signal(SIGQUIT, SIG_IGN);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
-		return (ft_printf("Leaving SkibidiShell...\n"), FALSE);
+		return (ft_printfd(STDOUT_FILENO, "Leaving SkibidiShell...\n"), FALSE);
 	if (!process_line(sh))
 		return (ft_puterror(sh), TRUE);
 	return (ft_seterror(sh, "", 0), TRUE);

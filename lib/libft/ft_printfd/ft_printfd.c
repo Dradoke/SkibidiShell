@@ -1,48 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printfd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 20:05:53 by jmilesi           #+#    #+#             */
-/*   Updated: 2025/03/26 15:32:29 by ngaudoui         ###   ########.fr       */
+/*   Created: 2023/05/02 20:05:53 by mavander          #+#    #+#             */
+/*   Updated: 2025/03/26 15:32:29 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printfd.h"
 
 // Processes format specifiers and routes to appropriate printing functions.
 // Handles c,s,p,d,i,u,x,X,% specifiers using corresponding functions.
 // Returns number of characters printed.
-int	ft_formats(va_list args, const char format)
+int	ft_formats(int fd, va_list args, const char format)
 {
 	int	len;
 
 	len = 0;
 	if (format == 'c')
-		len += ft_printchar(va_arg(args, int));
+		len += ft_printchar(fd, va_arg(args, int));
 	else if (format == 's')
-		len += ft_printstr(va_arg(args, char *));
+		len += ft_printstr(fd, va_arg(args, char *));
 	else if (format == 'p')
-		len += ft_print_ptr(va_arg(args, unsigned long long));
+		len += ft_print_ptr(fd, va_arg(args, unsigned long long));
 	else if (format == 'd' || format == 'i')
-		len += ft_pn_b(va_arg(args, int), "0123456789");
+		len += ft_pn_b(fd, va_arg(args, int), "0123456789");
 	else if (format == 'u')
-		len += ft_pn_b(va_arg(args, unsigned int), "0123456789");
+		len += ft_pn_b(fd, va_arg(args, unsigned int), "0123456789");
 	else if (format == 'x')
-		len += ft_pn_b(va_arg(args, unsigned int), "0123456789abcdef");
+		len += ft_pn_b(fd, va_arg(args, unsigned int), "0123456789abcdef");
 	else if (format == 'X')
-		len += ft_pn_b(va_arg(args, unsigned int), "0123456789ABCDEF");
+		len += ft_pn_b(fd, va_arg(args, unsigned int), "0123456789ABCDEF");
 	else if (format == '%')
-		len += ft_printpct();
+		len += ft_printpct(fd);
 	return (len);
 }
 
 // Printf implementation with variadic arguments support.
 // Parses format string, processes specifiers with ft_formats.
+// Write in the specified fd.
 // Returns total number of characters printed.
-int	ft_printf(const char *format, ...)
+int	ft_printfd(int fd, const char *format, ...)
 {
 	va_list	args;
 	int		len;
@@ -55,12 +56,12 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			len += ft_formats(args, format[i + 1]);
+			len += ft_formats(fd, args, format[i + 1]);
 			i++;
 		}
 		else
 		{
-			len += write(1, &format[i], 1);
+			len += write(fd, &format[i], 1);
 		}
 		i++;
 	}

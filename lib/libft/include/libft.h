@@ -77,7 +77,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 
 // FT_PRINTF
-int		ft_printf(const char *format, ...);
+int		ft_printfd(int fd, const char *format, ...);
 
 // CUSTOM
 int		ft_isspace(char c);
