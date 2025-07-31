@@ -31,6 +31,28 @@ static void	set_last_redir(t_cmd *tcmd)
 	}
 }
 
+static t_bool	parse_command_loop(t_shell *sh, t_cmd *newcmd)
+{
+	while (sh->line[sh->i] && sh->line[sh->i] != '|')
+	{
+		if (ft_skipspace(sh->line, &sh->i) && sh->line[sh->i] == '|')
+			break ;
+		if (ft_isdelim(sh->line[sh->i]))
+		{
+			if (!ft_addredir(sh, newcmd))
+				return (FALSE);
+		}
+		else if (!ft_isspace(sh->line[sh->i]) && ft_isprint(sh->line[sh->i]))
+		{
+			if (!ft_addarg(sh, newcmd))
+				return (FALSE);
+		}
+		else
+			sh->i++;
+	}
+	return (TRUE);
+}
+
 static t_bool	parse_command(t_shell *sh)
 {
 	t_cmd	*newcmd;
@@ -42,19 +64,8 @@ static t_bool	parse_command(t_shell *sh)
 		return (ft_seterror(sh, FTERR_SYNTAX"2", 2), FALSE);
 	ft_lstadd_back(&sh->cmd, ft_lstnew(ft_calloc(sizeof(t_cmd))));
 	newcmd = ft_lstlast(sh->cmd)->content;
-	while (sh->line[sh->i] && sh->line[sh->i] != '|')
-	{
-		if (ft_skipspace(sh->line, &sh->i) && sh->line[sh->i] == '|')
-			break ;
-		if (ft_isdelim(sh->line[sh->i])
-			&& !ft_addredir(sh, newcmd))
-			return (FALSE);
-		else if (!ft_isspace(sh->line[sh->i]) && ft_isprint(sh->line[sh->i])
-			&& !ft_addarg(sh, newcmd))
-			return (FALSE);
-	}
-	// if (!newcmd->arg)
-	// 	return (ft_seterror(sh, FTERR_SYNTAX"3", 2), FALSE);
+	if (!parse_command_loop(sh, newcmd))
+		return (FALSE);
 	if (newcmd->redir)
 		set_last_redir(newcmd);
 	return (TRUE);
