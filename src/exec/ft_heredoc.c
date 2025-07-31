@@ -35,7 +35,7 @@ static t_bool	make_heredoc(t_redir *redir)
 	int		pid;
 	int		status;
 
-	redir->hdoc_path = ft_strjoin("/tmp/", ft_rand_str(10));
+	redir->hdoc_path = ft_strjoin_free("/tmp/", ft_rand_str(10));
 	redir->fd = open(redir->hdoc_path, O_WRONLY | O_CREAT | O_TRUNC);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();

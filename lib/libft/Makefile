@@ -48,6 +48,7 @@ CUSTOM_SRC		=	$(addprefix $(CUSTOM_DIR)/, \
 					ft_rand_str.c \
 					ft_realloc.c \
 					ft_strcpy.c \
+					ft_strjoin_free.c \
 					)
 
 PRINTF_DIR		=	ft_printf/
