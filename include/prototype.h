@@ -18,6 +18,9 @@
 // print_list.c
 void	print_list(t_list *lst, t_lstype type);
 
+/*---exec---*/
+// ft_heredoc.c
+t_bool	ft_heredoc(t_list *cmd);
 /*---parser---*/
 // ft_addarg.c
 t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd);
@@ -42,7 +45,12 @@ void	ft_free_tredir(void *tredir);
 void	ft_free_tenv(void *tenv);
 void	ft_free_tcmd(void *tcmd);
 // ft_isdelim.c
-int		ft_isdelim(int c);
+t_bool	ft_isdelim(int c);
+// ft_lsttoarray.c
+char	**ft_argtoarray(t_list *list);
+char	**ft_envtoarray(t_list *list);
+// ft_signal.c
+void	sigint_handler(int sig);
 // ft_skipspace.c
 t_bool	ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c

@@ -33,6 +33,8 @@ void	ft_free_tredir(void *tredir)
 		return ;
 	if (content->name)
 		free(content->name);
+	if (content->hdoc_path)
+		free(content->hdoc_path);
 	free(content);
 }
 

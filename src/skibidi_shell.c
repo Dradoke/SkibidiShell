@@ -32,22 +32,16 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (FALSE);
-	// print_list(sh->cmd, CMD);
+	if (!ft_heredoc(sh->cmd))
+		return (FALSE);
 	return (TRUE);
-}
-
-static void	sigint_handler(int sig)
-{
-	(void)sig;
-	rl_replace_line("", 0);
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
 }
 
 static t_bool	loop_shell(t_shell *sh)
 {
 	free_shell(sh);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	sh->line = readline("SkibidiShell ➜ ");
 	if (!sh->line)
 		return (ft_printfd(STDOUT_FILENO, "Leaving SkibidiShell...\n"), FALSE);
@@ -60,14 +54,13 @@ int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
 
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	sh = ft_calloc(sizeof(t_shell));
 	if (!sh)
 		return (1);
 	sh->env = ft_env_to_lst(sh, env);
+	sh->last_err = ft_itoa(0);
 	while (1)
 		if (!loop_shell(sh))
 			break ;

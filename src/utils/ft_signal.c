@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdelim.c                                       :+:      :+:    :+:   */
+/*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,11 @@
 
 #include "skibidi_shell.h"
 
-// Checks if a char is whether a < > |
-//
-// Return:
-// 1 if it is
-// 0 if not
-t_bool	ft_isdelim(int c)
+void	sigint_handler(int sig)
 {
-	if (c == '<' || c == '>' || c == '|')
-		return (TRUE);
-	return (FALSE);
+	(void)sig;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
 }
