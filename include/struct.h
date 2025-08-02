@@ -13,7 +13,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 # include "skibidi_shell.h"
-
+/*████████████████████████████████████████████████████████████████████████████*/
 //---ENUMS---//
 typedef enum e_redir_type
 {
@@ -49,9 +49,8 @@ typedef enum e_quote
 	SINGLE,		// '
 	DOUBLE,		// "
 }	t_quote;
-
+/*████████████████████████████████████████████████████████████████████████████*/
 //---STRUCTS---//
-
 typedef struct s_err
 {
 	t_bool	b;
@@ -94,5 +93,5 @@ typedef struct s_cmd
 	t_list			*arg;
 	t_redir			*last_redir[2];
 }	t_cmd;
-
+/*████████████████████████████████████████████████████████████████████████████*/
 #endif
