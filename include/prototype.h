@@ -79,6 +79,7 @@ t_bool			is_valid_key(char *str);
 t_bool			is_valid_env(char *str, char eu);
 
 /* Builtins */
+int				ft_builtins(t_shell *sh, t_list **env, t_builtins *builtins);
 int				ft_echo(t_shell *sh, t_list **env);
 int				ft_cd(t_shell *sh, t_list **env);
 int				ft_pwd(t_shell *sh, t_list **env);

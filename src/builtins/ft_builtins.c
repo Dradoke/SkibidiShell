@@ -12,25 +12,12 @@
 
 #include "skibidi_shell.h"
 
-int	ft_env(t_shell *sh, t_list **env)
+int	ft_builtins(t_shell *sh, t_list **env, t_builtins *builtins)
 {
-	t_list	*env_lst;
-	t_env	*env_node;
+	t_list	*args;
+	int		idx0;
 
-	(void)sh;
-	env_lst = *env;
-	if (!env_lst)
-		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
-	while (env_lst)
-	{
-		if ((t_env *)env_lst->content)
-		{
-			env_node = ((t_env *)env_lst->content);
-			ft_printfd(STDOUT_FILENO, "%s", env_node->key);
-			ft_printfd(STDOUT_FILENO, "=");
-			ft_printfd(STDOUT_FILENO, "%s\n", env_node->value);
-		}
-		env_lst = env_lst->next;
-	}
-	return (0);
+	args = ((t_cmd *)sh->cmd->content)->arg;
+	idx0 = get_tabindex(hash_key(((t_arg *)args->content)->name));
+	return (builtins[idx0].fn(sh, env));
 }

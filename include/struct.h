@@ -58,14 +58,17 @@ typedef struct s_err
 	char	*msg;
 }	t_err;
 
+typedef struct s_builtins	t_builtins;
+
 typedef struct s_shell
 {
-	size_t	i;
-	t_list	*cmd;
-	t_list	*env;
-	char	*line;
-	t_err	err;
-	char	*last_err;
+	size_t		i;
+	t_list		*cmd;
+	t_list		*env;
+	char		*line;
+	t_err		err;
+	char		*last_err;
+	t_builtins	*bultins;
 }	t_shell;
 
 typedef struct s_redir

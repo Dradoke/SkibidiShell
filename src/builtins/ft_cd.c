@@ -19,9 +19,14 @@ int	ft_cd(t_shell *sh, t_list **env)
 	t_list	*args;
 
 	args = ((t_list *)((t_cmd *)sh->cmd->content)->arg)->next;
-	if (!((t_arg *)args->content)->name)
+	if (!args)
+	{
+		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
+			return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
+	}
+	else if (!((t_arg *)args->content)->name)
 		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
-	if (chdir(((t_arg *)args->content)->name) != 0)
+	else if (chdir(((t_arg *)args->content)->name) != 0)
 		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
 	old_pwd = ft_getenv_val(*env, "PWD");
 	new_pwd = getcwd(NULL, 0);

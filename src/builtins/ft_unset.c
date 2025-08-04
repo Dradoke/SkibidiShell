@@ -12,31 +12,67 @@
 
 #include "skibidi_shell.h"
 
+static void	unset_env(t_shell *sh, t_list **env, t_list *target)
+{
+	t_env	*env_node;
+
+	(void)sh;
+	env_node = ((t_env *)target->content);
+	if (!target->prev)
+	{
+		*env = target->next;
+		if (target->next)
+			target->next->prev = NULL;
+	}
+	else
+	{
+		if (target->prev)
+			target->prev->next = target->next;
+		if (target->next)
+			target->next->prev = target->prev;
+	}
+	free(env_node->key);
+	free(env_node->value);
+	free(env_node);
+	free(target);
+}
+
+static void	envlst_iter(t_shell *sh, t_list **env, t_list *env_lst, char *key)
+{
+	t_env	*env_node;
+
+	while (env_lst)
+	{
+		env_node = (env_lst->content);
+		if (ft_strcmp(env_node->key, key) == 0)
+		{
+			unset_env(sh, env, env_lst);
+			break ;
+		}
+		env_lst = env_lst->next;
+	}
+	env_lst = *env;
+}
+
 int	ft_unset(t_shell *sh, t_list **env)
 {
 	t_list	*env_lst;
 	t_list	*args;
 	char	*key;
 
-	args = ((t_cmd *)sh->cmd->content)->arg;
+	args = ((t_cmd *)sh->cmd->content)->arg->next;
 	if (!args->next)
 		return (0);
 	env_lst = *env;
-	if (is_valid_env(((t_arg *)args->next->content)->name, 'u') == FALSE)
-		return (ft_putstr_fd(FTERR_UNSET"\n", STDIN_FILENO), FTERR_UNSET_VAL);
-	key = get_env_key(((t_arg *)args->next->content)->name);
-	while (env_lst)
+	while (args)
 	{
-		if (ft_strcmp(((t_env *)env_lst->content)->key, key) == 0)
-		{
-			env_lst->prev->next = env_lst->next;
-			env_lst->next->prev = env_lst->prev;
-			free(((t_env *)env_lst->content)->key);
-			free(((t_env *)env_lst->content)->value);
-			free(env_lst->content);
-			break ;
-		}
-		env_lst = env_lst->next;
+		if (is_valid_env(((t_arg *)args->content)->name, 'u') == FALSE)
+			return (ft_putstr_fd(FTERR_UNSET"\n", STDIN_FILENO),
+				FTERR_UNSET_VAL);
+		key = get_env_key(((t_arg *)args->content)->name);
+		envlst_iter(sh, env, env_lst, key);
+		free(key);
+		args = args->next;
 	}
 	return (0);
 }
