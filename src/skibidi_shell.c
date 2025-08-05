@@ -36,6 +36,7 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
+	ft_builtins(sh, &sh->env, sh->bultins);
 	return (TRUE);
 }
 
@@ -67,7 +68,14 @@ int	main(int ac, char **av, char **env)
 	while (1)
 		if (!loop_shell(sh))
 			break ;
+<<<<<<< HEAD
 	ft_free_all(&sh);
+=======
+	ft_lstclear(&sh->env, ft_free_tenv);
+	free(sh->last_err);
+	free(sh->bultins);
+	free(sh);
+>>>>>>> d4afd8b (Tiens voila le fichier avec les modifs Nathan :))
 	clear_history();
 	return (0);
 }
