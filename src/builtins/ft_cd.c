@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
+int	ft_cd(t_shell *sh, t_list **env)
+{
+	char	*new_pwd;
+	char	*old_pwd;
+	t_list	*args;
 
-# include "libft.h"
-
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
-
-/* builtins */
-
-// hashing values
-# define OFFSET 32
-# define PRIME 23
-// size of builtins's table 
-# define TABLE_SIZE 16
-#endif
+	args = ((t_list *)((t_cmd *)sh->cmd->content)->arg)->next;
+	if (!args)
+	{
+		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
+			return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
+	}
+	else if (!((t_arg *)args->content)->name)
+		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
+	else if (chdir(((t_arg *)args->content)->name) != 0)
+		return (ft_putstr_fd(FTERR_CD"\n", STDOUT_FILENO), FTERR_CD_VAL);
+	old_pwd = ft_getenv_val(*env, "PWD");
+	new_pwd = getcwd(NULL, 0);
+	ft_setenv(*env, "OLDPWD", old_pwd);
+	ft_setenv(*env, "PWD", new_pwd);
+	free(new_pwd);
+	return (0);
+}

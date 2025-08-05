@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
+t_bool	have_equal(char *str)
+{
+	int	i;
 
-# include "libft.h"
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
 
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
+t_bool	is_valid_key(char *str)
+{
+	int	i;
 
-/* builtins */
+	i = 0;
+	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
+		return (FALSE);
+	while (str[i] && str[i] != '=')
+		if (str[i++] == ' ')
+			return (FALSE);
+	return (TRUE);
+}
 
-// hashing values
-# define OFFSET 32
-# define PRIME 23
-// size of builtins's table 
-# define TABLE_SIZE 16
-#endif
+t_bool	is_valid_env(char *str, char eu)
+{
+	if (!str)
+		return (FALSE);
+	if (is_valid_key(str) == FALSE)
+		return (FALSE);
+	if (eu == 'e')
+		if (have_equal(str) == FALSE)
+			return (FALSE);
+	return (TRUE);
+}

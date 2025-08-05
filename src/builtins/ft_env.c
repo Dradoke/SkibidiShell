@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
+int	ft_env(t_shell *sh, t_list **env)
+{
+	t_list	*env_lst;
+	t_env	*env_node;
 
-# include "libft.h"
-
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
-
-/* builtins */
-
-// hashing values
-# define OFFSET 32
-# define PRIME 23
-// size of builtins's table 
-# define TABLE_SIZE 16
-#endif
+	(void)sh;
+	env_lst = *env;
+	if (!env_lst)
+		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
+	while (env_lst)
+	{
+		if ((t_env *)env_lst->content)
+		{
+			env_node = ((t_env *)env_lst->content);
+			ft_printfd(STDOUT_FILENO, "%s", env_node->key);
+			ft_printfd(STDOUT_FILENO, "=");
+			ft_printfd(STDOUT_FILENO, "%s\n", env_node->value);
+		}
+		env_lst = env_lst->next;
+	}
+	return (0);
+}

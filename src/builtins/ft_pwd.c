@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.h                                    :+:      :+:    :+:   */
+/*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SKIBIDI_SHELL_H
-# define SKIBIDI_SHELL_H
+#include "skibidi_shell.h"
 
-# include <stdio.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <wait.h>
+int	ft_pwd(t_shell *sh, t_list **env)
+{
+	char	*curr_path;
 
-# include "libft.h"
-
-# include "struct.h"
-# include "prototype.h"
-# include "fterr.h"
-
-/* builtins */
-
-// hashing values
-# define OFFSET 32
-# define PRIME 23
-// size of builtins's table 
-# define TABLE_SIZE 16
-#endif
+	(void)sh;
+	curr_path = ft_getenv_val(*env, "PWD");
+	if (curr_path != NULL)
+	{
+		ft_putstr_fd(curr_path, 1);
+		ft_putstr_fd("\n", 1);
+	}
+	return (0);
+}
