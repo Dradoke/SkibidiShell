@@ -34,8 +34,11 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_heredoc(sh, sh->cmd))
 		return (FALSE);
+<<<<<<< HEAD
 	if (!ft_exec(sh))
 		return (FALSE);
+=======
+>>>>>>> cb494be (Tiens voila le fichier avec les modifs Nathan :))
 	ft_builtins(sh, &sh->env, sh->bultins);
 	return (TRUE);
 }
