@@ -67,7 +67,7 @@ int	ft_unset(t_shell *sh, t_list **env)
 	while (args)
 	{
 		if (is_valid_env(((t_arg *)args->content)->name, 'u') == FALSE)
-			return (ft_putstr_fd(FTERR_UNSET"\n", STDIN_FILENO),
+			return (ft_putstr_fd(FTERR_UNSET"\n", STDERR_FILENO),
 				FTERR_UNSET_VAL);
 		key = get_env_key(((t_arg *)args->content)->name);
 		envlst_iter(sh, env, env_lst, key);

@@ -20,7 +20,7 @@ int	ft_env(t_shell *sh, t_list **env)
 	(void)sh;
 	env_lst = *env;
 	if (!env_lst)
-		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
+		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO), FTERR_ENV_VAL);
 	while (env_lst)
 	{
 		if ((t_env *)env_lst->content)
