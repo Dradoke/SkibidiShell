@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:22 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:41:55 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:43:56 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_bool	make_heredoc(t_shell *sh, t_redir *redir)
 		return (close(redir->fd), FALSE);
 	if (pid == 0)
 	{
-		heredoc_child(sh, redir);
+		heredoc_child(redir);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);

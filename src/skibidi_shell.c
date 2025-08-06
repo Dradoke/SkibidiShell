@@ -33,6 +33,7 @@ static int	process_line(t_shell *sh)
 	if (!ft_parser(sh))
 		return (FALSE);
 	if (!ft_heredoc(sh, sh->cmd))
+<<<<<<< HEAD
 		return (FALSE);
 <<<<<<< HEAD
 	if (!ft_exec(sh))
@@ -40,6 +41,11 @@ static int	process_line(t_shell *sh)
 =======
 >>>>>>> cb494be (Tiens voila le fichier avec les modifs Nathan :))
 	ft_builtins(sh, &sh->env, sh->bultins);
+=======
+		return (FALSE);
+	if (!ft_exec(sh))
+		return (FALSE);
+>>>>>>> 61bd8ed (Fixing errors)
 	return (TRUE);
 }
 
