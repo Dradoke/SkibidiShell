@@ -36,7 +36,8 @@
 # define FTERR_UNSET "Error: Invalid option"
 # define FTERR_UNSET_VAL 2
 
-# define FTERR_EXIT "exit: %s: numeric argument required\n"
+# define FTERR_EXIT_NB "exit: %s: numeric argument required\n"
+# define FTERR_EXIT_ARG "exit\nError: too many arguments"
 
 # define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
 

@@ -12,12 +12,12 @@
 
 #include "skibidi_shell.h"
 
-int	ft_builtins(t_shell *sh, t_list **env, t_builtins *builtins)
+int	ft_builtins(t_shell *sh, t_cmd *cmd, t_list **env, t_builtins *builtins)
 {
 	t_list	*args;
 	int		idx0;
 
-	args = ((t_cmd *)sh->cmd->content)->arg;
+	args = cmd->arg;
 	idx0 = get_tabindex(hash_key(((t_arg *)args->content)->name));
 	return (builtins[idx0].fn(sh, env));
 }
