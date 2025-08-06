@@ -96,4 +96,7 @@ t_bool			is_builtins(char *cmd, t_builtins *builtins);
 char			*ft_path(t_shell *sh, t_cmd *cmd);
 t_bool			is_critical(t_list *args);
 
+char			*ft_path(t_shell *sh, t_cmd *cmd);
+t_bool			is_critical(t_list *args);
+
 #endif
