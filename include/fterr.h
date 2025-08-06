@@ -12,6 +12,8 @@
 
 #ifndef FTERR_H
 # define FTERR_H
+/* Generic */
+# define FTERR_OPEN "Error: Open failed"
 
 /* Parsing */
 # define FTERR_REDIR "Error: Wrong redirection syntax"
@@ -37,7 +39,7 @@
 # define FTERR_UNSET_VAL 2
 
 # define FTERR_EXIT "exit: %s: numeric argument required\n"
-
+/* Heredocs */
 # define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
 
 #endif

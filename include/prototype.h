@@ -94,5 +94,5 @@ t_builtins		*builtins_init(void);
 t_bool			is_builtins(char *cmd, t_builtins *builtins);
 
 /* Exec */
-t_bool	is_critical(t_list *args);
+t_bool			is_critical(t_list *args);
 #endif
