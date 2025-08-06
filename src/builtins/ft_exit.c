@@ -23,12 +23,17 @@ int	ft_exit(t_shell *sh, t_list **env)
 	if (!((t_cmd *)sh->cmd->content)->arg->next)
 		exit(atoi(sh->last_err));
 	args = ((t_cmd *)sh->cmd->content)->arg->next;
+	if (args->next)
+	{
+		ft_putstr_fd(FTERR_EXIT_ARG"\n", STDOUT_FILENO);
+		return (1);
+	}
 	arg_name = ((t_arg *)args->content)->name;
 	while (arg_name[i])
 	{
 		if (!isdigit(arg_name[i++]))
 		{
-			ft_printfd(STDERR_FILENO, FTERR_EXIT, arg_name);
+			ft_printfd(STDERR_FILENO, FTERR_EXIT_NB, arg_name);
 			exit(255);
 		}
 	}
