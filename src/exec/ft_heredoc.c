@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-static t_bool	heredoc_child(t_redir *redir)
+static t_bool	heredoc_child(t_shell *sh, t_redir *redir)
 {
 	char	*line;
 
@@ -21,7 +21,7 @@ static t_bool	heredoc_child(t_redir *redir)
 	{
 		line = readline("> ");
 		if (!line)
-			return (ft_printfd(1, FTERR_HDOC_D"\n", redir->name), FALSE);
+			return (ft_printfd(2, FTERR_HDOC_D"\n", redir->name), FALSE);
 		if (!ft_strncmp(redir->name, line, ft_strlen(redir->name) + 1))
 			return (free(line), exit(0), TRUE);
 		write(redir->fd, line, ft_strlen(line));
@@ -30,20 +30,22 @@ static t_bool	heredoc_child(t_redir *redir)
 	}
 }
 
-static t_bool	make_heredoc(t_redir *redir)
+static t_bool	make_heredoc(t_shell *sh, t_redir *redir)
 {
 	int		pid;
 	int		status;
 
 	redir->hdoc_path = ft_strjoin_free(ft_strdup("/tmp/"), ft_rand_str(10));
 	redir->fd = open(redir->hdoc_path, O_WRONLY | O_CREAT | O_TRUNC);
+	if (redir->fd < 0)
+		return (ft_seterror(sh, FTERR_OPEN, 2), FALSE);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
 		return (FALSE);
 	if (pid == 0)
 	{
-		heredoc_child(redir);
+		heredoc_child(sh, redir);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
@@ -56,7 +58,7 @@ static t_bool	make_heredoc(t_redir *redir)
 	return (TRUE);
 }
 
-t_bool	ft_heredoc(t_list *cmd)
+t_bool	ft_heredoc(t_shell *sh, t_list *cmd)
 {
 	t_list	*redir;
 
@@ -67,7 +69,7 @@ t_bool	ft_heredoc(t_list *cmd)
 		{
 			if (((t_redir *)redir->content)->type == HEREDOC)
 			{
-				if (!make_heredoc(redir->content))
+				if (!make_heredoc(sh, redir->content))
 					return (FALSE);
 			}
 			redir = redir->next;
