@@ -12,6 +12,9 @@
 
 #include "skibidi_shell.h"
 
+/*PARSING PART !
+  Return the key from the env array, like USER=user_name,
+  The function will return USER*/
 char	*get_env_key(char *line)
 {
 	char	*str;
@@ -33,6 +36,9 @@ char	*get_env_key(char *line)
 	return (str);
 }
 
+/*PARSING PART !
+  Return the value from the env array, like USER=user_name,
+  The function will return user_name*/
 char	*get_env_value(char *line)
 {
 	char	*str;
