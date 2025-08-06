@@ -28,21 +28,18 @@ static int	get_nb_cmd(char *tab)
 	return (nb_cmd + 1);
 }
 
-char	*ft_path(t_shell *sh, t_cmd *cmd)
+static char	*found_path(t_shell *sh, char *cmd_name, char **tab)
 {
 	int		i;
-	char	**tab;
-	char	*cmd_name;
 	char	*path;
+	char	*path_tmp;
 
 	i = 0;
-	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
-	cmd_name = ((t_arg *)cmd->arg->content)->name;
 	while (i < get_nb_cmd(ft_getenv_val(sh->env, "PATH")))
 	{
-		path = NULL;
-		path = ft_strjoin(tab[i], "/");
-		path = ft_strjoin(path, cmd_name);
+		path_tmp = ft_strjoin(tab[i], "/");
+		path = ft_strjoin(path_tmp, cmd_name);
+		free(path_tmp);
 		if (access(path, X_OK) == 0)
 		{
 			i = 0;
@@ -50,7 +47,28 @@ char	*ft_path(t_shell *sh, t_cmd *cmd)
 				free(tab[i++]);
 			return (free(tab), path);
 		}
+		free(path);
 		i++;
 	}
 	return (NULL);
+}
+
+char	*ft_path(t_shell *sh, t_cmd *cmd)
+{
+	char	**tab;
+	char	*cmd_name;
+
+	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
+	cmd_name = ((t_arg *)cmd->arg->content)->name;
+	if (cmd_name[0] == '/')
+	{
+		if (access(cmd_name, X_OK) == 0)
+			return (cmd_name);
+		else
+		{
+			return (ft_seterror(sh, FTERR_PATH, FTERR_PATH_VAL), NULL);
+		}
+	}
+	else
+		return (found_path(sh, cmd_name, tab));
 }
