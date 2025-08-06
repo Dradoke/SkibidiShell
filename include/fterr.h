@@ -14,6 +14,8 @@
 # define FTERR_H
 /* Generic */
 # define FTERR_OPEN "Error: Open failed"
+# define FTERR_PIPE "Error: Pipe failed"
+# define FTERR_FORK "Error: Fork failed"
 
 /* Parsing */
 # define FTERR_REDIR "Error: Wrong redirection syntax"

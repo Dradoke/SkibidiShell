@@ -25,7 +25,7 @@ void			print_list(t_list *lst, t_lstype type);
 /*████████████████████████████████████████████████████████████████████████████*/
 /*---exec---*/
 // ft_heredoc.c
-t_bool			ft_heredoc(t_list *cmd);
+t_bool			ft_heredoc(t_shell *sh, t_list *cmd);
 /*████████████████████████████████████████████████████████████████████████████*/
 /*---parser---*/
 // ft_addarg.c
@@ -98,5 +98,7 @@ t_bool			is_critical(t_list *args);
 
 char			*ft_path(t_shell *sh, t_cmd *cmd);
 t_bool			is_critical(t_list *args);
+
+t_bool			ft_exec(t_shell *sh);
 
 #endif

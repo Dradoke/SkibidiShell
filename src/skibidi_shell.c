@@ -32,9 +32,10 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (FALSE);
-	if (!ft_heredoc(sh->cmd))
+	if (!ft_heredoc(sh, sh->cmd))
 		return (FALSE);
-	ft_builtins(sh, &sh->env, sh->bultins);
+	if (!ft_exec(sh))
+		return (FALSE);
 	return (TRUE);
 }
 

@@ -73,7 +73,8 @@ typedef struct s_shell
 	t_err		err;
 	char		*last_err;
 	t_builtins	*bultins;
-	int			pipes[2][2];
+	int			pipe_old[2];
+	int			pipe_new[2];
 }	t_shell;
 
 typedef struct s_redir

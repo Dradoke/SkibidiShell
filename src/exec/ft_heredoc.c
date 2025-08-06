@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-static t_bool	heredoc_child(t_shell *sh, t_redir *redir)
+static t_bool	heredoc_child(t_redir *redir)
 {
 	char	*line;
 
@@ -45,7 +45,7 @@ static t_bool	make_heredoc(t_shell *sh, t_redir *redir)
 		return (FALSE);
 	if (pid == 0)
 	{
-		heredoc_child(sh, redir);
+		heredoc_child(redir);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);
