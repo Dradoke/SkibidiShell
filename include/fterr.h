@@ -56,4 +56,7 @@
 
 # define FTERR_PERM "Error: %s: Permission denied\n"
 
+# define FTERR_PATH "Error: No such file or directory"
+# define FTERR_PATH_VAL 127
+
 #endif
