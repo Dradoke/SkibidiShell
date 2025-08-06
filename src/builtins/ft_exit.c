@@ -25,7 +25,7 @@ int	ft_exit(t_shell *sh, t_list **env)
 	args = ((t_cmd *)sh->cmd->content)->arg->next;
 	if (args->next)
 	{
-		ft_putstr_fd(FTERR_EXIT_ARG"\n", STDOUT_FILENO);
+		ft_putstr_fd(FTERR_EXIT_ARG"\n", STDERR_FILENO);
 		return (1);
 	}
 	arg_name = ((t_arg *)args->content)->name;

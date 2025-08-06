@@ -20,7 +20,7 @@ static int	print_env(t_list **env)
 
 	env_lst = *env;
 	if (!env_lst)
-		return (ft_putstr_fd(FTERR_ENV"\n", STDOUT_FILENO), FTERR_ENV_VAL);
+		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO), FTERR_ENV_VAL);
 	key = ((t_env *)env_lst->content)->key;
 	value = ((t_env *)env_lst->content)->value;
 	while (env_lst)
@@ -62,7 +62,7 @@ int	ft_export(t_shell *sh, t_list **env)
 	{
 		env_arg = ((t_arg *)args->content);
 		if (is_valid_env(env_arg->name, 'e') == FALSE)
-			return (ft_putstr_fd(FTERR_EXP"\n", STDIN_FILENO), FTERR_EXP_VAL);
+			return (ft_putstr_fd(FTERR_EXP"\n", STDERR_FILENO), FTERR_EXP_VAL);
 		env_key = get_env_key(env_arg->name);
 		ft_set_new_env(env, env_key, env_arg);
 		free(env_key);
