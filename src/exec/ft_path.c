@@ -12,12 +12,45 @@
 
 #include "skibidi_shell.h"
 
-int	ft_builtins(t_shell *sh, t_cmd *cmd)
+static int	get_nb_cmd(char *tab)
 {
-	t_list	*args;
-	int		idx0;
+	int	i;
+	int	nb_cmd;
 
-	args = cmd->arg;
-	idx0 = get_tabindex(hash_key(((t_arg *)args->content)->name));
-	return (sh->bultins[idx0].fn(sh, &sh->env));
+	i = 0;
+	nb_cmd = 0;
+	while (tab[i])
+	{
+		if (tab[i] == ':')
+			nb_cmd++;
+		i++;
+	}
+	return (nb_cmd + 1);
+}
+
+char	*ft_path(t_shell *sh, t_cmd *cmd)
+{
+	int		i;
+	char	**tab;
+	char	*cmd_name;
+	char	*path;
+
+	i = 0;
+	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
+	cmd_name = ((t_arg *)cmd->arg->content)->name;
+	while (i < get_nb_cmd(ft_getenv_val(sh->env, "PATH")))
+	{
+		path = NULL;
+		path = ft_strjoin(tab[i], "/");
+		path = ft_strjoin(path, cmd_name);
+		if (access(path, X_OK) == 0)
+		{
+			i = 0;
+			while (tab[i])
+				free(tab[i++]);
+			return (free(tab), path);
+		}
+		i++;
+	}
+	return (NULL);
 }

@@ -79,7 +79,7 @@ t_bool			is_valid_key(char *str);
 t_bool			is_valid_env(char *str, char eu);
 
 /* Builtins */
-int				ft_builtins(t_shell *sh, t_list **env, t_builtins *builtins);
+int				ft_builtins(t_shell *sh, t_cmd *cmd);
 int				ft_echo(t_shell *sh, t_list **env);
 int				ft_cd(t_shell *sh, t_list **env);
 int				ft_pwd(t_shell *sh, t_list **env);
@@ -93,4 +93,5 @@ int				get_tabindex(unsigned long hash);
 t_builtins		*builtins_init(void);
 t_bool			is_builtins(char *cmd, t_builtins *builtins);
 
+char			*ft_path(t_shell *sh, t_cmd *cmd);
 #endif

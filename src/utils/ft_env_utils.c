@@ -29,6 +29,8 @@ void	ft_setenv(t_list *env, char *key, char *value)
 	}
 }
 
+/*Return the env value if the key exist
+  Take the env list and a key*/
 char	*ft_getenv_val(t_list *env, char *key)
 {
 	t_list	*env_tmp;
