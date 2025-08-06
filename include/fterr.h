@@ -44,4 +44,7 @@
 /* Heredocs */
 # define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
 
+# define FTERR_PATH "Error: No such file or directory"
+# define FTERR_PATH_VAL 127
+
 #endif
