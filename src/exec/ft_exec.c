@@ -31,10 +31,7 @@ static t_bool	setup_redir(t_cmd *cmd)
 		else if (redir_content->type == INFILE)
 			fd = open(name, O_RDONLY);
 		else if (redir_content->type == HEREDOC)
-		{
-			ft_printfd(1, "%s\n", redir_content->hdoc_path);
 			fd = open(redir_content->hdoc_path, O_RDONLY);
-		}
 		if (fd < 0)
 			return (FALSE);
 		redir_content->fd = fd;
@@ -77,14 +74,14 @@ static void	wait_all_pids(t_shell *sh, t_list *cmd)
 
 static void	setup_pipes_and_redir(t_shell *sh, t_cmd *cmd)
 {
+	if (!cmd->last_redir[INPUT] && sh->pipe_old[INPUT] != -1)
+		dup2(sh->pipe_old[INPUT], STDIN_FILENO);
+	if (!cmd->last_redir[OUTPUT] && sh->pipe_new[OUTPUT] != -1)
+		dup2(sh->pipe_new[OUTPUT], STDOUT_FILENO);
 	if (cmd->last_redir[INPUT])
 		dup2(cmd->last_redir[INPUT]->fd, STDIN_FILENO);
 	if (cmd->last_redir[OUTPUT])
 		dup2(cmd->last_redir[OUTPUT]->fd, STDOUT_FILENO);
-	if (sh->pipe_old[INPUT] != -1)
-		dup2(sh->pipe_old[INPUT], STDIN_FILENO);
-	if (sh->pipe_new[OUTPUT] != -1)
-		dup2(sh->pipe_new[OUTPUT], STDOUT_FILENO);
 	if (sh->pipe_old[INPUT] != -1)
 		close(sh->pipe_old[INPUT]);
 	if (sh->pipe_old[OUTPUT] != -1)
@@ -185,6 +182,10 @@ t_bool	ft_exec(t_shell *sh)
 		if (cmd_content->pid == 0)
 			execute_cmd(sh, cmd_content);
 		close_all_fd(cmd_content->redir);
+		if (sh->pipe_old[INPUT] != -1)
+			close(sh->pipe_old[INPUT]);
+		if (sh->pipe_new[OUTPUT] != -1)
+			close(sh->pipe_new[OUTPUT]);
 		if (cmd_i->next)
 			switch_pipes(&sh->pipe_new, &sh->pipe_old);
 		cmd_i = cmd_i->next;

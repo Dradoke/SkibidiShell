@@ -65,9 +65,7 @@ char	*ft_path(t_shell *sh, t_cmd *cmd)
 		if (access(cmd_name, X_OK) == 0)
 			return (cmd_name);
 		else
-		{
 			return (ft_seterror(sh, FTERR_PATH, FTERR_PATH_VAL), NULL);
-		}
 	}
 	else
 		return (found_path(sh, cmd_name, tab));
