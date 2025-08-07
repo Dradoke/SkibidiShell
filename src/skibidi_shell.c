@@ -45,7 +45,11 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
+<<<<<<< HEAD
 >>>>>>> 61bd8ed (Fixing errors)
+=======
+	ft_builtins(sh, sh->cmd->content);
+>>>>>>> 971f0f0 (builtins changed, now take the current cmd and are working (#30))
 	return (TRUE);
 }
 
