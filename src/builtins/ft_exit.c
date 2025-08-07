@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-int	ft_exit(t_shell *sh, t_list **env)
+int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*args;
 	char	*arg_name;
@@ -20,9 +20,9 @@ int	ft_exit(t_shell *sh, t_list **env)
 
 	(void)env;
 	i = 0;
-	if (!((t_cmd *)sh->cmd->content)->arg->next)
+	if (!cmd->arg->next)
 		exit(atoi(sh->last_err));
-	args = ((t_cmd *)sh->cmd->content)->arg->next;
+	args = cmd->arg->next;
 	if (args->next)
 	{
 		ft_putstr_fd(FTERR_EXIT_ARG"\n", STDERR_FILENO);

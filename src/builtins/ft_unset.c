@@ -54,21 +54,24 @@ static void	envlst_iter(t_shell *sh, t_list **env, t_list *env_lst, char *key)
 	env_lst = *env;
 }
 
-int	ft_unset(t_shell *sh, t_list **env)
+int	ft_unset(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_list	*args;
 	char	*key;
 
-	args = ((t_cmd *)sh->cmd->content)->arg->next;
+	args = cmd->arg;
 	if (!args->next)
 		return (0);
+	args = cmd->arg->next;
 	env_lst = *env;
 	while (args)
 	{
 		if (is_valid_env(((t_arg *)args->content)->name, 'u') == FALSE)
+		{
 			return (ft_putstr_fd(FTERR_UNSET"\n", STDERR_FILENO),
 				FTERR_UNSET_VAL);
+		}
 		key = get_env_key(((t_arg *)args->content)->name);
 		envlst_iter(sh, env, env_lst, key);
 		free(key);

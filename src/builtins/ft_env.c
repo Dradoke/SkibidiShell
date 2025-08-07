@@ -12,12 +12,13 @@
 
 #include "skibidi_shell.h"
 
-int	ft_env(t_shell *sh, t_list **env)
+int	ft_env(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_env	*env_node;
 
 	(void)sh;
+	(void)cmd;
 	env_lst = *env;
 	if (!env_lst)
 		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO), FTERR_ENV_VAL);

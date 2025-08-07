@@ -12,11 +12,12 @@
 
 #include "skibidi_shell.h"
 
-int	ft_pwd(t_shell *sh, t_list **env)
+int	ft_pwd(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	char	*curr_path;
 
 	(void)sh;
+	(void)cmd;
 	curr_path = ft_getenv_val(*env, "PWD");
 	if (curr_path != NULL)
 	{

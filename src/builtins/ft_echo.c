@@ -12,12 +12,12 @@
 
 #include "skibidi_shell.h"
 
-static t_bool	echo_flag(t_shell *sh)
+static t_bool	echo_flag(t_cmd *cmd)
 {
 	char	*arg_name;
 	int		i;
 
-	arg_name = ((t_arg *)((t_cmd *)sh->cmd->content)->arg->next->content)->name;
+	arg_name = ((t_arg *)cmd->arg->next->content)->name;
 	i = 1;
 	while (arg_name[i])
 	{
@@ -39,19 +39,20 @@ static void	print_args(t_list	*arg_lst)
 	}
 }
 
-int	ft_echo(t_shell *sh, t_list **env)
+int	ft_echo(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*arg_lst;
 	t_bool	flag;
 
 	(void)env;
-	arg_lst = ((t_cmd *)sh->cmd->content)->arg->next;
+	(void)sh;
+	arg_lst = cmd->arg->next;
 	if (!arg_lst)
 		return (ft_printfd(STDOUT_FILENO, "\n"), EXIT_SUCCESS);
 	flag = FALSE;
 	if (!ft_strncmp(((t_arg *)arg_lst->content)->name, "-n", 2))
 	{
-		if (echo_flag(sh) == TRUE)
+		if (echo_flag(cmd) == TRUE)
 		{
 			flag = TRUE;
 			arg_lst = arg_lst->next;

@@ -101,7 +101,7 @@ typedef struct s_env
 typedef struct s_builtins
 {
 	char	*name;
-	int		(*fn)(t_shell *sh, t_list **env);
+	int		(*fn)(t_shell *sh, t_list **env, t_cmd *cmd);
 }	t_builtins;
 
 #endif

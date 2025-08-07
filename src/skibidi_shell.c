@@ -34,6 +34,7 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_heredoc(sh->cmd))
 		return (FALSE);
+	ft_builtins(sh, sh->cmd->content);
 	return (TRUE);
 }
 
@@ -61,6 +62,7 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	sh->env = ft_env_to_lst(sh, env);
 	sh->last_err = ft_itoa(0);
+	sh->bultins = builtins_init();
 	while (1)
 		if (!loop_shell(sh))
 			break ;

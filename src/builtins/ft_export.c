@@ -21,10 +21,10 @@ static int	print_env(t_list **env)
 	env_lst = *env;
 	if (!env_lst)
 		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO), FTERR_ENV_VAL);
-	key = ((t_env *)env_lst->content)->key;
-	value = ((t_env *)env_lst->content)->value;
 	while (env_lst)
 	{
+		key = ((t_env *)env_lst->content)->key;
+		value = ((t_env *)env_lst->content)->value;
 		ft_printfd(STDOUT_FILENO, "declare -x %s", key);
 		ft_printfd(STDOUT_FILENO, "=");
 		ft_printfd(STDOUT_FILENO, "%s\n", value);
@@ -49,13 +49,14 @@ static void	ft_set_new_env(t_list **env, char *env_key, t_arg *env_arg)
 	new_env->value = get_env_value(env_arg->name);
 }
 
-int	ft_export(t_shell *sh, t_list **env)
+int	ft_export(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*args;
 	t_arg	*env_arg;
 	char	*env_key;
 
-	args = ((t_cmd *)sh->cmd->content)->arg->next;
+	(void)sh;
+	args = cmd->arg->next;
 	if (!args)
 		return (print_env(env));
 	while (args)
