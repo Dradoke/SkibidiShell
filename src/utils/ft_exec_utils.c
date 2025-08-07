@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_exec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,34 @@
 
 #include "skibidi_shell.h"
 
-static t_bool	have_equal(char *str)
+t_bool	close_all_fd(t_list *redir)
 {
-	int	i;
+	t_redir	*redir_content;
 
-	i = 0;
-	while (str[i])
+	while (redir)
 	{
-		if (str[i] == '=')
-			return (TRUE);
-		i++;
+		redir_content = redir->content;
+		if (close(redir_content->fd) < 0)
+			return (FALSE);
+		redir = redir->next;
 	}
-	return (FALSE);
-}
-
-static t_bool	is_valid_key(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
-		return (FALSE);
-	while (str[i] && str[i] != '=')
-		if (str[i++] == ' ')
-			return (FALSE);
 	return (TRUE);
 }
 
-t_bool	is_valid_env(char *str, char eu)
+void	wait_all_pids(t_shell *sh, t_list *cmd)
 {
-	if (!str)
-		return (FALSE);
-	if (is_valid_key(str) == FALSE)
-		return (FALSE);
-	if (eu == 'e')
-		if (have_equal(str) == FALSE)
-			return (FALSE);
-	return (TRUE);
+	int	status;
+	int	pid;
+
+	while (cmd)
+	{
+		pid = ((t_cmd *)cmd->content)->pid;
+		if (pid > 0)
+		{
+			waitpid(pid, &status, 0);
+			free(sh->last_err);
+			sh->last_err = ft_itoa(WEXITSTATUS(status));
+		}
+		cmd = cmd->next;
+	}
 }
