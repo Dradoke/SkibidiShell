@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:47 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:42:23 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:47:27 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@
 
 # define FTERR_PATH "Error: No such file or directory"
 # define FTERR_PATH_VAL 127
+
+/* Exec */
+# define FTERR_CMD "SkibidiError: Command doesn't exist\n"
 
 #endif
