@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:42:30 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:46:27 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "skibidi_shell.h"
 
 /*████████████████████████████████████████████████████████████████████████████*/
+
 /*---builtins---*/
 // builtins_utils.c
 unsigned long	hash_key(const char *s);
@@ -100,8 +101,6 @@ void			handle_no_path(char *cmd_name);
 int				get_exit_code(char *path);
 t_bool			close_all_fd(t_list *redir);
 // ft_free.c
-void			ft_free_targ(void *targ);
-void			ft_free_tredir(void *tredir);
 void			ft_free_tenv(void *tenv);
 void			ft_free_tcmd(void *tcmd);
 void			ft_free_all(t_shell **sh);
