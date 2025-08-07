@@ -21,13 +21,14 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
 	setup_pipes_and_redir(sh, cmd);
 	if (is_builtins(((t_arg *)cmd->arg->content)->name, sh->bultins))
 	{
-		ft_builtins(sh, cmd);
+		sh->last_err = ft_itoa(ft_builtins(sh, cmd));
 		exit(EXIT_SUCCESS);
 	}
 	path = ft_path(sh, cmd);
 	arg = ft_argtoarray(cmd->arg);
 	env = ft_envtoarray(sh->env);
 	execve(path, arg, env);
+	ft_printfd(1, FTERR_CMD); 
 	free(path);
 	free(arg);
 	free(env);
@@ -48,7 +49,7 @@ static t_bool	single_critical_case(t_shell *sh, t_cmd *cmd)
 			dup2(cmd->last_redir[INPUT]->fd, STDIN_FILENO);
 		if (cmd->last_redir[OUTPUT])
 			dup2(cmd->last_redir[OUTPUT]->fd, STDOUT_FILENO);
-		ft_builtins(sh, cmd);
+		sh->last_err = ft_itoa(ft_builtins(sh, cmd));
 		dup2(std_fd[INPUT], STDIN_FILENO);
 		dup2(std_fd[OUTPUT], STDOUT_FILENO);
 		close(std_fd[INPUT]);

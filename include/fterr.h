@@ -40,7 +40,7 @@
 # define FTERR_UNSET "Error: Invalid option"
 # define FTERR_UNSET_VAL 2
 
-# define FTERR_EXIT_NB "exit: %s: numeric argument required\n"
+# define FTERR_EXIT_NB "exit\nexit: %s: numeric argument required\n"
 # define FTERR_EXIT_ARG "exit\nError: too many arguments"
 
 /* Heredocs */
@@ -48,5 +48,8 @@
 
 # define FTERR_PATH "Error: No such file or directory"
 # define FTERR_PATH_VAL 127
+
+/* Exec */
+# define FTERR_CMD "SkibidiError: Command doesn't exist\n"
 
 #endif

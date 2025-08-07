@@ -12,6 +12,7 @@
 
 # Binaire compilé
 skibidi_shell
+minishell
 
 # Test file
 test.c
@@ -20,3 +21,5 @@ infile*
 
 # Folder not needed
 .vscode/
+
+minishell_tester/

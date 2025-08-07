@@ -60,7 +60,7 @@ char	*ft_path(t_shell *sh, t_cmd *cmd)
 
 	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
 	cmd_name = ((t_arg *)cmd->arg->content)->name;
-	if (cmd_name[0] == '/')
+	if (cmd_name[0] == '/' || cmd_name[0] == '.')
 	{
 		if (access(cmd_name, X_OK) == 0)
 			return (cmd_name);

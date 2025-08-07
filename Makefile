@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # Project Name
-NAME			=	skibidi_shell
+NAME			=	minishell
 
 # Compiler Setting
 CC				=	gcc

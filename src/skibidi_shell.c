@@ -36,7 +36,6 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
-	ft_builtins(sh, sh->cmd->content);
 	return (TRUE);
 }
 
@@ -50,7 +49,7 @@ static t_bool	loop_shell(t_shell *sh)
 		return (ft_printfd(STDOUT_FILENO, "Leaving SkibidiShell...\n"), FALSE);
 	if (!process_line(sh))
 		return (ft_puterror(sh), TRUE);
-	return (ft_seterror(sh, "", 0), TRUE);
+	return (TRUE);
 }
 
 int	main(int ac, char **av, char **env)

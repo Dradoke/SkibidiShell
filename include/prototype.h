@@ -25,19 +25,19 @@ t_builtins		*builtins_init(void);
 // ft_builtins.c
 int				ft_builtins(t_shell *sh, t_cmd *cmd);
 // ft_cd.c
-int				ft_cd(t_shell *sh, t_list **env);
+int				ft_cd(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_echo.c
-int				ft_echo(t_shell *sh, t_list **env);
+int				ft_echo(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_env.c
-int				ft_env(t_shell *sh, t_list **env);
+int				ft_env(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_exit.c
-int				ft_exit(t_shell *sh, t_list **env);
+int				ft_exit(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_export.c
-int				ft_export(t_shell *sh, t_list **env);
+int				ft_export(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_pwd.c
-int				ft_pwd(t_shell *sh, t_list **env);
+int				ft_pwd(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_unset.c
-int				ft_unset(t_shell *sh, t_list **env);
+int				ft_unset(t_shell *sh, t_list **env, t_cmd *cmd);
 
 /*████████████████████████████████████████████████████████████████████████████*/
 
