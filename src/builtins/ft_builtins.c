@@ -19,5 +19,5 @@ int	ft_builtins(t_shell *sh, t_cmd *cmd)
 
 	args = cmd->arg;
 	idx0 = get_tabindex(hash_key(((t_arg *)args->content)->name));
-	return (sh->bultins[idx0].fn(sh, &sh->env));
+	return (sh->bultins[idx0].fn(sh, &sh->env, cmd));
 }

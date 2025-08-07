@@ -36,6 +36,7 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
+	ft_builtins(sh, sh->cmd->content);
 	return (TRUE);
 }
 

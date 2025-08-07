@@ -12,13 +12,14 @@
 
 #include "skibidi_shell.h"
 
-int	ft_cd(t_shell *sh, t_list **env)
+int	ft_cd(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	char	*new_pwd;
 	char	*old_pwd;
 	t_list	*args;
 
-	args = ((t_list *)((t_cmd *)sh->cmd->content)->arg)->next;
+	(void)sh;
+	args = cmd->arg->next;
 	if (!args)
 	{
 		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
