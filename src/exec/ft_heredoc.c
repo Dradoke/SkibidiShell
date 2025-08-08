@@ -38,7 +38,7 @@ static t_bool	make_heredoc(t_shell *sh, t_redir *redir)
 	redir->hdoc_path = ft_strjoin_free(ft_strdup("/tmp/"), ft_rand_str(10));
 	redir->fd = open(redir->hdoc_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->fd < 0)
-		return (ft_seterror(sh, FTERR_OPEN"3", 2), FALSE);
+		return (ft_seterror(sh, FTERR_OPEN"3", 1), FALSE);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)

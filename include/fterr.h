@@ -13,7 +13,7 @@
 #ifndef FTERR_H
 # define FTERR_H
 /* Generic */
-# define FTERR_OPEN "Error: Open failed"
+# define FTERR_OPEN "No such file or directory\n"
 # define FTERR_PIPE "Error: Pipe failed"
 # define FTERR_FORK "Error: Fork failed"
 
@@ -51,6 +51,6 @@
 # define FTERR_PATH_VAL 127
 
 /* Exec */
-# define FTERR_CMD "Command doesn't exist\n"
+# define FTERR_CMD " command not found\n"
 
 #endif

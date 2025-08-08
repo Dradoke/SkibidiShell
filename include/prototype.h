@@ -58,7 +58,7 @@ t_bool			ft_heredoc(t_shell *sh, t_list *cmd);
 // ft_path.c
 char			*ft_path(t_shell *sh, t_cmd *cmd);
 // ft_pipe.c
-t_bool			setup_redir(t_cmd *cmd);
+t_bool			setup_redir(t_shell *sh, t_cmd *cmd);
 void			setup_pipes_and_redir(t_shell *sh, t_cmd *cmd);
 void			switch_pipes(int (*pipe_new)[2], int (*pipe_old)[2]);
 void			init_pipes(t_shell *sh);

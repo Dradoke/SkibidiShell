@@ -12,7 +12,7 @@
 
 #include "skibidi_shell.h"
 
-t_bool	setup_redir(t_cmd *cmd)
+t_bool	setup_redir(t_shell *sh, t_cmd *cmd)
 {
 	t_list	*redir_i;
 	t_redir	*redir_content;
@@ -33,7 +33,7 @@ t_bool	setup_redir(t_cmd *cmd)
 		else if (redir_content->type == HEREDOC)
 			fd = open(redir_content->hdoc_path, O_RDONLY);
 		if (fd < 0)
-			return (FALSE);
+			return (ft_seterror(sh, FTERR_OPEN, 1), FALSE);
 		redir_content->fd = fd;
 		redir_i = redir_i->next;
 	}

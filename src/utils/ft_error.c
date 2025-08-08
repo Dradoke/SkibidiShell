@@ -48,7 +48,7 @@ int	ft_puterror(t_shell *sh)
 {
 	if (sh->err.b)
 	{
-		ft_printfd(STDERR_FILENO, "SkibidiERROR: %s\n", sh->err.msg);
+		ft_printfd(STDERR_FILENO, "SkibidiERROR: %s", sh->err.msg);
 		ft_clearerror(sh);
 		return (ft_atoi(sh->last_err));
 	}
