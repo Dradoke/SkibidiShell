@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <wait.h>
+# include <sys/stat.h>
 
 # include "libft.h"
 

@@ -55,18 +55,26 @@ static char	*found_path(t_shell *sh, char *cmd_name, char **tab)
 
 char	*ft_path(t_shell *sh, t_cmd *cmd)
 {
-	char	**tab;
-	char	*cmd_name;
+    char		**tab;
+    char		*cmd_name;
 
-	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
-	cmd_name = ((t_arg *)cmd->arg->content)->name;
-	if (cmd_name[0] == '/' || cmd_name[0] == '.')
-	{
-		if (access(cmd_name, X_OK) == 0)
-			return (cmd_name);
-		else
-			return (ft_seterror(sh, FTERR_PATH, FTERR_PATH_VAL), NULL);
-	}
-	else
-		return (found_path(sh, cmd_name, tab));
+    if (!cmd->arg || !((t_arg *)cmd->arg->content)->name)
+        return (NULL);
+    cmd_name = ((t_arg *)cmd->arg->content)->name;
+    if (cmd_name[0] == '\0')
+        return (ft_seterror(sh, FTERR_CMD, 127), NULL);
+    if (ft_strchr(cmd_name, '/') != NULL)
+    {
+        if (access(cmd_name, F_OK) != 0)
+            return (ft_seterror(sh, FTERR_PATH, 127), NULL);
+        return (ft_strdup(cmd_name));
+    }
+    tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
+    return (found_path(sh, cmd_name, tab));
+}
+
+int is_directory(const char *path)
+{
+    struct stat st;
+    return (stat(path, &st) == 0 && S_ISDIR(st.st_mode));
 }

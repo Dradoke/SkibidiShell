@@ -111,4 +111,8 @@ t_bool			ft_skipspace(char *str, size_t *i);
 size_t			ft_get_env_size(t_shell *sh, char *src, size_t *i);
 t_bool			ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 
+
+
+int is_directory(const char *path);
+
 #endif

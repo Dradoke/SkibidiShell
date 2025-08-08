@@ -32,15 +32,22 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
     }
     path = ft_path(sh, cmd);
     if (!path)
+	{
         exit(FTERR_PATH_VAL);
+	}
     arg = ft_argtoarray(cmd->arg);
     env = ft_envtoarray(sh->env);
     execve(path, arg, env);
-    ft_printfd(2, FTERR_CMD); 
+	if (is_directory(path))
+		ft_printfd(2, " Is a directory");
+	else if (errno == EACCES)
+		ft_printfd(2, " Permission denied");
+	else
+    	ft_printfd(2, FTERR_CMD); 
     free(path);
     free(arg);
     free(env);
-    exit(FTERR_PATH_VAL);
+    exit(126);
 }
 
 static t_bool	single_critical_case(t_shell *sh, t_cmd *cmd)
