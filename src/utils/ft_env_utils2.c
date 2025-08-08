@@ -12,41 +12,15 @@
 
 #include "skibidi_shell.h"
 
-static t_bool	have_equal(char *str)
+t_bool	is_valid_key(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			return (TRUE);
-		i++;
-	}
-	return (FALSE);
-}
-
-static t_bool	is_valid_key(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
+	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (FALSE);
 	while (str[i] && str[i] != '=')
-		if (str[i++] == ' ')
-			return (FALSE);
-	return (TRUE);
-}
-
-t_bool	is_valid_env(char *str, char eu)
-{
-	if (!str)
-		return (FALSE);
-	if (is_valid_key(str) == FALSE)
-		return (FALSE);
-	if (eu == 'e')
-		if (have_equal(str) == FALSE)
+		if (!ft_isalnum(str[i++]))
 			return (FALSE);
 	return (TRUE);
 }

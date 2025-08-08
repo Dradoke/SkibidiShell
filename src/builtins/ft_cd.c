@@ -21,10 +21,10 @@ int	ft_cd(t_shell *sh, t_list **env, t_cmd *cmd)
 	(void)sh;
 	args = cmd->arg->next;
 	if (!args)
-	{
 		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
 			return (ft_putstr_fd(FTERR_CD"\n", STDERR_FILENO), FTERR_CD_VAL);
-	}
+	if (args->next)
+		return (ft_printfd(2, FTERR_ARGS), 1);
 	else if (!((t_arg *)args->content)->name)
 		return (ft_putstr_fd(FTERR_CD"\n", STDERR_FILENO), FTERR_CD_VAL);
 	else if (chdir(((t_arg *)args->content)->name) != 0)

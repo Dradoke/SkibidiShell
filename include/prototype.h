@@ -89,7 +89,7 @@ void			ft_setenv(t_list *env, char *key, char *value);
 char			*ft_getenv_val(t_list *env, char *key);
 t_env			*ft_getenv(t_list *env, char *key);
 // ft_env_utils2.c
-t_bool			is_valid_env(char *str, char eu);
+t_bool			is_valid_key(char *str);
 // ft_error.c
 int				ft_isinvalidchar(int c);
 void			ft_seterror(t_shell *sh, char *msg, int code);

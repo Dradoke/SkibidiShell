@@ -54,20 +54,27 @@ int	ft_export(t_shell *sh, t_list **env, t_cmd *cmd)
 	t_list	*args;
 	t_arg	*env_arg;
 	char	*env_key;
+	int		ret;
 
 	(void)sh;
 	args = cmd->arg->next;
+	ret = 0;
 	if (!args)
 		return (print_env(env));
 	while (args)
 	{
 		env_arg = ((t_arg *)args->content);
-		if (is_valid_env(env_arg->name, 'e') == FALSE)
-			return (ft_putstr_fd(FTERR_EXP"\n", STDERR_FILENO), FTERR_EXP_VAL);
-		env_key = get_env_key(env_arg->name);
-		ft_set_new_env(env, env_key, env_arg);
-		free(env_key);
+		if (!is_valid_key(env_arg->name))
+			ret = 1;
+		else if (ft_strchr(env_arg->name, '='))
+		{
+			env_key = get_env_key(env_arg->name);
+			ft_set_new_env(env, env_key, env_arg);
+			free(env_key);
+		}
 		args = args->next;
 	}
-	return (EXIT_SUCCESS);
+	if (ret == 1)
+		ft_printfd(2, FTERR_EXP);
+	return (ret);
 }

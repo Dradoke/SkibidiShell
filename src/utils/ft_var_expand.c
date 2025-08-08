@@ -81,8 +81,6 @@ size_t	ft_get_env_size(t_shell *sh, char *src, size_t *i)
 		sh->last_err = ft_strdup("0");
 	if (src[0] == '?')
 		return ((*i)++, ft_strlen(sh->last_err));
-	else if (ft_strchr("$#*@!-", src[0]) || ft_isdigit(src[0]))
-		return ((*i)++, 0);
 	else if (ft_isalpha(src[0]) || src[0] == '_')
 	{
 		key_len = get_key_len(src);
@@ -105,8 +103,6 @@ t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
 
 	if (src[0] == '?')
 		return (ft_strcpy(dst, sh->last_err), (*i)++, TRUE);
-	else if (ft_strchr("$#*@!-", src[0]) || ft_isdigit(src[0]))
-		return ((*i)++, TRUE);
 	else if (ft_isalpha(src[0]) || src[0] == '_')
 	{
 		key_len = get_key_len(src);
@@ -117,5 +113,6 @@ t_bool	ft_write_env(t_shell *sh, char *src, char *dst, size_t *i)
 		return (TRUE);
 	}
 	dst[0] = '$';
+	dst[1] = '\0';
 	return (TRUE);
 }

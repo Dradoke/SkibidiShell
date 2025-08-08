@@ -28,28 +28,29 @@
 /*___________________________________________________________________________*/
 
 /* Builtins */
-# define FTERR_CD "Error: Path required"
+# define FTERR_CD " No such file or directory\n"
+# define FTERR_ARGS " too many arguments"
 # define FTERR_CD_VAL 1
 
-# define FTERR_ENV "Error: Empty list or failed allocation"
+# define FTERR_ENV "Empty list or failed allocation\n"
 # define FTERR_ENV_VAL 2
 
-# define FTERR_EXP "Error: Not a valid identifier"
+# define FTERR_EXP " not a valid identifier\n"
 # define FTERR_EXP_VAL 2
 
-# define FTERR_UNSET "Error: Invalid option"
+# define FTERR_UNSET "Invalid option\n"
 # define FTERR_UNSET_VAL 2
 
 # define FTERR_EXIT_NB "exit\nexit: %s: numeric argument required\n"
-# define FTERR_EXIT_ARG "exit\nError: too many arguments"
+# define FTERR_EXIT_ARG "exit\ntoo many arguments\n"
 
 /* Heredocs */
-# define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')"
+# define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')\n"
 
-# define FTERR_PATH "Error: No such file or directory"
+# define FTERR_PATH "No such file or directory\n"
 # define FTERR_PATH_VAL 127
 
 /* Exec */
-# define FTERR_CMD "SkibidiError: Command doesn't exist\n"
+# define FTERR_CMD "Command doesn't exist\n"
 
 #endif

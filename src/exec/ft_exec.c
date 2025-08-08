@@ -22,7 +22,7 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
 	if (is_builtins(((t_arg *)cmd->arg->content)->name, sh->bultins))
 	{
 		sh->last_err = ft_itoa(ft_builtins(sh, cmd));
-		exit(EXIT_SUCCESS);
+		exit(ft_atoi(sh->last_err));
 	}
 	path = ft_path(sh, cmd);
 	arg = ft_argtoarray(cmd->arg);
