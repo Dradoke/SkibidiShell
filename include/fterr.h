@@ -41,11 +41,11 @@
 # define FTERR_UNSET "Invalid option\n"
 # define FTERR_UNSET_VAL 2
 
-# define FTERR_EXIT_NB "exit\nexit: %s: numeric argument required\n"
-# define FTERR_EXIT_ARG "exit\ntoo many arguments\n"
+# define FTERR_EXIT_NB "exit: %s: numeric argument required\n"
+# define FTERR_EXIT_ARG "exit: too many arguments\n"
 
 /* Heredocs */
-# define FTERR_HDOC_D "Warning: Heredoc delimited by end-of-file (wanted '%s')\n"
+# define FTERR_HDOC_D "Warning: Heredoc delimited by EOF (wanted '%s')\n"
 
 # define FTERR_PATH "No such file or directory\n"
 # define FTERR_PATH_VAL 127

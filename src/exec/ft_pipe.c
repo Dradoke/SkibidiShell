@@ -33,7 +33,8 @@ t_bool	setup_redir(t_shell *sh, t_cmd *cmd)
 		else if (redir_content->type == HEREDOC)
 			fd = open(redir_content->hdoc_path, O_RDONLY);
 		if (fd < 0)
-			return (ft_seterror(sh, FTERR_OPEN, 1), FALSE);
+			return (ft_seterror(sh, ft_strjoin_free(ft_strjoin(name, ": "),
+						ft_strdup(strerror(errno))), 1), FALSE);
 		redir_content->fd = fd;
 		redir_i = redir_i->next;
 	}

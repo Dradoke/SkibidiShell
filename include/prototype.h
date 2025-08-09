@@ -48,15 +48,13 @@ void			print_list(t_list *lst, t_lstype type);
 /*████████████████████████████████████████████████████████████████████████████*/
 
 /*---exec---*/
-// ft_exec_utils.c
-t_bool			close_all_fd(t_list *redir);
-void			wait_all_pids(t_shell *sh, t_list *cmd);
 // ft_exec.c
 t_bool			ft_exec(t_shell *sh);
 // ft_heredoc.c
 t_bool			ft_heredoc(t_shell *sh, t_list *cmd);
 // ft_path.c
 char			*ft_path(t_shell *sh, t_cmd *cmd);
+int				is_directory(const char *path);
 // ft_pipe.c
 t_bool			setup_redir(t_shell *sh, t_cmd *cmd);
 void			setup_pipes_and_redir(t_shell *sh, t_cmd *cmd);
@@ -95,7 +93,14 @@ int				ft_isinvalidchar(int c);
 void			ft_seterror(t_shell *sh, char *msg, int code);
 void			ft_clearerror(t_shell *sh);
 int				ft_puterror(t_shell *sh);
+// ft_exec_utils.c
+void			handle_execve_error(char *path, char *cmd_name);
+void			handle_no_path(char *cmd_name);
+int				get_exit_code(char *path);
+t_bool			close_all_fd(t_list *redir);
+t_bool			close_all_fd(t_list *redir);
 // ft_free.c
+void			ft_free_targ(void *targ);
 void			ft_free_tenv(void *tenv);
 void			ft_free_tcmd(void *tcmd);
 // ft_isdelim.c
@@ -111,8 +116,6 @@ t_bool			ft_skipspace(char *str, size_t *i);
 size_t			ft_get_env_size(t_shell *sh, char *src, size_t *i);
 t_bool			ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 
-
-
-int is_directory(const char *path);
+/*████████████████████████████████████████████████████████████████████████████*/
 
 #endif

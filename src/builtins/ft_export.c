@@ -20,14 +20,13 @@ static int	print_env(t_list **env)
 
 	env_lst = *env;
 	if (!env_lst)
-		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO), FTERR_ENV_VAL);
+		return (ft_putstr_fd(FTERR_ENV"\n", STDERR_FILENO),
+			FTERR_ENV_VAL);
 	while (env_lst)
 	{
 		key = ((t_env *)env_lst->content)->key;
 		value = ((t_env *)env_lst->content)->value;
-		ft_printfd(STDOUT_FILENO, "declare -x %s", key);
-		ft_printfd(STDOUT_FILENO, "=");
-		ft_printfd(STDOUT_FILENO, "%s\n", value);
+		ft_printfd(STDOUT_FILENO, "declare -x %s=%s\n", key, value);
 		env_lst = env_lst->next;
 	}
 	return (EXIT_SUCCESS);
@@ -49,11 +48,25 @@ static void	ft_set_new_env(t_list **env, char *env_key, t_arg *env_arg)
 	new_env->value = get_env_value(env_arg->name);
 }
 
+static int	process_export_arg(t_list **env, t_arg *env_arg)
+{
+	char	*env_key;
+
+	if (!is_valid_key(env_arg->name))
+		return (1);
+	if (ft_strchr(env_arg->name, '='))
+	{
+		env_key = get_env_key(env_arg->name);
+		ft_set_new_env(env, env_key, env_arg);
+		free(env_key);
+	}
+	return (0);
+}
+
 int	ft_export(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*args;
 	t_arg	*env_arg;
-	char	*env_key;
 	int		ret;
 
 	(void)sh;
@@ -64,14 +77,8 @@ int	ft_export(t_shell *sh, t_list **env, t_cmd *cmd)
 	while (args)
 	{
 		env_arg = ((t_arg *)args->content);
-		if (!is_valid_key(env_arg->name))
+		if (process_export_arg(env, env_arg))
 			ret = 1;
-		else if (ft_strchr(env_arg->name, '='))
-		{
-			env_key = get_env_key(env_arg->name);
-			ft_set_new_env(env, env_key, env_arg);
-			free(env_key);
-		}
 		args = args->next;
 	}
 	if (ret == 1)

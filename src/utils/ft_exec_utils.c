@@ -12,6 +12,47 @@
 
 #include "skibidi_shell.h"
 
+void	handle_execve_error(char *path, char *cmd_name)
+{
+	if (errno == ENOENT)
+	{
+		if (ft_strchr(cmd_name, '/'))
+			ft_printfd(2, "minishell: %s: No such file or directory\n",
+				cmd_name);
+		else
+			ft_printfd(2, "minishell: %s: command not found\n", cmd_name);
+	}
+	else if (errno == EACCES)
+	{
+		if (is_directory(path))
+			ft_printfd(2, "minishell: %s: Is a directory\n", cmd_name);
+		else
+			ft_printfd(2, "minishell: %s: Permission denied\n", cmd_name);
+	}
+	else
+		ft_printfd(2, "minishell: %s: command not found\n", cmd_name);
+}
+
+void	handle_no_path(char *cmd_name)
+{
+	if (ft_strchr(cmd_name, '/'))
+		ft_printfd(2, "minishell: %s: No such file or directory\n",
+			cmd_name);
+	else
+		ft_printfd(2, "minishell: %s: command not found\n", cmd_name);
+}
+
+int	get_exit_code(char *path)
+{
+	if (!path)
+		return (127);
+	if (errno == EACCES)
+		return (126);
+	if (errno == ENOENT)
+		return (127);
+	return (126);
+}
+
 t_bool	close_all_fd(t_list *redir)
 {
 	t_redir	*redir_content;
@@ -24,22 +65,4 @@ t_bool	close_all_fd(t_list *redir)
 		redir = redir->next;
 	}
 	return (TRUE);
-}
-
-void	wait_all_pids(t_shell *sh, t_list *cmd)
-{
-	int	status;
-	int	pid;
-
-	while (cmd)
-	{
-		pid = ((t_cmd *)cmd->content)->pid;
-		if (pid > 0)
-		{
-			waitpid(pid, &status, 0);
-			free(sh->last_err);
-			sh->last_err = ft_itoa(WEXITSTATUS(status));
-		}
-		cmd = cmd->next;
-	}
 }

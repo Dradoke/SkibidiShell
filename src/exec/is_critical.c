@@ -18,6 +18,8 @@ t_bool	is_critical(t_list *args)
 	int			i;
 	static char	*critical_name[] = {"export", "unset", "cd", "exit"};
 
+	if (!args)
+		return (FALSE);
 	cmd_name = ((t_arg *)args->content)->name;
 	i = 0;
 	while (i < 4)

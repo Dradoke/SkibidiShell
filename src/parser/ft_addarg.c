@@ -27,8 +27,17 @@ static t_arg	*argcontent(t_shell *sh)
 
 t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd)
 {
-	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
-	if (!ft_lstlast(tcmd->arg)->content)
-		return (0);
+	t_list	*new;
+	t_arg	*content;
+
+	content = argcontent(sh);
+	if (!content)
+		return (FALSE);
+	if (content->name[0] == '\0')
+		return (ft_free_targ(content), TRUE);
+	new = ft_lstnew(content);
+	if (!new)
+		return (ft_free_targ(content), ft_seterror(sh, FTERR_ALLOC, 2), FALSE);
+	ft_lstadd_back(&tcmd->arg, new);
 	return (1);
 }
