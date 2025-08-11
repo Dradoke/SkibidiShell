@@ -52,6 +52,12 @@ typedef enum e_quote
 	DOUBLE,		// "
 }	t_quote;
 
+typedef enum e_builtin_type
+{
+	CRITICAL,
+	NEUTRAL,
+}	t_builtin_type;
+
 /*████████████████████████████████████████████████████████████████████████████*/
 
 //---STRUCTS---//

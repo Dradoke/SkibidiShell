@@ -15,7 +15,6 @@
 # include "skibidi_shell.h"
 
 /*████████████████████████████████████████████████████████████████████████████*/
-
 /*---builtins---*/
 // builtins_utils.c
 unsigned long	hash_key(const char *s);
@@ -98,11 +97,11 @@ void			handle_execve_error(char *path, char *cmd_name);
 void			handle_no_path(char *cmd_name);
 int				get_exit_code(char *path);
 t_bool			close_all_fd(t_list *redir);
-t_bool			close_all_fd(t_list *redir);
 // ft_free.c
 void			ft_free_targ(void *targ);
 void			ft_free_tenv(void *tenv);
 void			ft_free_tcmd(void *tcmd);
+void			ft_free_all(t_shell **sh);
 // ft_isdelim.c
 t_bool			ft_isdelim(int c);
 // ft_lsttoarray.c
@@ -110,6 +109,7 @@ char			**ft_argtoarray(t_list *list);
 char			**ft_envtoarray(t_list *list);
 // ft_signal.c
 void			sigint_handler(int sig);
+void			exec_sigint_handler(int sig);
 // ft_skipspace.c
 t_bool			ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c

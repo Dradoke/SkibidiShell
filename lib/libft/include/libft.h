@@ -87,8 +87,9 @@ float	ft_radtodeg(float rad);
 int		ft_abs(int x);
 char	*ft_rand_str(size_t len);
 void	*ft_realloc(void *original, size_t size);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strjoin_free(char *s1, char *s2);
-int		ft_strcmp(const char *s1, const char *s2);
+void	ft_vfree(int count, ...);
 
 #endif

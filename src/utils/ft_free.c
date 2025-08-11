@@ -16,7 +16,7 @@ void	ft_free_targ(void *targ)
 {
 	t_arg	*content;
 
-	content = (t_arg *)targ;
+	content = targ;
 	if (!content)
 		return ;
 	if (content->name)
@@ -28,7 +28,7 @@ void	ft_free_tredir(void *tredir)
 {
 	t_redir	*content;
 
-	content = (t_redir *)tredir;
+	content = tredir;
 	if (!content)
 		return ;
 	if (content->name)
@@ -42,7 +42,7 @@ void	ft_free_tenv(void *tenv)
 {
 	t_env	*content;
 
-	content = (t_env *)tenv;
+	content = tenv;
 	if (!content)
 		return ;
 	if (content->key)
@@ -56,7 +56,7 @@ void	ft_free_tcmd(void *tcmd)
 {
 	t_cmd	*content;
 
-	content = (t_cmd *)tcmd;
+	content = tcmd;
 	if (!content)
 		return ;
 	ft_lstclear(&content->redir, ft_free_tredir);
@@ -64,4 +64,21 @@ void	ft_free_tcmd(void *tcmd)
 	content->last_redir[INPUT] = NULL;
 	content->last_redir[OUTPUT] = NULL;
 	free(content);
+}
+
+void	ft_free_all(t_shell **sh)
+{
+	t_shell	*shc;
+
+	shc = *sh;
+	if (!shc)
+		return ;
+	if (shc->cmd)
+		ft_lstclear(&shc->cmd, ft_free_tcmd);
+	if (shc->env)
+		ft_lstclear(&shc->env, ft_free_tenv);
+	if (shc->bultins)
+		ft_vfree(2, &shc->bultins->name, &shc->bultins);
+	ft_vfree(2, &shc->line, &shc->last_err);
+	free(shc);
 }
