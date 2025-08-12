@@ -12,7 +12,6 @@
 
 #ifndef SKIBIDI_SHELL_H
 # define SKIBIDI_SHELL_H
-
 # include <stdio.h>
 # include <errno.h>
 # include <readline/readline.h>
@@ -26,6 +25,8 @@
 # include "struct.h"
 # include "prototype.h"
 # include "fterr.h"
+
+extern volatile sig_atomic_t	g_signal_received;
 
 /* builtins */
 

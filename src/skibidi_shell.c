@@ -12,6 +12,8 @@
 
 #include "skibidi_shell.h"
 
+volatile sig_atomic_t	g_signal_received;
+
 static void	free_shell(t_shell *sh)
 {
 	if (sh->line)
@@ -56,6 +58,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
 
+	g_signal_received = 0;
 	(void)ac;
 	(void)av;
 	sh = ft_calloc(sizeof(t_shell));
@@ -67,10 +70,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 		if (!loop_shell(sh))
 			break ;
-	ft_lstclear(&sh->env, ft_free_tenv);
-	free(sh->last_err);
-	free(sh->bultins);
-	free(sh);
+	ft_free_all(&sh);
 	clear_history();
 	return (0);
 }

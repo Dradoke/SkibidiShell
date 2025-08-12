@@ -106,10 +106,11 @@ void			ft_free_all(t_shell **sh);
 t_bool			ft_isdelim(int c);
 // ft_lsttoarray.c
 char			**ft_argtoarray(t_list *list);
+void			ft_free_array(char **array);
 char			**ft_envtoarray(t_list *list);
 // ft_signal.c
 void			sigint_handler(int sig);
-void			exec_sigint_handler(int sig);
+void			heredoc_sigint_handler(int sig);
 // ft_skipspace.c
 t_bool			ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c

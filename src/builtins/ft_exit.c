@@ -45,22 +45,36 @@ static void	handle_invalid_argument(char *arg_name)
 	exit(2);
 }
 
+static void	close_stdfd(t_shell *sh)
+{
+	close(sh->std_fd[INPUT]);
+	close(sh->std_fd[OUTPUT]);
+}
+
 int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*args;
 	char	*arg_name;
 	int		ret_nb;
+	int		code;
 
 	(void)env;
 	if (!cmd->arg->next)
-		exit(atoi(sh->last_err));
+	{
+		code = ft_atoi(sh->last_err);
+		close_stdfd(sh);
+		ft_free_all(&sh);
+		exit(code);
+	}
 	args = cmd->arg->next;
 	if (args->next)
 		return (ft_putstr_fd(FTERR_EXIT_ARG, STDERR_FILENO), 1);
 	arg_name = ((t_arg *)args->content)->name;
 	if (!is_valid_number(arg_name))
 		handle_invalid_argument(arg_name);
-	ret_nb = atoi(arg_name);
+	ret_nb = ft_atoi(arg_name);
+	close_stdfd(sh);
+	ft_free_all(&sh);
 	exit(normalize_exit_code(ret_nb));
 	return (0);
 }

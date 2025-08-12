@@ -23,7 +23,7 @@ static t_bool	heredoc_child(t_redir *redir)
 		if (!line)
 			return (ft_printfd(2, FTERR_HDOC_D"\n", redir->name), FALSE);
 		if (!ft_strncmp(redir->name, line, ft_strlen(redir->name) + 1))
-			return (free(line), exit(0), TRUE);
+			return (close(redir->fd), free(line), exit(0), TRUE);
 		write(redir->fd, line, ft_strlen(line));
 		write(redir->fd, "\n", 1);
 		free(line);
@@ -42,10 +42,11 @@ static t_bool	make_heredoc(t_shell *sh, t_redir *redir)
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
-		return (FALSE);
+		return (close(redir->fd), FALSE);
 	if (pid == 0)
 	{
 		heredoc_child(redir);
+		close(redir->fd);
 		exit(0);
 	}
 	waitpid(pid, &status, 0);

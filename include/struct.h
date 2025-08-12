@@ -81,6 +81,7 @@ typedef struct s_shell
 	t_builtins	*bultins;
 	int			pipe_old[2];
 	int			pipe_new[2];
+	int			std_fd[2];
 }	t_shell;
 
 typedef struct s_redir

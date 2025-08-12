@@ -41,22 +41,44 @@ static char	*found_path(t_shell *sh, char *cmd_name, char **tab)
 		path = ft_strjoin(path_tmp, cmd_name);
 		free(path_tmp);
 		if (access(path, X_OK) == 0)
-		{
-			i = 0;
-			while (tab[i])
-				free(tab[i++]);
-			return (free(tab), path);
-		}
+			return (ft_free_array(tab), path);
 		free(path);
 		i++;
 	}
-	return (NULL);
+	ft_printfd(2, "minishell: %s: command not found\n", cmd_name);
+	return (ft_free_array(tab), NULL);
+}
+
+static char	*get_currpath_cmd(char *cmd_name)
+{
+	char		*curr_path;
+	char		*path_tmp;
+
+	(void)cmd_name;
+	curr_path = getcwd(NULL, 0);
+	path_tmp = curr_path;
+	curr_path = ft_strjoin(path_tmp, "/");
+	free(path_tmp);
+	path_tmp = curr_path;
+	curr_path = ft_strjoin(path_tmp, cmd_name);
+	free(path_tmp);
+	if (access(curr_path, X_OK) == 0)
+	{
+		return (curr_path);
+	}
+	else
+	{
+		free(curr_path);
+		return (NULL);
+	}
 }
 
 char	*ft_path(t_shell *sh, t_cmd *cmd)
 {
 	char		**tab;
 	char		*cmd_name;
+	char		*curr_path;
+	t_env		*path;
 
 	if (!cmd->arg || !((t_arg *)cmd->arg->content)->name)
 		return (NULL);
@@ -65,6 +87,17 @@ char	*ft_path(t_shell *sh, t_cmd *cmd)
 		return (NULL);
 	if (ft_strchr(cmd_name, '/') != NULL)
 		return (ft_strdup(cmd_name));
+	path = ft_getenv(sh->env, "PATH");
+	if (!path)
+	{
+		curr_path = get_currpath_cmd(cmd_name);
+		if (curr_path)
+			return (curr_path);
+		free(curr_path);
+		ft_printfd(2, "minishell: %s: No such file or directory\n",
+			cmd_name);
+		return (free(path), NULL);
+	}
 	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');
 	return (found_path(sh, cmd_name, tab));
 }

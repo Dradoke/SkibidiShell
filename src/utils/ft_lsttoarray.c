@@ -28,6 +28,16 @@ char	**ft_argtoarray(t_list *arg)
 	return (array);
 }
 
+void	ft_free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+
 char	**ft_envtoarray(t_list *env_lst)
 {
 	char	**array;
