@@ -15,7 +15,6 @@
 # include "skibidi_shell.h"
 
 /*████████████████████████████████████████████████████████████████████████████*/
-
 /*---builtins---*/
 // builtins_utils.c
 unsigned long	hash_key(const char *s);
@@ -113,6 +112,7 @@ void			ft_free_array(char **array);
 char			**ft_envtoarray(t_list *list);
 // ft_signal.c
 void			sigint_handler(int sig);
+void			exec_sigint_handler(int sig);
 // ft_skipspace.c
 t_bool			ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c
