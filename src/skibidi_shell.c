@@ -12,6 +12,8 @@
 
 #include "skibidi_shell.h"
 
+volatile sig_atomic_t	g_signal_received;
+
 static void	free_shell(t_shell *sh)
 {
 	if (sh->line)
@@ -73,6 +75,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
 
+	g_signal_received = 0;
 	(void)ac;
 	(void)av;
 	sh = ft_calloc(sizeof(t_shell));
@@ -85,6 +88,7 @@ int	main(int ac, char **av, char **env)
 		if (!loop_shell(sh))
 			break ;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ft_free_all(&sh);
 =======
 	ft_lstclear(&sh->env, ft_free_tenv);
@@ -92,6 +96,9 @@ int	main(int ac, char **av, char **env)
 	free(sh->bultins);
 	free(sh);
 >>>>>>> d4afd8b (Tiens voila le fichier avec les modifs Nathan :))
+=======
+	ft_free_all(&sh);
+>>>>>>> 40c5d05 (Fixed error codes in path, and leaks)
 	clear_history();
 	return (0);
 }
