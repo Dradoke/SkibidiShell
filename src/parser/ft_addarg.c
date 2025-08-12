@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addarg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:34 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:35 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,17 @@ static t_arg	*argcontent(t_shell *sh)
 
 t_bool	ft_addarg(t_shell *sh, t_cmd *tcmd)
 {
-	ft_lstadd_back(&tcmd->arg, ft_lstnew(argcontent(sh)));
-	if (!ft_lstlast(tcmd->arg)->content)
-		return (0);
+	t_list	*new;
+	t_arg	*content;
+
+	content = argcontent(sh);
+	if (!content)
+		return (FALSE);
+	if (content->name[0] == '\0')
+		return (ft_free_targ(content), TRUE);
+	new = ft_lstnew(content);
+	if (!new)
+		return (ft_free_targ(content), ft_seterror(sh, FTERR_ALLOC, 2), FALSE);
+	ft_lstadd_back(&tcmd->arg, new);
 	return (1);
 }

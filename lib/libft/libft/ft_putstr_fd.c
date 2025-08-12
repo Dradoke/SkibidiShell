@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 21:42:42 by mavander          #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:16:52 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

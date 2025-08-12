@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:08 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:09 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ static void	envlst_iter(t_shell *sh, t_list **env, t_list *env_lst, char *key)
 	env_lst = *env;
 }
 
-int	ft_unset(t_shell *sh, t_list **env)
+int	ft_unset(t_shell *sh, t_list **env, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_list	*args;
 	char	*key;
 
-	args = ((t_cmd *)sh->cmd->content)->arg->next;
+	args = cmd->arg;
 	if (!args->next)
 		return (0);
+	args = cmd->arg->next;
 	env_lst = *env;
 	while (args)
 	{
-		if (is_valid_env(((t_arg *)args->content)->name, 'u') == FALSE)
-			return (ft_putstr_fd(FTERR_UNSET"\n", STDERR_FILENO),
-				FTERR_UNSET_VAL);
+		if (!is_valid_key(((t_arg *)args->content)->name))
+			return (ft_printfd(2, FTERR_UNSET), 2);
 		key = get_env_key(((t_arg *)args->content)->name);
 		envlst_iter(sh, env, env_lst, key);
 		free(key);

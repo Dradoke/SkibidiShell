@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mavander <mavander@student.42lehavre.fr>   +#+  +:+       +#+         #
+#    By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/21 21:42:42 by mavander          #+#    #+#              #
-#    Updated: 2024/12/21 21:42:42 by mavander         ###   ########.fr        #
+#    Updated: 2025/08/12 21:17:33 by mavander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,10 @@ CUSTOM_SRC		=	$(addprefix $(CUSTOM_DIR)/, \
 					ft_radtodeg.c \
 					ft_rand_str.c \
 					ft_realloc.c \
+					ft_strcmp.c \
 					ft_strcpy.c \
 					ft_strjoin_free.c \
-					ft_strcmp.c \
+					ft_vfree.c \
 					)
 
 PRINTF_DIR		=	ft_printfd/

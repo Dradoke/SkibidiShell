@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 00:45:36 by jmilesi           #+#    #+#             */
-/*   Updated: 2025/03/19 15:54:34 by ngaudoui         ###   ########.fr       */
+/*   Created: 2023/05/02 20:05:53 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:14:37 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

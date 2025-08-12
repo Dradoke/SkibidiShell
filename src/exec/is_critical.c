@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdelim.c                                       :+:      :+:    :+:   */
+/*   is_critical.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 21:13:10 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:13:11 by mavander         ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:31 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:32 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
 
-// Checks if a char is whether a < > |
-//
-// Return:
-// 1 if it is
-// 0 if not
-t_bool	ft_isdelim(int c)
+t_bool	is_critical(t_list *args)
 {
-	if (c == '<' || c == '>' || c == '|')
-		return (TRUE);
+	char		*cmd_name;
+	int			i;
+	static char	*critical_name[] = {"export", "unset", "cd", "exit"};
+
+	if (!args)
+		return (FALSE);
+	cmd_name = ((t_arg *)args->content)->name;
+	i = 0;
+	while (i < 4)
+	{
+		if (ft_strcmp(cmd_name, critical_name[i]) == 0)
+			return (TRUE);
+		i++;
+	}
 	return (FALSE);
 }

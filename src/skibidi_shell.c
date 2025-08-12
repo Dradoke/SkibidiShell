@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:13:25 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:19:07 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static int	process_line(t_shell *sh)
 	sh->i = 0;
 	if (!ft_parser(sh))
 		return (FALSE);
-	if (!ft_heredoc(sh->cmd))
+	if (!ft_heredoc(sh, sh->cmd))
+		return (FALSE);
+	if (!ft_exec(sh))
 		return (FALSE);
 	return (TRUE);
 }
@@ -47,7 +49,7 @@ static t_bool	loop_shell(t_shell *sh)
 		return (ft_printfd(STDOUT_FILENO, "Leaving SkibidiShell...\n"), FALSE);
 	if (!process_line(sh))
 		return (ft_puterror(sh), TRUE);
-	return (ft_seterror(sh, "", 0), TRUE);
+	return (TRUE);
 }
 
 int	main(int ac, char **av, char **env)
@@ -61,12 +63,11 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	sh->env = ft_env_to_lst(sh, env);
 	sh->last_err = ft_itoa(0);
+	sh->bultins = builtins_init();
 	while (1)
 		if (!loop_shell(sh))
 			break ;
-	ft_lstclear(&sh->env, ft_free_tenv);
-	free(sh->last_err);
-	free(sh);
+	ft_free_all(&sh);
 	clear_history();
 	return (0);
 }
