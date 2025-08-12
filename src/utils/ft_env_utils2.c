@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:54 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:57:39 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:12:38 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
 
-static t_bool	is_valid_key(char *str)
+t_bool	is_valid_key(char *str)
 {
 	int	i;
 

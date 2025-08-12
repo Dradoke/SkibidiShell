@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 21:12:22 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:57:16 by mavander         ###   ########.fr       */
+/*   Created: 2024/12/21 21:42:42 by SkibidiShel       #+#    #+#             */
+/*   Updated: 2025/08/12 22:12:13 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

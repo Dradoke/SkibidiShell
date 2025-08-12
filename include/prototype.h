@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:56:18 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:11:23 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,30 +120,5 @@ size_t			ft_get_env_size(t_shell *sh, char *src, size_t *i);
 t_bool			ft_write_env(t_shell *sh, char *src, char *dst, size_t *i);
 
 /*████████████████████████████████████████████████████████████████████████████*/
-
-void			ft_setenv(t_list *env, char *key, char *value);
-char			*ft_getenv_val(t_list *env, char *key);
-t_env			*ft_getenv(t_list *env, char *key);
-t_bool			have_equal(char *str);
-t_bool			is_valid_key(char *str);
-t_bool			is_valid_env(char *str, char eu);
-
-/* Builtins */
-int				ft_builtins(t_shell *sh, t_cmd *cmd);
-int				ft_echo(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_cd(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_pwd(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_export(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_unset(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_env(t_shell *sh, t_list **env, t_cmd *cmd);
-int				ft_exit(t_shell *sh, t_list **env, t_cmd *cmd);
-
-unsigned long	hash_key(const char *s);
-int				get_tabindex(unsigned long hash);
-t_builtins		*builtins_init(void);
-t_bool			is_builtins(char *cmd, t_builtins *builtins);
-
-char			*ft_path(t_shell *sh, t_cmd *cmd);
-t_bool			is_critical(t_list *args);
 
 #endif

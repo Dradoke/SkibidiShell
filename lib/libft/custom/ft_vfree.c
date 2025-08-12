@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vfree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 21:42:42 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:56:33 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:11:33 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

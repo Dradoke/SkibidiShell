@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_critical.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:31 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:57:33 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:12:35 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:20 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:56:58 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:12:10 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static t_bool	ft_exec_loop(t_shell *sh)
 	t_list	*cmd_i;
 	t_cmd	*cmd_content;
 
-	init_pipes(sh);
 	cmd_i = sh->cmd;
 	signal(SIGINT, SIG_IGN);
 	while (cmd_i)

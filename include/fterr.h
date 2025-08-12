@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fterr.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:47 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:56:13 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 22:11:08 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,6 @@
 # define FTERR_HDOC_D "Warning: Heredoc delimited by EOF (wanted '%s')\n"
 
 # define FTERR_PATH "Error: %s: No such file or directory\n"
-# define FTERR_PATH_VAL 127
-
-# define FTERR_ISDIR "Error: %s: Is a directory\n"
-/* Exec */
-# define FTERR_CMD "Error: %s: command not found\n"
-
-# define FTERR_PERM "Error: %s: Permission denied\n"
-
-# define FTERR_PATH "No such file or directory\n"
 # define FTERR_PATH_VAL 127
 
 # define FTERR_ISDIR "Error: %s: Is a directory\n"

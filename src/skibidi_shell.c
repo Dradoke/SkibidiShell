@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShel       #+#    #+#             */
-/*   Updated: 2025/08/12 22:06:16 by ngaudoui         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/08/12 22:11:44 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "skibidi_shell.h"
 
@@ -33,19 +35,9 @@ static int	process_line(t_shell *sh)
 	if (!ft_parser(sh))
 		return (FALSE);
 	if (!ft_heredoc(sh, sh->cmd))
-<<<<<<< HEAD
-		return (FALSE);
-<<<<<<< HEAD
-	if (!ft_exec(sh))
-		return (FALSE);
-=======
->>>>>>> cb494be (Tiens voila le fichier avec les modifs Nathan :))
-	ft_builtins(sh, &sh->env, sh->bultins);
-=======
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
-	ft_builtins(sh, &sh->env, sh->bultins);
 	return (TRUE);
 }
 
@@ -77,18 +69,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 		if (!loop_shell(sh))
 			break ;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	ft_free_all(&sh);
-=======
-	ft_lstclear(&sh->env, ft_free_tenv);
-	free(sh->last_err);
-	free(sh->bultins);
-	free(sh);
->>>>>>> d4afd8b (Tiens voila le fichier avec les modifs Nathan :))
-=======
-	ft_free_all(&sh);
->>>>>>> 40c5d05 (Fixed error codes in path, and leaks)
 	clear_history();
 	return (0);
 }
