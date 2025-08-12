@@ -20,8 +20,3 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
-
-void	heredoc_sigint_handler(int sig)
-{
-	g_signal_received = sig;
-}

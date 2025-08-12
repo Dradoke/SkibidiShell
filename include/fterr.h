@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:47 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:50:49 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:56:13 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@
 # define FTERR_PATH "No such file or directory\n"
 # define FTERR_PATH_VAL 127
 
+# define FTERR_ISDIR "Error: %s: Is a directory\n"
 /* Exec */
-# define FTERR_CMD " command not found\n"
+# define FTERR_CMD "Error: %s: command not found\n"
+
+# define FTERR_PERM "Error: %s: Permission denied\n"
 
 #endif

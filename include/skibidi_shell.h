@@ -26,8 +26,6 @@
 # include "prototype.h"
 # include "fterr.h"
 
-extern volatile sig_atomic_t	g_signal_received;
-
 /* builtins */
 
 // hashing values
