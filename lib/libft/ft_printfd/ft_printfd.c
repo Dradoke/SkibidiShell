@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printfd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 20:05:53 by mavander          #+#    #+#             */
-/*   Updated: 2025/03/26 15:32:29 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:14:28 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:18:05 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void			print_list(t_list *lst, t_lstype type);
 /*████████████████████████████████████████████████████████████████████████████*/
 
 /*---exec---*/
+// ft_critical_exec.c
+t_bool			single_critical_case(t_shell *sh, t_cmd *cmd);
 // ft_exec.c
 t_bool			ft_exec(t_shell *sh);
 // ft_heredoc.c
@@ -99,6 +101,7 @@ int				get_exit_code(char *path);
 t_bool			close_all_fd(t_list *redir);
 // ft_free.c
 void			ft_free_targ(void *targ);
+void			ft_free_tredir(void *tredir);
 void			ft_free_tenv(void *tenv);
 void			ft_free_tcmd(void *tcmd);
 void			ft_free_all(t_shell **sh);
@@ -110,7 +113,6 @@ void			ft_free_array(char **array);
 char			**ft_envtoarray(t_list *list);
 // ft_signal.c
 void			sigint_handler(int sig);
-void			heredoc_sigint_handler(int sig);
 // ft_skipspace.c
 t_bool			ft_skipspace(char *str, size_t *i);
 // ft_var_expand.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:11:59 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:00 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 	}
 	args = cmd->arg->next;
 	if (args->next)
-		return (ft_putstr_fd(FTERR_EXIT_ARG, STDERR_FILENO), 1);
+		return (ft_printfd(STDERR_FILENO, FTERR_EXIT_ARG), 1);
 	arg_name = ((t_arg *)args->content)->name;
 	if (!is_valid_number(arg_name))
 		handle_invalid_argument(arg_name);

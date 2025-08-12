@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:13:25 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:19:07 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
-
-volatile sig_atomic_t	g_signal_received;
 
 static void	free_shell(t_shell *sh)
 {
@@ -58,7 +56,6 @@ int	main(int ac, char **av, char **env)
 {
 	t_shell	*sh;
 
-	g_signal_received = 0;
 	(void)ac;
 	(void)av;
 	sh = ft_calloc(sizeof(t_shell));

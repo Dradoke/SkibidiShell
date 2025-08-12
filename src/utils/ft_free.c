@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:13:07 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:13:08 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

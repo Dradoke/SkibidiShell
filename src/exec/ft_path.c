@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:25 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:26 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*found_path(t_shell *sh, char *cmd_name, char **tab)
 		free(path);
 		i++;
 	}
-	ft_printfd(2, "minishell: %s: command not found\n", cmd_name);
+	ft_printfd(2, FTERR_CMD, cmd_name);
 	return (ft_free_array(tab), NULL);
 }
 
@@ -94,8 +94,7 @@ char	*ft_path(t_shell *sh, t_cmd *cmd)
 		if (curr_path)
 			return (curr_path);
 		free(curr_path);
-		ft_printfd(2, "minishell: %s: No such file or directory\n",
-			cmd_name);
+		ft_printfd(2, FTERR_PATH, cmd_name);
 		return (free(path), NULL);
 	}
 	tab = ft_split(ft_getenv_val(sh->env, "PATH"), ':');

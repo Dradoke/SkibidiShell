@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:57 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:58 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_puterror(t_shell *sh)
 {
 	if (sh->err.b)
 	{
-		ft_printfd(STDERR_FILENO, "SkibidiERROR: %s\n", sh->err.msg);
+		ft_printfd(STDERR_FILENO, "SkibidiERROR: %s", sh->err.msg);
 		ft_clearerror(sh);
 		return (ft_atoi(sh->last_err));
 	}

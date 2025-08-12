@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skibidi_shell.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:17:53 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:18:03 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include "struct.h"
 # include "prototype.h"
 # include "fterr.h"
-
-extern volatile sig_atomic_t	g_signal_received;
 
 /* builtins */
 

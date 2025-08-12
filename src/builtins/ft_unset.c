@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skibidi_shell.c                                    :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: SkibidiShell - ngaudoui & mavander         +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 21:42:42 by SkibidiShell      #+#    #+#             */
-/*   Updated: 2024/12/21 21:42:42 by SkibidiShell     ###   ########.fr       */
+/*   Created: 2025/08/12 21:12:08 by mavander          #+#    #+#             */
+/*   Updated: 2025/08/12 21:12:09 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_unset(t_shell *sh, t_list **env, t_cmd *cmd)
 	while (args)
 	{
 		if (!is_valid_key(((t_arg *)args->content)->name))
-			return (ft_printfd(2, FTERR_UNSET"\n"), 2);
+			return (ft_printfd(2, FTERR_UNSET), 2);
 		key = get_env_key(((t_arg *)args->content)->name);
 		envlst_iter(sh, env, env_lst, key);
 		free(key);
