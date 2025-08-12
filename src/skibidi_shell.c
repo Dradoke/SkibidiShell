@@ -5,12 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/08/12 22:11:44 by ngaudoui         ###   ########.fr       */
+/*   Created: 2025/08/12 22:15:51 by ngaudoui          #+#    #+#             */
+/*   Updated: 2025/08/12 22:16:35 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "skibidi_shell.h"
 
