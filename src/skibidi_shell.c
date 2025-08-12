@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skibidi_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 21:13:25 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:19:07 by mavander         ###   ########.fr       */
+/*   Created: 2024/12/21 21:42:42 by SkibidiShel       #+#    #+#             */
+/*   Updated: 2025/08/12 22:06:16 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,7 @@ static int	process_line(t_shell *sh)
 		return (FALSE);
 	if (!ft_exec(sh))
 		return (FALSE);
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 61bd8ed (Fixing errors)
-=======
-	ft_builtins(sh, sh->cmd->content);
->>>>>>> 971f0f0 (builtins changed, now take the current cmd and are working (#30))
-=======
->>>>>>> 5a65f51 (Fixed most errors, need to check tester results)
+	ft_builtins(sh, &sh->env, sh->bultins);
 	return (TRUE);
 }
 
