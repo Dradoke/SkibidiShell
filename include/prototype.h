@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:18:05 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:58:47 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void			handle_execve_error(char *path, char *cmd_name);
 void			handle_no_path(char *cmd_name);
 int				get_exit_code(char *path);
 t_bool			close_all_fd(t_list *redir);
+t_bool			close_pipes(t_shell *sh);
 // ft_free.c
 void			ft_free_targ(void *targ);
 void			ft_free_tredir(void *tredir);

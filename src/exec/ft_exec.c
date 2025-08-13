@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:20 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:12:21 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:10:20 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
 	int		code;
 
 	signal(SIGINT, SIG_DFL);
-	if (!setup_redir(sh, cmd) && (ft_puterror(sh), 1))
+	if (!setup_redir(sh, cmd) && (close_pipes(sh), 1) && (ft_puterror(sh), 1)
+		&& (ft_free_all(&sh), 1))
 		exit(1);
 	setup_pipes_and_redir(sh, cmd);
-	if (!cmd->arg)
+	if (!cmd->arg && (close_pipes(sh), 1) && (close_all_fd(cmd->redir), 1)
+		&& (ft_free_all(&sh), 1))
 		exit(0);
 	cmd_name = ((t_arg *)cmd->arg->content)->name;
 	if (is_builtins(cmd_name, sh->bultins))
@@ -61,25 +63,18 @@ static void	wait_all_pids(t_shell *sh, t_list *cmds)
 {
 	t_list	*cmd_i;
 	int		status;
-	t_bool	is_pipe;
 
 	cmd_i = cmds;
-	is_pipe = FALSE;
 	while (cmd_i)
 	{
 		waitpid(((t_cmd *)cmd_i->content)->pid, &status, 0);
 		if (WIFSIGNALED(status))
 		{
 			if (WTERMSIG(status) == SIGPIPE)
-			{
-				is_pipe = TRUE;
 				sh->err.code = 141;
-			}
 		}
 		cmd_i = cmd_i->next;
 	}
-	if (is_pipe)
-		ft_printfd(STDERR_FILENO, "\n");
 	if (WIFEXITED(status))
 		sh->err.code = WEXITSTATUS(status);
 	free(sh->last_err);

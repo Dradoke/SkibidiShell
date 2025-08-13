@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:13:07 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:13:08 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:08:38 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_free_all(t_shell **sh)
 	shc = *sh;
 	if (!shc)
 		return ;
+	ft_clearerror(*sh);
 	if (shc->cmd)
 		ft_lstclear(&shc->cmd, ft_free_tcmd);
 	if (shc->env)

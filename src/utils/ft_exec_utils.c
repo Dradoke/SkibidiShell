@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:13:04 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:13:05 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:01:44 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,14 @@ t_bool	close_all_fd(t_list *redir)
 		close(redir_content->fd);
 		redir = redir->next;
 	}
+	return (TRUE);
+}
+
+t_bool	close_pipes(t_shell *sh)
+{
+	close(sh->pipe_new[INPUT]);
+	close(sh->pipe_new[OUTPUT]);
+	close(sh->pipe_old[INPUT]);
+	close(sh->pipe_old[OUTPUT]);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:28 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:12:29 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:27:35 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_bool	setup_redir(t_shell *sh, t_cmd *cmd)
 	char	*name;
 	int		fd;
 
+	(void)sh;
 	redir_i = cmd->redir;
 	while (redir_i)
 	{
@@ -33,8 +34,7 @@ t_bool	setup_redir(t_shell *sh, t_cmd *cmd)
 		else if (redir_content->type == HEREDOC)
 			fd = open(redir_content->hdoc_path, O_RDONLY);
 		if (fd < 0)
-			return (ft_seterror(sh, ft_strjoin_free(ft_strjoin(name, ": "),
-						ft_strdup(strerror(errno))), 1), FALSE);
+			return (ft_printfd(STDERR_FILENO, " %s\n", strerror(errno)), FALSE);
 		redir_content->fd = fd;
 		redir_i = redir_i->next;
 	}
