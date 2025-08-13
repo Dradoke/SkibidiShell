@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:59 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 19:55:17 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:00:20 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 	ret_nb = ft_atol(arg_name);
 	if (ret_nb > INT_MAX)
 		return (ft_printfd(STDERR_FILENO, FTERR_EXIT_LONG), close_stdfd(sh),
-			close_all_fd(cmd->redir),ft_free_all(&sh), exit(2), 1);
+			close_all_fd(cmd->redir), ft_free_all(&sh), exit(2), 1);
 	return (close_stdfd(sh), ft_free_all(&sh),
 		exit(normalize_exit_code(ret_nb)), 0);
 }

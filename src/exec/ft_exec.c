@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:20 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 18:10:20 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:38:26 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
 	int		code;
 
 	signal(SIGINT, SIG_DFL);
-	if (!setup_redir(sh, cmd) && (close_pipes(sh), 1) && (ft_puterror(sh), 1)
+	if (!setup_redir(sh, cmd) && (close_all_fd(cmd->redir), 1)
+		&& (close_pipes(sh), 1) && (ft_puterror(sh), 1)
 		&& (ft_free_all(&sh), 1))
 		exit(1);
 	setup_pipes_and_redir(sh, cmd);
@@ -70,6 +71,11 @@ static void	wait_all_pids(t_shell *sh, t_list *cmds)
 		waitpid(((t_cmd *)cmd_i->content)->pid, &status, 0);
 		if (WIFSIGNALED(status))
 		{
+			if (WTERMSIG(status) == SIGINT)
+			{
+				ft_printfd(STDOUT_FILENO, "\n");
+				sh->err.code = 130;
+			}
 			if (WTERMSIG(status) == SIGPIPE)
 				sh->err.code = 141;
 		}
@@ -102,7 +108,6 @@ static t_bool	ft_exec_loop(t_shell *sh)
 			switch_pipes(&sh->pipe_new, &sh->pipe_old);
 		cmd_i = cmd_i->next;
 	}
-	signal(SIGINT, sigint_handler);
 	return (TRUE);
 }
 
@@ -118,5 +123,6 @@ t_bool	ft_exec(t_shell *sh)
 	if (sh->pipe_old[OUTPUT] != -1)
 		close(sh->pipe_old[OUTPUT]);
 	wait_all_pids(sh, sh->cmd);
+	signal(SIGINT, sigint_handler);
 	return (TRUE);
 }

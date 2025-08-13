@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:46 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:12:47 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:47:16 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	parse_command_loop(t_shell *sh, t_cmd *newcmd)
 			if (!ft_addarg(sh, newcmd))
 				return (FALSE);
 		}
-		else
+		else if (sh->line[sh->i])
 			sh->i++;
 	}
 	return (TRUE);

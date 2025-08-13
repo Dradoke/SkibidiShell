@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:28 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 18:27:35 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 21:13:07 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	setup_pipes_and_redir(t_shell *sh, t_cmd *cmd)
 		close(sh->pipe_new[INPUT]);
 	if (sh->pipe_new[OUTPUT] != -1)
 		close(sh->pipe_new[OUTPUT]);
+	close_all_fd(cmd->redir);
 }
 
 void	switch_pipes(int (*pipe_new)[2], int (*pipe_old)[2])
