@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:11:51 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:50:11 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int	ft_cd(t_shell *sh, t_list **env, t_cmd *cmd)
 	(void)sh;
 	args = cmd->arg->next;
 	if (!args)
+	{
 		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
 			return (ft_printfd(STDERR_FILENO, FTERR_CD), FTERR_CD_VAL);
-	if (args->next)
+	}
+	else if (args->next)
 		return (ft_printfd(2, FTERR_ARGS), 1);
 	else if (!((t_arg *)args->content)->name)
 		return (ft_printfd(STDERR_FILENO, FTERR_CD), FTERR_CD_VAL);

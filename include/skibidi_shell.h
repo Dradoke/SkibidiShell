@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skibidi_shell.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:53 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:18:03 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:21:21 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@
 # define PRIME 23
 // size of builtins's table 
 # define TABLE_SIZE 16
+# define INT_MAX 2147483647
 
 #endif

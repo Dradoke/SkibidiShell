@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+         #
+#    By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/21 21:42:42 by mavander          #+#    #+#              #
-#    Updated: 2025/08/12 21:17:33 by mavander         ###   ########.fr        #
+#    Updated: 2025/08/13 19:17:32 by ngaudoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ CUSTOM_DIR		=	custom/
 CUSTOM_SRC		=	$(addprefix $(CUSTOM_DIR)/, \
 					ft_abs.c \
 					ft_atoi_base.c \
+					ft_atol.c \
 					ft_degtorad.c \
 					ft_isspace.c \
 					ft_radtodeg.c \

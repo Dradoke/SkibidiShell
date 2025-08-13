@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_utils2.c                                    :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 21:12:54 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 20:04:41 by ngaudoui         ###   ########.fr       */
+/*   Created: 2025/03/26 16:49:21 by ngaudoui          #+#    #+#             */
+/*   Updated: 2025/08/13 19:29:35 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "skibidi_shell.h"
+#include "libft.h"
 
-t_bool	is_valid_key(char *str)
+long	ft_atol(const char *s)
 {
-	int	i;
+	long	result;
+	int		sign;
 
-	i = 0;
-	if (!ft_isalpha(str[0]) && str[0] != '_')
-		return (FALSE);
-	while (str[i] && str[i] != '=' && str[0] != '_')
-		if (!ft_isalnum(str[i++]))
-			return (FALSE);
-	return (TRUE);
+	result = 0;
+	sign = 1;
+	while (*s == ' ' || *s == '\t' || *s == '\n' || \
+			*s == '\r' || *s == '\f' || *s == '\v')
+		s++;
+	if (*s == '-' || *s == '+')
+	{
+		if (*s == '-')
+			sign = -1;
+		s++;
+	}
+	while (ft_isdigit(*s))
+		result = result * 10 + (*(s++) - '0');
+	return (result * sign);
 }
