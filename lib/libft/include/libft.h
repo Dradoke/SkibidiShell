@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 21:42:42 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:15:50 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:19:43 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		ft_printfd(int fd, const char *format, ...);
 // CUSTOM
 int		ft_isspace(char c);
 int		ft_atoi_base(char *str, char *base);
+long	ft_atol(const char *s);
 float	ft_degtorad(float deg);
 float	ft_radtodeg(float rad);
 int		ft_abs(int x);

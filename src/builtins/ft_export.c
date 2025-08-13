@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:02 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:12:03 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:12:46 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	process_export_arg(t_list **env, t_arg *env_arg)
 	if (ft_strchr(env_arg->name, '='))
 	{
 		env_key = get_env_key(env_arg->name);
+		if (ft_strcmp(env_key, "_") == 0)
+			return (0);
 		ft_set_new_env(env, env_key, env_arg);
 		free(env_key);
 	}
@@ -77,8 +79,7 @@ int	ft_export(t_shell *sh, t_list **env, t_cmd *cmd)
 	while (args)
 	{
 		env_arg = ((t_arg *)args->content);
-		if (process_export_arg(env, env_arg))
-			ret = 1;
+		ret = process_export_arg(env, env_arg);
 		args = args->next;
 	}
 	if (ret == 1)

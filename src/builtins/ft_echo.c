@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:54 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:11:55 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:33:04 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "skibidi_shell.h"
 
-static t_bool	echo_flag(t_cmd *cmd)
+static t_bool	echo_flag(char *arg_name)
 {
-	char	*arg_name;
 	int		i;
 
-	arg_name = ((t_arg *)cmd->arg->next->content)->name;
 	i = 1;
 	while (arg_name[i])
 	{
@@ -52,7 +50,7 @@ int	ft_echo(t_shell *sh, t_list **env, t_cmd *cmd)
 	flag = FALSE;
 	if (!ft_strncmp(((t_arg *)arg_lst->content)->name, "-n", 2))
 	{
-		if (echo_flag(cmd) == TRUE)
+		while (echo_flag(((t_arg *)arg_lst->content)->name) == TRUE)
 		{
 			flag = TRUE;
 			arg_lst = arg_lst->next;
