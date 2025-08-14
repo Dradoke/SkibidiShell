@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addredir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:37 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:12:38 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:39:41 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_redir_type	get_redir_type(char *line, size_t *i)
 		else if (ft_isprint(line[*i]) && !ft_isdelim(line[*i]))
 			return (OUTFILE);
 	}
-	return ((t_redir_type) NULL);
+	return (NOT_REDIR);
 }
 
 static t_redir	*redircontent(t_shell *sh)
@@ -42,7 +42,7 @@ static t_redir	*redircontent(t_shell *sh)
 		return (ft_seterror(sh, FTERR_ALLOC, 2), NULL);
 	tredir->type = get_redir_type(sh->line, &sh->i);
 	tredir->name = ft_cpyword(sh);
-	if (!tredir->name)
+	if (!tredir->name || tredir->type == NOT_REDIR)
 		return (free(tredir), NULL);
 	return (tredir);
 }

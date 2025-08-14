@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+         #
+#    By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/12 21:11:17 by mavander          #+#    #+#              #
-#    Updated: 2025/08/12 21:11:18 by mavander         ###   ########.fr        #
+#    Updated: 2025/08/14 13:38:35 by ngaudoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME			=	minishell
 
 # Compiler Setting
-CC				=	gcc
+CC				=	cc
 CFLAG			=	-Wall -Wextra -Werror -g3
 
 # Directory

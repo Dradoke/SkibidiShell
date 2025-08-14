@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:55 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/12 21:18:01 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:34:22 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_redir_type
 	OUTFILE,	// >
 	HEREDOC,	// << 
 	APPEND,		// >>
+	NOT_REDIR,
 }	t_redir_type;
 
 typedef enum e_lstype
