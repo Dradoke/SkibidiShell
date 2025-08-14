@@ -6,7 +6,7 @@
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:59 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 22:00:25 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:27:33 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 	}
 	args = cmd->arg->next;
 	if (args->next)
-		return (ft_printfd(STDERR_FILENO, FTERR_EXIT_ARG), 1);
+		return (ft_printfd(STDERR_FILENO, FTERR_EXIT_ARG), exit(2), 1);
 	arg_name = ((t_arg *)args->content)->name;
 	if (!is_valid_number(arg_name))
 		handle_invalid_argument(sh, arg_name);
