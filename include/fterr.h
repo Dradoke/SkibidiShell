@@ -6,7 +6,7 @@
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:47 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 19:54:12 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:02:19 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 /* Builtins */
 # define FTERR_CD "Error: No such file or directory\n"
 # define FTERR_ARGS "Error: too many arguments\n"
+# define FTERR_NOTHOME "Error: HOME not set\n"
 # define FTERR_CD_VAL 1
 
 # define FTERR_ENV "Error: Empty list or failed allocation\n"

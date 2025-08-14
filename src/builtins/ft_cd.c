@@ -6,7 +6,7 @@
 /*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 19:50:11 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:02:49 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_cd(t_shell *sh, t_list **env, t_cmd *cmd)
 	args = cmd->arg->next;
 	if (!args)
 	{
+		if (ft_getenv_val(*env, "HOME") == NULL)
+			return (ft_printfd(STDERR_FILENO, FTERR_NOTHOME), FTERR_CD_VAL);
 		if (chdir(ft_getenv_val(*env, "HOME")) != 0)
 			return (ft_printfd(STDERR_FILENO, FTERR_CD), FTERR_CD_VAL);
 	}
