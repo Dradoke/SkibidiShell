@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_addredir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:37 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/14 13:39:41 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:35:33 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

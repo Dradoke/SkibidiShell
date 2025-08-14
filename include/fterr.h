@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fterr.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:47 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/14 15:02:19 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:47:56 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # define FTERR_UNSET_VAL 2
 
 # define FTERR_EXIT_NB "exit: %s: numeric argument required\n"
-# define FTERR_EXIT_LONG "exit\nexit: numeric argument required\n"
-# define FTERR_EXIT_ARG "exit\nexit: too many arguments\n"
+# define FTERR_EXIT_LONG "exit: numeric argument required\n"
+# define FTERR_EXIT_ARG "exit: too many arguments\n"
 
 /* Heredocs */
 # define FTERR_HDOC_D "Warning: Heredoc delimited by EOF (wanted '%s')\n"

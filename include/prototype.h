@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/14 14:54:32 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:15:06 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

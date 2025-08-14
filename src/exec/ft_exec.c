@@ -6,7 +6,7 @@
 /*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:12:20 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 21:38:26 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:49:48 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	execute_cmd(t_shell *sh, t_cmd *cmd)
 	char	*cmd_name;
 	int		code;
 
+	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	if (!setup_redir(sh, cmd) && (close_all_fd(cmd->redir), 1)
 		&& (close_pipes(sh), 1) && (ft_puterror(sh), 1)
@@ -71,13 +72,12 @@ static void	wait_all_pids(t_shell *sh, t_list *cmds)
 		waitpid(((t_cmd *)cmd_i->content)->pid, &status, 0);
 		if (WIFSIGNALED(status))
 		{
-			if (WTERMSIG(status) == SIGINT)
-			{
-				ft_printfd(STDOUT_FILENO, "\n");
+			if (WTERMSIG(status) == SIGINT && (ft_printfd(1, "\n"), 1))
 				sh->err.code = 130;
-			}
 			if (WTERMSIG(status) == SIGPIPE)
 				sh->err.code = 141;
+			if (WTERMSIG(status) == SIGQUIT && (ft_printfd(2, "Quit\n"), 1))
+				sh->err.code = 131;
 		}
 		cmd_i = cmd_i->next;
 	}
@@ -124,5 +124,6 @@ t_bool	ft_exec(t_shell *sh)
 		close(sh->pipe_old[OUTPUT]);
 	wait_all_pids(sh, sh->cmd);
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	return (TRUE);
 }

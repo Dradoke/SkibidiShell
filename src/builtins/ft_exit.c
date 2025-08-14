@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:11:59 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/14 14:54:38 by ngaudoui         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:05:39 by mavander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ int	ft_exit(t_shell *sh, t_list **env, t_cmd *cmd)
 	int		code;
 
 	(void)env;
+	if (isatty(STDIN_FILENO))
+		ft_printfd(STDERR_FILENO, "exit\n");
 	if (!cmd->arg->next)
 	{
 		code = ft_atoi(sh->last_err);
 		close_stdfd(sh);
 		ft_free_all(&sh);
-		ft_printfd(STDOUT_FILENO, "exit\n");
 		return (exit(code), 1);
 	}
-	if (check_args_exit(sh, cmd) == 1)
-		return (0);
+	code = check_args_exit(sh, cmd);
+	if (code != 0)
+		return (code);
 	args = cmd->arg->next;
 	arg_name = ((t_arg *)args->content)->name;
 	ret_nb = ft_atol(arg_name);
