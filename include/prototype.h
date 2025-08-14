@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavander <mavander@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 21:17:51 by mavander          #+#    #+#             */
-/*   Updated: 2025/08/13 17:58:47 by mavander         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:54:32 by ngaudoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ unsigned long	hash_key(const char *s);
 int				get_tabindex(unsigned long hash);
 t_bool			is_builtins(char *cmd, t_builtins *builtins);
 t_builtins		*builtins_init(void);
+// builtins_utils2.c
+int				check_args_exit(t_shell *sh, t_cmd *cmd);
 // ft_builtins.c
 int				ft_builtins(t_shell *sh, t_cmd *cmd);
 // ft_cd.c
@@ -30,6 +32,8 @@ int				ft_echo(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_env.c
 int				ft_env(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_exit.c
+void			close_stdfd(t_shell *sh);
+int				normalize_exit_code(int ret_nb);
 int				ft_exit(t_shell *sh, t_list **env, t_cmd *cmd);
 // ft_export.c
 int				ft_export(t_shell *sh, t_list **env, t_cmd *cmd);

@@ -6,7 +6,7 @@
 #    By: ngaudoui <ngaudoui@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/12 21:11:17 by mavander          #+#    #+#              #
-#    Updated: 2025/08/14 13:38:35 by ngaudoui         ###   ########.fr        #
+#    Updated: 2025/08/14 14:51:47 by ngaudoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC				=	$(BUILTINS) $(DEBUG) $(EXEC) $(PARSER) $(UTILS) src/skibidi_shell.c
 BUILTINS_DIR	=	src/builtins
 BUILTINS		=	$(addprefix $(BUILTINS_DIR)/, \
 					builtins_utils.c \
+					builtins_utils2.c \
 					ft_builtins.c \
 					ft_cd.c \
 					ft_echo.c \
